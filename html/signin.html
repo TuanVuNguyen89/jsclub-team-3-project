@@ -28,14 +28,16 @@
               <p>Please enter your details.</p>
             </div>
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-2">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
+              <label for="exampleUsername" class="form-label"> <i class="ti-user"></i> Name User</label>
+              <input type="text" class="form-control" id="userName" aria-describedby="emailHelp"
+                  placeholder="Enter Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"> <i class="ti-lock"></i>
+            Password</label>
+            <input type="password" class="form-control" id="password" minlength="8" required
+                placeholder="Enter password">
+        </div>  
             <div class="form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Remember me</label>
