@@ -13,13 +13,13 @@ To get started with this project, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/TuanVuNguyen89/jsclub-team-3-project.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd PROJECT_TEAM_3
+   cd jsclub-team-3-project
    ```
 
 3. Install dependencies using npm:
