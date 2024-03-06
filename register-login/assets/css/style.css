@@ -1,0 +1,178 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+html {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    scroll-behavior: smooth;
+
+}
+
+.clear {
+    clear: both;
+}
+.registerBackground::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Điều chỉnh màu và độ trong suốt theo nhu cầu */
+    filter: brightness(70%) blur(5px);
+    z-index: -1;
+}
+
+.registerBackground {
+    position: relative;
+    background-image: url(../img/HOME.png);
+    background-size: cover;
+    backdrop-filter: brightness(0.5) blur(5px);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main {
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#content {
+    display: flex;
+    align-items: center;
+}
+.registerRow{
+    margin-top: 70px;
+    margin-bottom: 50px;
+    width: 40vw;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 30px rgba(102, 60, 11, 0.6);
+    animation: signin-container ease 1.5s;
+}
+
+.row {
+    width: 70vw;
+    background-color: rgb(234, 232, 206);
+    height: auto;
+    height: 80vh;
+    box-shadow: 0px 0px 30px rgba(102, 60, 11, 0.6);
+    animation: signin-container ease 1.5s;
+}
+
+.error-message{
+    color: red;
+}
+
+.container {}
+.registerForm{
+    width: 65%;
+    display: block;
+    /* Đặt hình ảnh làm phần tử block để có thể sử dụng margin */
+    margin: 50px auto 17px auto;
+    font-size: 13px;
+}
+.signInForm {
+    width: 60%;
+    display: block;
+    /* Đặt hình ảnh làm phần tử block để có thể sử dụng margin */
+    margin: 50px auto 0 auto;
+    font-size: 13px;
+}
+
+.logojs {
+    width: 50px;
+    /* Độ rộng của hình ảnh */
+    height: auto;
+    display: block;
+    /* Đặt hình ảnh làm phần tử block để có thể sử dụng margin */
+    margin: 0 auto;
+}
+
+.headform {
+    text-align: center;
+}
+
+.wlcomeback {
+    font-size: 20px;
+
+}
+
+.form-control {
+    padding: 5px;
+    border-radius: 0;
+    font-size: 12px;
+}
+
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem rgba(255, 136, 0, 0.25);
+}
+
+.submitBtn {
+    background-color: orange;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+    border: #ff8000;
+    --bs-btn-border-color: #ffaa00;
+}
+.submitBtn:hover {
+    background-color: #ff6a00;
+    --bs-btn-active-bg: #ff5500;
+    --bs-btn-active-border-color: #ff5500;
+}
+
+.requestRegister {
+    display: block;
+    margin: auto;
+    font-size: 12px;
+    padding-top: 10px;
+}
+
+.FPTpicture {
+    background: url(../img/HOME.png);
+    background-size: cover;
+    background-position: center right 8%;
+    /* Đặt ảnh làm nền vào giữa và dịch lên 20% từ phía trên */
+
+}
+
+.registerBtn {
+    font-weight: 700;
+    color: black;
+}
+
+.footer {
+    position: fixed;
+    /* hoặc position: absolute; */
+    bottom: 0;
+    margin-top: 20px;
+    font-size: 12px;
+}
+.text-regis{
+    color: aliceblue;
+}
+@keyframes signin-container {
+    from {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+    to {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+    
+}
