@@ -28,6 +28,8 @@ To get started with this project, follow these steps:
    npm install
    ```
 
+**Note:** The node_modules version used in this project is v20.11.0.
+
 ## Usage
 
 To start the server, run the following command:
