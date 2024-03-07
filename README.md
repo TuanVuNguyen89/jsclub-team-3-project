@@ -1,10 +1,10 @@
 # PROJECT TEAM 3
 
-Welcome to the PROJECT TEAM 3 Express.js server!
+Welcome to the PROJECT TEAM 3.
 
 ## Description
 
-This project is a simple Express.js server intended for [describe briefly what the server does].
+The server facilitates a platform for students to engage in various activities such as posting and sharing stories, exchanging classes, buying and selling used items, and even finding romantic partners. It serves as a centralized hub where students can connect, interact, and engage in different social and transactional activities within their community.
 
 ## Installation
 
@@ -42,33 +42,41 @@ This will start the server and it will be accessible at `http://localhost:3000`.
 
 ## Endpoints
 
-[List endpoints or routes available in the server]
+List endpoints or routes available in the server
 
-- ### **Endpoint 1: http://localhost:3000/register**
-
-    - Description: This endpoint is used for user registration.
-Usage: Send a POST request with user details (e.g., username, email, password) to register a new user.
-
-- ### **Endpoint 2: http://localhost:3000/login**
-
-    - Description: This endpoint is used for user authentication and login.
-Usage: Send a POST request with user credentials (e.g., username, password) to authenticate and login.
-
-- ### **Endpoint 3: http://localhost:3000/home**
+- ### **Endpoint 1: http://localhost:3000**
 
     - Description: This endpoint is the home page of the application.
-Usage: Access this endpoint to view the home page of the application after successful login.
+    - Usage: Access this endpoint to view the home page of the application after successful login.
+
+- ### **Endpoint 2: http://localhost:3000/register**
+
+    - Description: This endpoint is used for user registration.
+    - Usage: Send a POST request with user details (e.g., username, email, password) to register a new user.
+
+- ### **Endpoint 3: http://localhost:3000/login**
+
+    - Description: This endpoint is used for user authentication and login.
+    - Usage: Send a POST request with user credentials (e.g., username, password) to authenticate and login.
 
 ## Contributing
 
 If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. Contributions, issues, and feature requests are welcome!
 
-## License
+## Team Members
 
-[Include license information here]
+- Mentor : Nguyễn Mạnh Phú
 
-## Acknowledgements
+- Takecare:
+    - Nguyễn Huy Hoàng
+    - Lê Thanh Bình
+    - Nguyễn Ngọc Mai
+    - Nguyễn Tuấn Ninh
+    - Nguyễn Gia Bình
 
-[Optional: Acknowledge any contributors or sources of inspiration]
-
-You should replace `<repository_url>` with the actual URL of your Git repository, and fill in the appropriate sections with details specific to your project. This `README.md` provides a basic structure, but feel free to expand or modify it according to the needs of your project.
+- Member:
+    - Nguyễn Tuấn Vũ (leader)
+    - Trần Ngọc Huy
+    - Lê Đức Anh
+    - Nguyễn Khôi
+    - Nguyễn Ngọc Chi
