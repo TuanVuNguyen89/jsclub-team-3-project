@@ -30,13 +30,19 @@ function sendDataToServer(data) {
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) { // Kiểm tra nếu phản hồi không thành công (mã lỗi HTTP 400 trở lên)
+            throw new Error('Network response was not stable'); // Ném lỗi
+        }
+        return response.json(); // Chuyển đổi phản hồi thành JSON nếu phản hồi thành công
+    })
     .then(data => {
         console.log('Success:', data);
-        window.location.href = `/home`;
+        window.location.href = `/`;
     })
     .catch((error) => {
         console.error('Error:', error);
+        alert('Login failed: Invalid credentials');
         // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi
     });
 }

@@ -49,18 +49,15 @@ router.post('/login', (req, res) => {
         console.log('Data exists in the column.');
         session.userID = row.id;
         console.log('User ID:', session.userID);
-
-
+        res.json({userName});
       } else {
         console.log('No data found in the column.');
-        // res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
+        res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
       }
     });
-  
-    res.json({ userName });
   });
 
-  router.get('/user', (req, res) => {
+  router.get('/profile', (req, res) => {
 
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
@@ -100,7 +97,7 @@ router.post('/login', (req, res) => {
     });
   }
   // tao route de vao function
-  router.get('/user/:userID/post', (req, res) => {
+  router.get('/myposts', (req, res) => {
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -116,7 +113,7 @@ router.post('/login', (req, res) => {
       res.json(data);
     });
   });
-  router.post('/user/:userID/post', (req, res) => {
+  router.post('/form', (req, res) => {
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -176,7 +173,7 @@ router.post('/login', (req, res) => {
       });
     });
   }
-  router.delete('/user/:userID/delete/account', (req, res) => {
+  router.delete('/delete/account', (req, res) => {
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -192,7 +189,7 @@ router.post('/login', (req, res) => {
     });
   });
 
-  router.delete('/user/:userID/delete/post', (req, res) => {
+  router.delete('/delete/post', (req, res) => {
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -223,7 +220,7 @@ router.post('/logout', (req, res) => {
 });
 
 // update post
-router.put('/user/:userID/post/:postID', (req, res) => {
+router.put('/update/posts', (req, res) => {
   const {postID, topic, title, content } = req.body; // Giả sử bạn gửi "topic", "title" và "content" trong body của request cập nhật
   console.log(session.userID);
   console.log(postID);

@@ -108,7 +108,12 @@ function sendDataToServer(data) {
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) { // Nếu phản hồi không phải là OK (200-299)
+            throw new Error('Network response was not stable');
+        }
+        return response.json();
+    })
     .then(data => {
         console.log('Success:', data);
         window.location.href = `/login`;
@@ -116,5 +121,6 @@ function sendDataToServer(data) {
     .catch((error) => {
         console.error('Error:', error);
         // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi
+        alert('Registration failed: Username already exists.');
     });
 }
