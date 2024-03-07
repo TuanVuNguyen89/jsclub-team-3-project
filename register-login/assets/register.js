@@ -46,7 +46,7 @@ function validateUserName() {
     const userName = document.getElementById('userName');
     const userNameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if(!userNameRegex.test(userName.value)) {
-        showError(userName, 'username phải dài ít nhất 8 ký tự và bao gồm chữ cái và số');
+        showError(userName, 'Username phải dài ít nhất 8 ký tự và bao gồm chữ cái và số');
         return false;
     } else {
         showError(userName, '');
@@ -108,13 +108,19 @@ function sendDataToServer(data) {
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) { // Nếu phản hồi không phải là OK (200-299)
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         console.log('Success:', data);
-        window.location.href = `/login`;
+        window.location.href = `/login`; // Chuyển hướng người dùng sau khi đăng ký thành công
     })
     .catch((error) => {
         console.error('Error:', error);
-        // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi
+        // Xử lý lỗi ở đây, ví dụ: hiển thị thông báo lỗi tới người dùng
+        alert('Registration failed: Username already exists.');
     });
 }

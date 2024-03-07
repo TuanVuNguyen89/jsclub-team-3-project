@@ -67,8 +67,10 @@ html {
     animation: signin-container ease 1.5s;
 }
 
-.error-message{
+.error-message {
     color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
 }
 
 .container {}

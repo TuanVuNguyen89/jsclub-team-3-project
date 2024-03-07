@@ -49,15 +49,15 @@ router.post('/login', (req, res) => {
         console.log('Data exists in the column.');
         session.userID = row.id;
         console.log('User ID:', session.userID);
-
+        res.json({ userName });
 
       } else {
         console.log('No data found in the column.');
-        // res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
+        res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
       }
     });
   
-    res.json({ userName });
+
   });
 
   router.get('/user', (req, res) => {
