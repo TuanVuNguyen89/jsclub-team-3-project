@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname)));
 app.use(express.static(path.join(filePath)));
 app.use(express.static(path.join(homePath)));
 
-app.get('/home', function (req, res) {
+app.get('/', function (req, res) {
   //res.sendFile(path.join(filePath, './html/signin.html'));
   res.sendFile(path.join(homePath, './home.html'));
 })
