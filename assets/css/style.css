@@ -28,7 +28,7 @@ html {
 
 .registerBackground {
     position: relative;
-    background-image: url(../img/HOME.png);
+    background-image: url(../img/Profilebackground.png);
     background-size: cover;
     backdrop-filter: brightness(0.5) blur(5px);
     min-height: 100vh;
@@ -53,21 +53,23 @@ html {
     margin-top: 70px;
     margin-bottom: 50px;
     width: 40vw;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(234, 232, 206);
     box-shadow: 0px 0px 30px rgba(102, 60, 11, 0.6);
     animation: signin-container ease 1.5s;
 }
 
 .row {
     width: 70vw;
-    background-color: rgb(234, 232, 206);
+    
     height: auto;
     height: 80vh;
     box-shadow: 0px 0px 30px rgba(102, 60, 11, 0.6);
     animation: signin-container ease 1.5s;
 }
 
-.container {}
+.container {
+    background-color: rgb(234, 232, 206);
+}
 .registerForm{
     width: 65%;
     display: block;
@@ -139,11 +141,10 @@ html {
 }
 
 .FPTpicture {
-    background: url(../img/HOME.png);
-    background-size: cover;
-    background-position: center right 8%;
-    /* Đặt ảnh làm nền vào giữa và dịch lên 20% từ phía trên */
-
+    background: url(../img/HOME.png) right 8% center / cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #97adce;
 }
 
 .registerBtn {
@@ -171,4 +172,103 @@ html {
         transform: translateY(0px);
     }
     
+}
+/*mobile width <740px */
+@media only screen and (max-width: 739px){
+    .FPTpicture{
+        display: none;
+    }
+    .row{
+        width: 90vw;
+    }
+    .container{
+        width: 100%;
+    }
+    .form-control {
+        padding: 10px;
+        border-radius: 0;
+        font-size: 15px;
+    }
+    .signInForm {
+        width: 80%;
+        font-size: 15px;
+    }
+    .wlcomeback {
+        font-size: 20px;
+    }
+    .text-center{
+        display: none;
+    }
+    .text-regis{
+        display: none;
+    }
+    .requestRegister{
+        font-size: 15px;
+    }
+    .submitBtn {
+        background-color: orange;
+        border-radius: 0;
+        font-size: larger;
+        height: 50px;
+        margin-top: 20px;
+    }
+    .registerRow {
+        width: 45vh;
+    }
+    .registerForm {
+        width: 85%;
+        font-size: 20px;
+        min-height: 80vh;
+    }
+}
+/*ipad width >=740px and <= 1024px */
+@media only screen and (min-width: 740px) and (max-width: 1024px){
+    .wlcomeback {
+        font-size: 35px;
+    }
+    .FPTpicture{
+        display: none;
+    }
+    .container{
+        width: 100%;
+    }
+    .row{
+        
+    }
+    .signInForm {
+        width: 80%;
+        font-size: 27px;
+    }
+    .requestRegister{
+        font-size: 23px;
+    }
+    .submitBtn {
+        background-color: orange;
+        border-radius: 0;
+        font-size: larger;
+        height: 60px;
+        margin-top: 20px;
+    }
+    .form-control {
+        padding: 10px;
+        border-radius: 0;
+        font-size: 30px;
+    }
+    .text-center{
+        display: none;
+    }
+    .registerRow {
+        width: 100vh;
+    }
+    .registerForm {
+        width: 80%;
+        font-size: 30px;
+        min-height: 80vh;
+    }
+    .text-regis{
+        display: none;
+    }
+    .registerBackground {
+        display: flex;
+}
 }
