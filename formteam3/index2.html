@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>FORM ĐIỀN</title>
+</head>
+<body>
+    <div class="container-xl container-sm ">
+        <div class="card">
+            <div class="card-image">	
+            </div>
+            <form class="card-form" id="post-form">
+                <div class="input">
+                    <input type="text" class="input-field" id="Name" required/>
+                    <label class="input-label">Tên/Ẩn danh</label>
+                </div>
+                <div class="input">
+                    <input type="text" class="input-field" id="topic" required/>
+                    <label class="input-label">Topic</label>
+                </div>
+                <div class="input">
+                    <textarea oninput="auto_grow(this)" type="text" class="input-field" id="post" required></textarea>
+                    <label class="input-label">Viết bài ở đây...</label>
+                </div>
+                <div class="input">
+                    <input type="file" class="input-field" id="imageup" required/>
+                    <label class="input-label">Upload</label>
+                </div>
+                <div class="action">
+                    <button type="submit" class="action-button" id="clickbtn">
+                        Đăng bài
+                    </button>
+                </div>
+            </form>
+            <div class="card-info mb-0 p-3">Copyright © 2024 Team 3 CTV JS . All Rights Reserved.</div>
+            
+        </div>
+    </div>
+
+    <script>
+        function auto_grow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+        } 
+    </script>
+    <script> 
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("hello");
+            document.querySelector('.card').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const data = {
+                    title: document.getElementById('Name').value,
+                    topic: document.getElementById('topic').value,
+                    content: document.getElementById('post').value,
+                    //var imageValue = document.getElementById('imageup').value;
+                };
+                //console.log("Ảnh:", imageValue);
+
+                sendDataToServer(data);
+            });
+        });
+
+        function sendDataToServer(data) {
+            console.log(data);
+            fetch('/form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (!response.ok) { // Kiểm tra nếu phản hồi không thành công (mã lỗi HTTP 400 trở lên)
+                    throw new Error('Network response was not stable'); // Ném lỗi
+                }
+                return response.json(); // Chuyển đổi phản hồi thành JSON nếu phản hồi thành công
+            })
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = `/backhome`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Login failed: Invalid credentials');
+                // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi
+            });
+        }        
+    </script>
+</body>
+</html>
+

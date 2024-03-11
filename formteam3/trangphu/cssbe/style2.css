@@ -1,0 +1,77 @@
+*{
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "DM Sans", sans-serif;
+	line-height: 1.5;
+	background-image: linear-gradient(to bottom,#F78301,#ecbe5e);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+	padding: 0 2;
+}
+
+img {
+	width: fit-content;
+	display: block;
+}
+
+.card {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	background-color: #FFF;
+	border-radius: 10px;
+	padding: 0.9rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-image {
+	border-radius: 10px;
+	padding-bottom: 45%;
+	background-image: url('imagebe/upxong.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-position: left;
+	position: relative;
+}
+
+.action {
+	margin-top: 2rem;
+}
+
+.action-button {
+	font: inherit;
+	font-size: 1.25rem;
+	padding: 1em;
+	width: 100%;
+	font-weight: 500;
+	background-color: #F78301;
+	border-radius: 6px;
+	color: #FFF;
+	border: 0;
+	&:focus {
+		outline: 0;
+	}
+}
+.action-button:hover {
+	background-color: #ecbe5e;
+}
+
+.card-info {
+	padding: 1rem 1rem;
+	text-align: center;
+	font-size: .875rem;
+	color: #8597a3;
+	display: block;
+}
+
+
+
+
