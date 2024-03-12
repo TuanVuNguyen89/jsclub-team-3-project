@@ -50,18 +50,11 @@
 
     <!-- main body starts -->
     <div class="main__body">
-        <!-- sidebar starts -->
-        <!-- <div class="sidebar">
-            <div class="sidebarRow">
-                <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
-                <h4>topic</h4>
-            </div> -->
-
             <nav> 
                 <div class="sidebar">
                     <div class="sidebarRow">
                         <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
-                        <h4>topic</h4>
+                        <h5>topic</h5>
                     </div>
                 <ul>
                     <li><a href="#">
@@ -85,12 +78,10 @@
                         topic 5
                     </a></li>
                 </ul>
+                </div>
+
             </nav>
-        </div>
-        <!-- sidebar ends -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <!-- feed starts -->
+                    <!-- feed starts -->
         <div class="feed">
 
             <!-- message sender ends -->
@@ -98,10 +89,11 @@
             <!-- post starts -->
             <div class="postBackground rounded-2">
                 <div class="post">
-                    <div class="post__top">
+                    <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
                         <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
                         <div class="post__topInfo">
-                            <h3>mèn</h3>
+                            <h3>mèn</h3></a>
+                        
                             <p>29 September at 20:30</p>
                         </div>
                     </div>
@@ -114,18 +106,21 @@
                     </div>
                     <div class="post__options">
                         <div class="heart">
-                            <button class="heartBtn"><i class="ti-heart"></i></button>
-                        </div>
-                        <div class="post__option">
-                            <a class="post__option" href="https://www.facebook.com/1257913698299f" target="_blank"><i class="ti-link">Contact</i></a>
+                            <button class="heartBtn">
+                                <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                </svg>
+                            </button>
+                            <p class="numberHeart">100</p>
                         </div>
                     </div>
                 </div>
                 <div class="post">
-                    <div class="post__top">
+                    <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
                         <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
                         <div class="post__topInfo">
-                            <h3>mèn</h3>
+                            <h3>mèn</h3></a>
+                        
                             <p>29 September at 20:30</p>
                         </div>
                     </div>
@@ -138,19 +133,25 @@
                     </div>
                     <div class="post__options">
                         <div class="heart">
-                            <button class="heartBtn"><i class="ti-heart"></i></button>
-                        </div>
-                        <div class="post__option">
-                            <a href="https://www.facebook.com/1257913698299f" target="_blank"><i class="ti-link">Contact</i></a>
+                            <button class="heartBtn">
+                                <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                </svg>
+                            </button>
+                            <p class="numberHeart">100</p>
                         </div>
                     </div>
                 </div>
                 <!-- post ends -->
     
             </div>
-            </div>
             
+        </div>
         <!-- feed ends -->
+        </div>
+        <!-- sidebar ends -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
         <div style="flex: 0.5" class="widgets">
             <div class="js-page">
@@ -176,16 +177,11 @@
 
 </html>
 <script>
-var heartButtons = document.querySelectorAll(".heartBtn");
+    const heartBtns = document.querySelectorAll(".heartBtn");
 
-heartButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-        if (button.classList.contains("redHeart")) {
-            button.classList.remove("redHeart");
-        } else {
-            button.classList.add("redHeart");
-        }
+    heartBtns.forEach(btn => {
+        btn.addEventListener("click", function() {
+            this.querySelector(".heartIcon").classList.toggle("red");
+        });
     });
-});
-
-    </script>
+</script>
