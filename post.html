@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <title>NgocChi</title>
+    <link rel="stylesheet" href="./assets/fonts/themify-icons.css">
+    <link rel="stylesheet" href="./assets/CSS/style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- header starts -->
+    <div class="header">
+        <div class="header__left">
+            <img src="./assets/img/99.jpg" style=" overflow: hidden;
+            border-radius: 50%;" alt="" />
+            <div class="header__input">
+                <span class="material-icons"> search </span>
+                <input type="text" placeholder="Search" />
+            </div>
+        </div>
+
+        <div class="header__middle">
+            <div class="header__option active">
+                <span class="material-icons"> home </span>
+            </div>
+
+        </div>
+
+        <div class="header__right">
+            <div class="header__info">
+                <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
+                <h4>mèn</h4>
+            </div>
+            <span class="material-icons"> add </span>
+            <span class="material-icons"> forum </span>
+            <span class="material-icons"> notifications_active </span>
+            <span class="material-icons"> expand_more </span>
+        </div>
+    </div>
+    <!-- header ends -->
+
+    <!-- main body starts -->
+    <div class="main__body">
+        <!-- sidebar starts -->
+        <div class="sidebar">
+            <div class="sidebarRow">
+                <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
+                <h4>mèn</h4>
+            </div>
+
+
+        </div>
+        <!-- sidebar ends -->
+
+        <!-- feed starts -->
+        <div class="feed">
+
+            <!-- message sender ends -->
+
+            <!-- post starts -->
+            <div class="postBackground rounded-2">
+                <div class="post">
+                    <div class="post__top">
+                        <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
+                        <div class="post__topInfo">
+                            <h3>mèn</h3>
+                            <p>29 September at 20:30</p>
+                        </div>
+                    </div>
+    
+                    <div class="post__bottom">
+                        <p>â</p>
+                    </div>
+                    <div class="post__image">
+                        <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
+                    </div>
+                    <div class="post__options">
+                        <div class="heart">
+                            <button class="heartBtn"><i class="ti-heart"></i></button>
+                        </div>
+                        <div class="post__option">
+                            <a class="post__option" href="https://www.facebook.com/1257913698299f" target="_blank"><i class="ti-link">Contact</i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <div class="post__top">
+                        <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
+                        <div class="post__topInfo">
+                            <h3>mèn</h3>
+                            <p>29 September at 20:30</p>
+                        </div>
+                    </div>
+    
+                    <div class="post__bottom">
+                        <p>â</p>
+                    </div>
+                    <div class="post__image">
+                        <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
+                    </div>
+                    <div class="post__options">
+                        <div class="heart">
+                            <button class="heartBtn"><i class="ti-heart"></i></button>
+                        </div>
+                        <div class="post__option">
+                            <a href="https://www.facebook.com/1257913698299f" target="_blank"><i class="ti-link">Contact</i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- post ends -->
+    
+            </div>
+            </div>
+            
+        <!-- feed ends -->
+
+        <div style="flex: 0.5" class="widgets">
+            <div class="js-page">
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <!-- main body ends -->
+
+    <div id="js-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0"
+        nonce="zUxEq08J"></script>
+</body>
+
+</html>
+<script>
+var heartButtons = document.querySelectorAll(".heartBtn");
+
+heartButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        if (button.classList.contains("redHeart")) {
+            button.classList.remove("redHeart");
+        } else {
+            button.classList.add("redHeart");
+        }
+    });
+});
+
+    </script>
