@@ -5,9 +5,21 @@
 body {
 	font-family: "DM Sans", sans-serif;
 	line-height: 1.5;
-	background-image: linear-gradient(to bottom,#F78301,#ecbe5e);
-    height: 100%;
+	/* background-image: linear-gradient(to bottom,#F78301,#ecbe5e); */
+	background-image: url("image/bg.png");
+    width: 100%;
 	padding: 0 2;
+	top:0;
+	left:0;
+	position: absolute;
+}
+
+label {
+	margin-right: 10px;
+}
+
+select {
+	padding: 5px;
 }
 
 img {
@@ -25,20 +37,23 @@ input {
 	margin: auto;
 	display: flex;
 	flex-direction: column;
-	width: 70%;
+	width: 50%;
 	background-color: #FFF;
-	border-radius: 10px;
 	padding: 0.9rem;
+	top: 50%;
+    left: 50%;
+	box-shadow: 0 20px 20px rgba(4, 86, 35, 0.338);
 }
 
 .card-image {
 	border-radius: 10px;
-	padding-bottom: 45%;
-	background-image: url('image/Group\ 1.png');
+	padding-bottom: 5rem;
+	background-image: url('image/LogoJS.png');
+	height:fit-content;
 	background-repeat: no-repeat;
-	background-size: cover;
-    background-position: left;
+	background-size:contain;
 	position: relative;
+	background-position: center;
 }
 
 .card-form {
@@ -118,7 +133,6 @@ textarea {
 	color: #8597a3;
 	display: block;
 }
-
 
 
 

@@ -123,7 +123,7 @@
 
     var button = document.getElementById("savePhone");
     button.innerHTML = '<i class="ti-pencil-alt"></i>'
-    button.setAttribute("onclyick", "editProfilePhone()");
+    button.setAttribute("onclick", "editProfilePhone()");
   }
 
   // Update link fackbook
@@ -214,7 +214,7 @@ function saveProfilelink() {
     phone: phone
   };
 
-  console.log(updatedData);
+  //console.log(updatedData);
   // Gửi yêu cầu POST đến server để cập nhật thông tin
   fetch('/update/profile', {
     method: 'POST',

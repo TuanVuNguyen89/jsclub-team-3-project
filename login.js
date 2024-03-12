@@ -94,8 +94,8 @@ router.post('/login', (req, res) => {
       $('.face').attr('href', row.facebook);
       $('.phone').text(row.phone);
       $('.mmail').text(row.mail);
-      $('.linkAvatar').attr('src', row.avatar);
-
+      if (!row.avatar) $('.linkAvatar').attr('src', "./personal/assets/img/avatar-trang.jpg");
+      else $('.linkAvatar').attr('src', row.avatar);
 
       res.send($.html());
     });
@@ -134,7 +134,9 @@ router.get('/update/profile', (req, res) => {
     $('.face').attr('href', row.facebook);
     $('#updatePhone').text(row.phone);
     $('#updateEmail').text(row.mail);
-    $('#linkAvatar').attr('src', `../${row.avatar}`);
+    if (!row.avatar) $('#linkAvatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
+    else $('#linkAvatar').attr('src', `../${row.avatar}`);
+    //$('#linkAvatar').attr('src', `../${row.avatar}`);
 
     res.send($.html());
   });
@@ -245,7 +247,7 @@ router.post('/upload', upload.single('avatar'), (req, res) => {
       return;
    }
     const {title, content, topic} = req.body; // Giả sử bạn gửi "title" và "content" trong body của POST request
-
+   //console.log(topic);
     // SQL query để thêm bài đăng mới vào database
     const sql = `INSERT INTO post (user_id, title, content, topic) VALUES (?, ?, ?, ?)`;
     db.run(sql, [session.userID, title, content, topic], function(err) {
