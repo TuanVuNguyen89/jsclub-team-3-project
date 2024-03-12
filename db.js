@@ -83,4 +83,64 @@ db.run(sql, function(err) {
     console.log(`Table "${post}" deleted successfully.`);
 });*/
 
+/*db.serialize(() => {
+  // 1. Tạo bảng mới với cấu trúc mới
+  db.run(`CREATE TABLE user_new (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    userName TEXT UNIQUE,
+    password TEXT,
+    phone TEXT,
+    mail TEXT,
+    facebook TEXT,
+    avatar BLOB
+  )`, (err) => {
+    if (err) {
+      console.error('Error creating new table:', err.message);
+    } else {
+      console.log('Created new table successfully.');
+      
+      // 2. Sao chép dữ liệu từ bảng cũ sang bảng mới
+      db.run(`INSERT INTO user_new (id, name, userName, password, phone, mail, facebook, avatar) SELECT id, name, userName, password, phone, mail, facebook, avatar FROM user`, (err) => {
+        if (err) {
+          console.error('Error copying data:', err.message);
+        } else {
+          console.log('Data copied successfully.');
+          
+          // 3. Xóa bảng cũ
+          db.run(`DROP TABLE user`, (err) => {
+            if (err) {
+              console.error('Error dropping old table:', err.message);
+            } else {
+              console.log('Old table dropped successfully.');
+              
+              // Đổi tên bảng mới thành tên của bảng cũ
+              db.run(`ALTER TABLE user_new RENAME TO user`, (err) => {
+                if (err) {
+                  console.error('Error renaming table:', err.message);
+                } else {
+                  console.log('Table renamed successfully.');
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+});*/
+
+/*
+const sql = `ALTER TABLE user ADD COLUMN tempAvatar BLOB`;
+db.run(sql, function(err) {
+  if (err) {
+    console.error('Error adding column:', err.message);
+  }
+  else {
+    console.log('Column added successfully');
+  }
+
+  db.close();
+});*/
+
 module.exports = db;

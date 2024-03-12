@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const cheerio = require('cheerio');
 const session = require('express-session');
+const multer = require('multer');
 const router = express.Router();
 const db = require('./db');
 
@@ -90,9 +91,11 @@ router.post('/login', (req, res) => {
       const $ = cheerio.load(htmlTem);
       $('.userName').text(row.name);
       $('.face').text(row.facebook);
-      $('.face').attr('href', `${row.facebook}`);
+      $('.face').attr('href', row.facebook);
       $('.phone').text(row.phone);
       $('.mmail').text(row.mail);
+      $('.linkAvatar').attr('src', row.avatar);
+
 
       res.send($.html());
     });
@@ -100,6 +103,9 @@ router.post('/login', (req, res) => {
     //res.sendFile(path.join(personalPath, './html/Personal.html'));
 });
   
+
+
+const upload = multer({ dest: 'uploads/' });
 router.get('/update/profile', (req, res) => {
   if (!session.userID) {
     //alert('Login failed: Invalid credentials');
@@ -121,13 +127,14 @@ router.get('/update/profile', (req, res) => {
 
     // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
     //console.log("changed");
-    //console.log(row);
+    console.log(row);
     const $ = cheerio.load(htmlTem);
     $('.userName').text(row.name);
     $('.face').text(row.facebook);
-    $('.face').attr('href', `${row.facebook}`);
+    $('.face').attr('href', row.facebook);
     $('#updatePhone').text(row.phone);
     $('#updateEmail').text(row.mail);
+    $('#linkAvatar').attr('src', `../${row.avatar}`);
 
     res.send($.html());
   });
@@ -138,19 +145,49 @@ router.post('/update/profile', (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  // Lấy dữ liệu từ form
-  const {avatar, facebook, phone, mail } = req.body;
+  // SQL query để lấy giá trị cột tempAvatar của hàng hiện tại
+  const getTempAvatarSql = `SELECT tempAvatar FROM user WHERE id = ?`;
 
-  // SQL query để cập nhật thông tin người dùng
-  const sql = `UPDATE user SET avatar = ?, facebook = ?, phone = ?, mail = ? WHERE id = ?`;
-
-  db.run(sql, [avatar, facebook, phone, mail, session.userID], function(err) {
+  db.get(getTempAvatarSql, [session.userID], (err, row) => {
     if (err) {
-      console.error('Error updating profile:', err.message);
+      console.error('Error fetching tempAvatar:', err.message);
       return res.status(500).send('Internal Server Error');
     }
 
-    res.status(200).send({ message: 'Profile updated successfully' });
+    if (!row || !row.tempAvatar) {
+      return res.status(404).send('Temporary avatar not found for the current user');
+    }
+
+    // Lấy đường dẫn avatar từ cột tempAvatar
+    const avatar = row.tempAvatar;
+
+    // Lấy dữ liệu từ form
+    const { facebook, phone, mail } = req.body;
+
+    // SQL query để cập nhật thông tin người dùng
+    const updateProfileSql = `UPDATE user SET avatar = ?, facebook = ?, phone = ?, mail = ? WHERE id = ?`;
+
+    db.run(updateProfileSql, [avatar, facebook, phone, mail, session.userID], function(err) {
+      if (err) {
+        console.error('Error updating profile:', err.message);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      res.status(200).send({ message: 'Profile updated successfully' });
+    });
+  });
+});
+
+router.post('/upload', upload.single('avatar'), (req, res) => {
+  // Lưu đường dẫn của file ảnh vào cơ sở dữ liệu
+  const avatarPath = req.file.path;
+  db.run(`UPDATE user SET tempAvatar = ? WHERE id = ?`, [avatarPath, session.userID], (err) => {
+      if (err) {
+          console.error(err.message);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          res.json({ message: 'Avatar uploaded successfully' });
+      }
   });
 });
 
@@ -175,6 +212,7 @@ router.post('/update/profile', (req, res) => {
       callback(null, rows);
     });
   }
+
   // tao route de vao function
   router.get('/myposts', (req, res) => {
     if (!session.userID) {

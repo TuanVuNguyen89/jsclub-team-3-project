@@ -27,7 +27,7 @@
             <div class="avtProfile mt-3">
               <div class="avtContainer">
                 <div id="updateAvt" class="avatar">
-                  <img src="../assets/img/avatar-trang.jpg" alt="Avatar">
+                  <img id="linkAvatar" src="../assets/img/avatar-trang.jpg" alt="Avatar">
                 </div>
                
               </div>
@@ -174,7 +174,31 @@ function saveProfilelink() {
           avatar.src = e.target.result;
       }
 
+      //console.log(file);
       reader.readAsDataURL(file);
+      if (file) {
+                const formData = new FormData();
+                formData.append('avatar', file);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to upload avatar');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data.message);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                });
+            } else {
+                console.error('Please select an image file');
+            }
   }
 
   function saveChanges() {
@@ -182,14 +206,12 @@ function saveProfilelink() {
   var email = document.getElementById("updateEmail").innerText;
   var facebookLink = document.querySelector("#updateLink a").getAttribute("href");
   var phone = document.getElementById("updatePhone").innerText;
-  var avatar = document.getElementById('updateAvt').querySelector('img').getAttribute('src');
 
   // Đóng gói dữ liệu vào một object
   var updatedData = {
     mail: email,
     facebook: facebookLink,
-    phone: phone,
-    avatar: avatar
+    phone: phone
   };
 
   console.log(updatedData);
@@ -218,7 +240,6 @@ function saveProfilelink() {
     alert('An error occurred while updating the profile.');
   });
 }
-
 
 </script>
 
