@@ -6,7 +6,82 @@
   .header__left img {
     height: 40px;
   }
+  li{
+    display: block;
+  }
+  nav {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    background: #f1f2f5;
+    display:flex;
+    align-items: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    z-index:1000;
+     transition: ease-in-out 0.5s ; 
+  }
+  nav.hide{
+    width:0;
+  }
+  nav ul {
+    padding-left: o;
+    position: absolute;
+    width:100%;
+    list-style: none;
+    overflow: hidden;
   
+  }
+  nav ul li a{
+    width: 100%;
+    color: #2e81f4;
+    font-size: 1.2em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    padding:15px;
+    transition: linear 0.5s ;
+  }
+  nav ul li a ion-icon {
+    margin: 0 20px;
+    color: #2e81f4;
+    font-size:1.2em;
+    transition:linear 0.2s;
+  
+  }
+  nav ul li a:hover {
+    background: #2e81f4;
+    color: white;
+  
+  }
+  nav ul li a:hover ion-icon {
+    color: white;
+  }
+  nav .sidebarRow {
+    position: absolute;
+    top:20px;
+    right:-137px;
+    height:45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f2f5;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    transition: linear 0.2s;
+  
+  }
+  /* nav .sizebarRow ion-icon {
+    color:#2e81f4;
+    font-size: 1.5em;
+    transition: linear 0.2s; */
+  /* } */
+  nav .sidebarRow:hover {
+    color: white;
+  }
+  /* nav .toggle_menu:hover ion-icon {
+    color: white;
+  
+  } */
   .user__avatar {
     border-radius: 50%;
     width: 45px;
@@ -236,7 +311,7 @@
   /* post */
   .postBackground {
     background-color: #f1f2f5;
-    display: ruby;
+    display: contents;
     justify-content: center;
     align-items: center;
   }

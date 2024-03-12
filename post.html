@@ -40,10 +40,10 @@
                 <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
                 <h4>mèn</h4>
             </div>
-            <span class="material-icons"> add </span>
+            <!-- <span class="material-icons"> add </span>
             <span class="material-icons"> forum </span>
             <span class="material-icons"> notifications_active </span>
-            <span class="material-icons"> expand_more </span>
+            <span class="material-icons"> expand_more </span> -->
         </div>
     </div>
     <!-- header ends -->
@@ -51,16 +51,45 @@
     <!-- main body starts -->
     <div class="main__body">
         <!-- sidebar starts -->
-        <div class="sidebar">
+        <!-- <div class="sidebar">
             <div class="sidebarRow">
                 <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
-                <h4>mèn</h4>
-            </div>
+                <h4>topic</h4>
+            </div> -->
 
-
+            <nav> 
+                <div class="sidebar">
+                    <div class="sidebarRow">
+                        <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
+                        <h4>topic</h4>
+                    </div>
+                <ul>
+                    <li><a href="#">
+                        <ion-icon name="caret-forward-outline"></ion-icon>
+                        topic 1
+                    </a></li>
+                    <li><a href="#">
+                        <ion-icon name="caret-forward-outline"></ion-icon>
+                        topic 2
+                    </a></li>
+                    <li><a href="#">
+                        <ion-icon name="caret-forward-outline"></ion-icon>
+                        topic 3
+                    </a></li>
+                    <li><a href="#">
+                        <ion-icon name="caret-forward-outline"></ion-icon>
+                        topic 4
+                    </a></li>
+                    <li><a href="#">
+                        <ion-icon name="caret-forward-outline"></ion-icon>
+                        topic 5
+                    </a></li>
+                </ul>
+            </nav>
         </div>
         <!-- sidebar ends -->
-
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <!-- feed starts -->
         <div class="feed">
 
@@ -134,6 +163,15 @@
     <div id="js-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0"
         nonce="zUxEq08J"></script>
+        <script>
+            const nav = document.querySelector('nav');
+            const sidebarRow = document.querySelector('.sidebarRow');
+
+            sidebarRow.onclick = function(){
+                nav.classList.toggle('hide');
+                
+            }
+        </script>
 </body>
 
 </html>
