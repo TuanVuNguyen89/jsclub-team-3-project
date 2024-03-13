@@ -57,6 +57,7 @@ router.post('/login', (req, res) => {
   
       // check the count returned by the query
       if (row.count > 0) {
+        //console.log(row);
         console.log('Data exists in the column.');
         session.userID = row.id;
         console.log('User ID:', session.userID);
@@ -332,7 +333,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
         let promises = [];
         rows.forEach(row => {
             let promise = new Promise((resolve, reject) => {
-                db.all(`SELECT * FROM user WHERE id = ?`, [row.user_id], (err, _row) => {
+                db.get(`SELECT facebook, avatar, name FROM user WHERE id = ?`, [row.user_id], (err, row2) => {
                     if (err) {
                         console.error(err.message);
                         reject(err);
@@ -343,13 +344,13 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                     else if (row.topic == "Exchange class") iconTopic = "book";
                     else if (row.topic == "Story / Blog") iconTopic = "newspaper";
                     else if (row.topic == "Find lover") iconTopic = "heart-circle";
-                    console.log(_row);
+                    //console.log(row2.facebook);
                     const dataDiv = `
                         <div class="post">
-                            <div class="post__top"><a href="${_row.facebook}">
-                                    <img class="user__avatar1 post__avatar" src="${_row.avatar}" alt="" />
+                            <div class="post__top"><a href="${row2.facebook}">
+                                    <img class="user__avatar1 post__avatar" src="../${row2.avatar}" alt="" />
                                     <div class="post__topInfo">
-                                        <h3>${_row.name}</h3>
+                                        <h3>${row2.name}</h3>
                                         <p>${row.created_at}</p>
                                     </div>
                                 </a>
@@ -365,7 +366,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                                 <p>${row.content}</p>
                             </div>
                             <div class="post__image">
-                                <img class="rounded-2" src="${row.avatar}" alt="" />
+                                <img class="rounded-2" src="../${row.avatar}" alt="" />
                             </div>
                             <div class="post__options">
                                 <div class="heart">
