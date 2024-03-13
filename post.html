@@ -19,26 +19,32 @@
 <body>
     <!-- header starts -->
     <div class="header">
-        <div class="header__left">
-            <img src="./assets/img/99.jpg" style=" overflow: hidden;
+        <div class="header__left"><a href="">
+            <img src="./assets/img/LogoJS.png" style=" overflow: hidden;
             border-radius: 50%;" alt="" />
-            <div class="header__input">
-                <span class="material-icons"> search </span>
-                <input type="text" placeholder="Search" />
-            </div>
+            <p class="Logofpt">FPT Secret</p>
+        </a>
+        
         </div>
 
         <div class="header__middle">
             <div class="header__option active">
                 <span class="material-icons"> home </span>
             </div>
-
+            <div class="header__option active">
+                <span class="material-icons"> home </span>
+            </div>
+            <div class="header__option active">
+                <span class="material-icons"> home </span>
+            </div>
         </div>
 
         <div class="header__right">
             <div class="header__info">
-                <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
-                <h4>mèn</h4>
+                <a href="https://www.facebook.com/1257913698299f">
+                    <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
+                        <h5>mèn</h5>
+                </a>
             </div>
             <!-- <span class="material-icons"> add </span>
             <span class="material-icons"> forum </span>
@@ -53,29 +59,25 @@
         <nav>
             <div class="sidebar">
                 <div class="sidebarRow">
-                    <img class="user__avatar" src="./assets/img/99.jpg" alt="" />
-                    <h5>topic</h5>
+                    <i class="ti-view-list-alt"></i>
+                    <h5>Topic</h5>
                 </div>
                 <ul>
-                    <li><a href="#">
-                            <ion-icon name="caret-forward-outline"></ion-icon>
-                            topic 1
+                    <li><a class="Exchangeclass" href="#">
+                        <ion-icon name="book"></ion-icon>
+                            Exchange class
                         </a></li>
-                    <li><a href="#">
-                            <ion-icon name="caret-forward-outline"></ion-icon>
-                            topic 2
+                    <li><a class="Tradeitems" href="#">
+                        <ion-icon name="cash"></ion-icon>
+                            Trade items
                         </a></li>
-                    <li><a href="#">
-                            <ion-icon name="caret-forward-outline"></ion-icon>
-                            topic 3
+                    <li><a class="StoryBlog" href="#">
+                        <ion-icon name="newspaper"></ion-icon>
+                            Story / Blog
                         </a></li>
-                    <li><a href="#">
-                            <ion-icon name="caret-forward-outline"></ion-icon>
-                            topic 4
-                        </a></li>
-                    <li><a href="#">
-                            <ion-icon name="caret-forward-outline"></ion-icon>
-                            topic 5
+                    <li><a class="Findlover" href="#">
+                        <ion-icon name="heart-circle"></ion-icon>
+                            Find lover
                         </a></li>
                 </ul>
             </div>
@@ -86,7 +88,7 @@
 
             <!-- message sender ends -->
 
-            <!-- post starts -->
+            <!-- post starts 1-->
             <div class="postBackground rounded-2">
                 <div class="post">
                     <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
@@ -94,13 +96,22 @@
                             <div class="post__topInfo">
                                 <h3>mèn</h3>
                         </a>
-
                         <p>29 September at 20:30</p>
                     </div>
-                </div>
+                        <div class="nameTopic rounded-3">
+                            <ion-icon name="cash"></ion-icon>
+                            Trade items
+                        </div>
+                        
+                    </div>
 
                 <div class="post__bottom">
-                    <p>â</p>
+                    <div class="title"><h4>
+                        --Buôn bán Hồ Bơi--
+                    </h4></div>
+                    <p>Muốn bán vài cái hồ bơi giá gẻ
+                        Giá ib
+                    </p>
                 </div>
                 <div class="post__image">
                     <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
@@ -118,19 +129,25 @@
                     </div>
                 </div>
             </div>
+            <!-- post-end 2-->
             <div class="post">
                 <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
                         <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
                         <div class="post__topInfo">
-                            <h3>mèn</h3>
+                            <h3>Tonny Lê</h3>
                     </a>
-
                     <p>29 September at 20:30</p>
                 </div>
-            </div>
+                    <div class="nameTopicbook rounded-3">
+                        <ion-icon name="book"></ion-icon>
+                        Exchange class
+                    </div>
+                    
+                </div>
 
             <div class="post__bottom">
-                <p>â</p>
+                <p>Muốn Đổi lớp võ 3 có công lao là 1 cái bể bơi
+                </p>
             </div>
             <div class="post__image">
                 <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
@@ -148,7 +165,82 @@
                 </div>
             </div>
         </div>
-        <!-- post ends -->
+        <!-- post-end 3-->
+        <div class="post">
+            <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
+                    <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
+                    <div class="post__topInfo">
+                        <h3>mèn</h3>
+                </a>
+                <p>29 September at 20:30</p>
+            </div>
+                <div class="nameTopicBlog rounded-3">
+                    <ion-icon name="newspaper"></ion-icon>
+                            Story / Blog
+                </div>
+                
+            </div>
+
+        <div class="post__bottom">
+            <p>Tôi quá giàu và có hản 1 bể bơi sau nhà
+            </p>
+        </div>
+        <div class="post__image">
+            <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
+        </div>
+        <div class="post__options">
+            <div class="heart">
+                <button class="heartBtn">
+                    <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </button>
+                <p class="numberHeart">100</p>
+            </div>
+        </div>
+    </div>
+    <!-- post-end 4-->
+    <div class="post">
+        <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
+                <img class="user__avatar post__avatar" src="./assets/img/99.jpg" alt="" />
+                <div class="post__topInfo">
+                    <h3>mèn</h3>
+            </a>
+            <p>29 September at 20:30</p>
+        </div>
+            <div class="nameTopiclove rounded-3">
+                <ion-icon name="heart-circle"></ion-icon>
+                Find lover
+            </div>
+            
+        </div>
+
+    <div class="post__bottom">
+        <p>cần tìm ny lương tháng trăm tỷ
+        </p>
+    </div>
+    <div class="post__image">
+        <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
+    </div>
+    <div class="post__options">
+        <div class="heart">
+            <button class="heartBtn">
+                <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            </button>
+            <p class="numberHeart">100</p>
+        </div>
+    </div>
+</div>
+<!-- post-end -->
+
+
+        
 
     </div>
 
