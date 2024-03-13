@@ -19,12 +19,14 @@ const filePath = path.join(__dirname, './register-login');
 const personalPath = path.join(__dirname, './personal');
 const formPath = path.join(__dirname, './formteam3');
 const phuPath = path.join(__dirname, './formteam3/trangphu');
+const postPath = path.join(__dirname, './post');
 // Phục vụ các tệp tĩnh từ thư mục hiện tại
 router.use(express.static(path.join(__dirname)));
 router.use(express.static(filePath));
 router.use(express.static(personalPath));
 router.use(express.static(formPath));
 router.use(express.static(phuPath));
+router.use(express.static(postPath));
 
 // Xử lý yêu cầu đăng nhập
 /* CHECK AUTHENTICATION */
@@ -237,7 +239,6 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
   function getPostByUser(userID, callback) 
   {
-
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
@@ -262,7 +263,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     if (!session.userID) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
-   }
+    }
 
     getPostByUser(session.userID, (err, data) => {
       if (err) {
@@ -275,7 +276,137 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     });
   });
 
+  /*router.get('/update/profile', (req, res) => {
+    if (!session.userID) {
+      //alert('Login failed: Invalid credentials');
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+   }
+  
+   const htmlTem = fs.readFileSync('./personal/html/updateProfile.html', 'utf8');
+    //console.log(session.userID);
+    const sql = 'SELECT name, avatar, facebook, phone, mail FROM user WHERE id = ?';
+    db.get(sql, [session.userID], (err, row) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      
+      if (!row) {
+        return res.status(404).send('Profile not found');
+      }
+  
+      // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
+      //console.log("changed");
+      console.log(row);
+      const $ = cheerio.load(htmlTem);
+      $('.userName').text(row.name);
+      $('.face').text(row.facebook);
+      $('.face').attr('href', row.facebook);
+      $('#updatePhone').text(row.phone);
+      $('#updateEmail').text(row.mail);
+      if (!row.avatar) $('#linkAvatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
+      else $('#linkAvatar').attr('src', `../${row.avatar}`);
+      //$('#linkAvatar').attr('src', `../${row.avatar}`);
+  
+      res.send($.html());
+    });
+  });*/
+
+  router.get('/post/main', (req, res) => {
+    if (!session.userID) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+    }
+
+    const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
+    const $ = cheerio.load(existingHtml);
+    $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
+
+    db.all(`SELECT * FROM post ORDER BY created_at DESC`, (err, rows) => {
+        if (err) {
+            console.log(err.message);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        let promises = [];
+        rows.forEach(row => {
+            let promise = new Promise((resolve, reject) => {
+                db.all(`SELECT * FROM user WHERE id = ?`, [row.user_id], (err, _row) => {
+                    if (err) {
+                        console.error(err.message);
+                        reject(err);
+                    }
+
+                    var iconTopic;
+                    if (row.topic == "Trade items") iconTopic = "cash";
+                    else if (row.topic == "Exchange class") iconTopic = "book";
+                    else if (row.topic == "Story / Blog") iconTopic = "newspaper";
+                    else if (row.topic == "Find lover") iconTopic = "heart-circle";
+                    console.log(_row);
+                    const dataDiv = `
+                        <div class="post">
+                            <div class="post__top"><a href="${_row.facebook}">
+                                    <img class="user__avatar1 post__avatar" src="${_row.avatar}" alt="" />
+                                    <div class="post__topInfo">
+                                        <h3>${_row.name}</h3>
+                                        <p>${row.created_at}</p>
+                                    </div>
+                                </a>
+                                <div class="nameTopic rounded-3">
+                                    <ion-icon name="${iconTopic}"></ion-icon>
+                                    ${row.topic}
+                                </div>
+                            </div>
+                            <div class="post__bottom">
+                                <div class="title">
+                                    <h4>${row.title}</h4>
+                                </div>
+                                <p>${row.content}</p>
+                            </div>
+                            <div class="post__image">
+                                <img class="rounded-2" src="${row.avatar}" alt="" />
+                            </div>
+                            <div class="post__options">
+                                <div class="heart">
+                                    <button class="heartBtn">
+                                        <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
+                                    </button>
+                                    <p class="numberHeart">100</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    $('.feed').append(dataDiv);
+                    resolve();
+                });
+            });
+            promises.push(promise);
+        });
+
+        Promise.all(promises)
+            .then(() => {
+                // Sau khi thêm tất cả dữ liệu mới, ghi lại tệp HTML và gửi lại cho người dùng
+                const updatedHtml = $.html();
+                fs.writeFileSync('./post/post.html', updatedHtml);
+                res.send(updatedHtml);
+            })
+            .catch(error => {
+                console.error(error.message);
+                res.status(500).json({ error: 'Internal Server Error' });
+            });
+    });
+});
+
+
   router.get('/form', (req, res) => {
+    if (!session.userID) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+   }
+   
     res.sendFile(path.join(formPath, "./index2.html"));
   });
 
@@ -284,6 +415,11 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
   });
 
   router.post('/form', (req, res) => {
+    if (!session.userID) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+   }
+
     if (!session.userID) {
         res.status(401).json({ error: 'Unauthorized' });
         return;
