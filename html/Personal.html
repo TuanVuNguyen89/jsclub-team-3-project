@@ -25,7 +25,6 @@
             <div class="menubar mt-3">
               <a href="#"><i class="ti-home"></i></a>
               <a href="#"><i class="ti-user"></i></a>
-              <a href="#"><i class="ti-settings"></i></a>
             </div>
             <div class="avtProfile mt-3">
               <div class="avtContainer">
@@ -51,21 +50,59 @@
                   </label>
                 </div>
                 <div class="edit">
-                  <a href="updateProfile.html" class="editProfile btn-primary btn ">Edit your profile</a>
-                  <button class="deleteBtn"><a href="updateProfile.html" class="editProfile btn-primary btn ">Delete account</a></button>
+                  <a href="updateProfile.html" class="editProfile btn-primary btn "><i class="ti-pencil-alt"></i> Edit your profile</a>
+                  <button class="deleteBtn jsDelete profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- see and edit post -->
         <div class="container row rounded-2">
           <div class="seePost col-md-8 rounded-2">
+            
           </div>
         </div>
 
       </div>
     </div>
+  </div>  
+  <div class="modalDelete jsmodalDelete">
+    <div class="modalContainer rounded-2">
+      <div class="closeBtn jsmodalClose"><i class="ti-close"></i>
+      </div>
+      <header class="modalHeader rounded-2">
+        <i class="modalHeadingicon ti-trash">
+          <p class="askDelete">Are you really want to delete account ?</p>
+        </i>
+      </header>
+      <div class="modalBody row">
+        <div class="cancelBtn col-6">
+          <button class="jsmodalClose cancle deleteBtn editProfile btn-primary btn ">Cancel</button>
+        </div>
+        <div class="firmDeleteBtn col-6">
+          <button class="deleteBtn confirmDelete"><a href="" class="profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</a></button>
+        </div>
+      </div>
+    </div>
   </div>
+  <script>
+    const Delete = document.querySelector('.jsDelete')
+    const modalDelete = document.querySelector('.jsmodalDelete')
+    const modalCloses = document.querySelectorAll('.jsmodalClose')
+    function showDeleteform(){
+      modalDelete.classList.add('open')
+    }
+    function hideDeleteform(){
+      modalDelete.classList.remove('open')
+    }
+    Delete.addEventListener('click', showDeleteform)
+    for(const modalClose of modalCloses){
+      modalClose.addEventListener('click', hideDeleteform)
+    }
+
+
+  </script>
 </body>
 
 </html>
