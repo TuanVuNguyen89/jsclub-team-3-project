@@ -44,7 +44,6 @@ nav.hide {
 }
 
 nav ul {
-  margin-top: 100px;
   top: 0;
   padding-left: 0;
   position: absolute;
@@ -96,9 +95,13 @@ nav ul li a:hover ion-icon {
 }
 h5 {
   margin-left: 10px;
+  margin-bottom: 0;
+}
+.listBtn{
+  display: block;
 }
 nav .sidebarRow {
-  font-family: cursive;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: absolute;
   top: 20px;
   right: -90px;
@@ -130,13 +133,18 @@ nav .sidebarRow:hover {
   border-radius: 50%;
   width: 35px;
 }
+.user__avatar1 {
+  margin-right: 10px;
+  border-radius: 50%;
+  width: 50px;
+}
 
 img.user__avatar.post__avatar,
 .post__topInfo h3 {
   cursor: pointer;
 }
 .nameTopiclove{
-  font-family: cursive;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fbace9;
   color: #eff2f5;
   margin-top: -80px;
@@ -149,7 +157,7 @@ img.user__avatar.post__avatar,
    position: absolute;
 }
 .nameTopicBlog{
-  font-family: cursive;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
   background-color: #8d31f0;
   color: #eff2f5;
   margin-top: -80px;
@@ -162,20 +170,18 @@ img.user__avatar.post__avatar,
    position: absolute;
 }
 .nameTopicbook{
-  font-family: cursive;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
   background-color: #2e81f4;
   color: #eff2f5;
   margin-top: -80px;
   text-align: center;
-
+  margin-left: 111px;
     width: 170px;
     padding: 11px;
-    margin-right: 50px;
     right: 0;
-   position: absolute;
 }
 .nameTopic{
-  font-family: cursive;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
   color: #eff2f5;
   margin-top: -80px;
   text-align: center;
@@ -187,6 +193,7 @@ img.user__avatar.post__avatar,
    position: absolute;
 }
 .post a {
+  display: flex;
   text-decoration: none;
   color: black;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -453,14 +460,16 @@ body {
   align-items: center;
   padding: 15px 15px 0 15px;
 }
-
+.post__top p{
+  font-size: smaller;
+}
 .post__avatar {
   margin-right: 10px;
   margin-bottom: 17px;
 }
 
 .post__topInfo h3 {
-  font-size: medium;
+  font-size: 20px;
 }
 
 .post__topInfo p {
