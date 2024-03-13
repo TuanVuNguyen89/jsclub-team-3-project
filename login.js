@@ -193,6 +193,48 @@ router.post('/upload', upload.single('avatar'), (req, res) => {
   });
 });
 
+router.post('/uploadForm', upload.single('avatar'), (req, res) => {
+  // Lưu đường dẫn của file ảnh vào cơ sở dữ liệu
+  const avatarPath = req.file.path;
+  db.run(`INSERT INTO onlyPostAvatar (avatar) VALUES (?)`, [avatarPath], function(err, row) {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+        res.json({ message: 'Avatar uploaded successfully' });
+    }
+  });
+
+    /* Construct the SQL query to check if the data exist */ 
+    const sql =  `SELECT id, COUNT(*) AS count FROM onlyPostAvatar WHERE 
+      avatar = ?`;
+    
+    // Execute the SQL query
+    db.get(sql, [avatarPath], function(err, row) {
+      if (err) {
+        console.error('Error checking data:', err.message);
+        return;
+      }
+  
+      // check if row is undefined or if count is not defined
+      if (!row || typeof row.count === 'undefined') {
+        console.log('No data found in the column.');
+        return;
+      }
+  
+      // check the count returned by the query
+      if (row.count > 0) {
+        console.log('Data exists in the column.');
+        session.curUploadFormID = row.id;
+        console.log('curUploadFormID:', session.curUploadFormID);
+        //res.json({avatarPath});
+      } else {
+        console.log('No data found in the column.');
+        res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
+      }
+    });
+});
+
   function getPostByUser(userID, callback) 
   {
 
@@ -243,80 +285,85 @@ router.post('/upload', upload.single('avatar'), (req, res) => {
 
   router.post('/form', (req, res) => {
     if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-   }
-    const {title, content, topic} = req.body; // Giả sử bạn gửi "title" và "content" trong body của POST request
-   //console.log(topic);
-    // SQL query để thêm bài đăng mới vào database
-    const sql = `INSERT INTO post (user_id, title, content, topic) VALUES (?, ?, ?, ?)`;
-    db.run(sql, [session.userID, title, content, topic], function(err) {
-      if (err) {
-        console.error('Error inserting post:', err.message);
-        res.status(500).send('Internal Server Error');
+        res.status(401).json({ error: 'Unauthorized' });
         return;
-      }
-      
-      res.status(201).send({id: this.lastID, message: 'Post added successfully'});
-    });
+    }
 
-    //res.json({userID, title, content, topic});
+    const { title, content, topic} = req.body;
+
+    // Lấy dữ liệu từ bảng onlyPostAvatar
+    const formSql = `SELECT * FROM onlyPostAvatar WHERE id = ?`;
+    db.get(formSql, [session.curUploadFormID], (err, row) => {
+        if (err) {
+            console.error('Error fetching data from onlyFormAvatar:', err.message);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        if (!row || !row.avatar) {
+            console.error('Avatar data not found in onlyPostAvatar');
+            res.status(404).send('Avatar data not found');
+            return;
+        }
+
+        const postSql = `INSERT INTO post (user_id, title, content, topic, avatar) VALUES (?, ?, ?, ?, ?)`;
+        db.run(postSql, [session.userID, title, content, topic, row.avatar], function(err) {
+            if (err) {
+                console.error('Error inserting post:', err.message);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            res.status(201).send({ id: this.lastID, message: 'Post added successfully' });
+        });
+    });
+});
+
+
+function deleteUserPost(userID, callback) {
+  const sql = `DELETE FROM post WHERE user_id = ?`;
+
+  db.run(sql, [userID], function(err) {
+      if (err) {
+          return callback(err);
+      }
+      callback(null, { message: 'User posts deleted successfully' });
   });
+}
 
-  function deleteUserPost(userID, callback) {
-    if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-   }
-
-    const sql = `DELETE FROM post WHERE user_id = ?`;
-  
-    db.run(sql, [session.userID], function(err) {
+function deleteAccount(userID, callback) {
+  // Đầu tiên, xóa tất cả bài đăng của người dùng
+  deleteUserPost(userID, (err, result) => {
       if (err) {
-        return callback(err);
-      }
-      callback(null, {message: 'User posts deleted successfully'});
-    });
-  }
-  function deleteAccount(userID, callback) { 
-    if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-   }
-
-    // Đầu tiên, xóa tất cả bài đăng của người dùng
-    deleteUserPost(userID, (err, result) => {
-      if (err) {
-        return callback(err);
+          return callback(err);
       }
       // Sau khi bài đăng đã được xóa, tiếp tục xóa tài khoản người dùng
       const sql = `DELETE FROM user WHERE id = ?`;
       db.run(sql, [userID], function(err) {
-        if (err) {
-          return callback(err);
-        }
-        if (this.changes === 0) {
-          return callback(new Error('User not found or already deleted.'));
-        }
-        callback(null, {message: 'User deleted successfully'});
+          if (err) {
+              return callback(err);
+          }
+          if (this.changes === 0) {
+              return callback(new Error('User not found or already deleted.'));
+          }
+          callback(null, { message: 'User deleted successfully' });
       });
-    });
-  }
-  router.delete('/delete/account', (req, res) => {
-    if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-   }
+  });
+}
 
-    deleteAccount(session.userID, (err, result) => {
+router.post('/delete/account', (req, res) => {
+  if (!session.userID) {
+      return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  deleteAccount(session.userID, (err, result) => {
       if (err) {
-        console.error(err.message);
-        res.status(500).send(err.message);
-        return;
+          console.error(err.message);
+          return res.status(500).send(err.message);
       }
       res.json(result);
-    });
   });
+});
 
   router.delete('/delete/post', (req, res) => {
     if (!session.userID) {

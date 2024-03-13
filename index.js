@@ -40,6 +40,18 @@ app.get('/data', (req, res) => {
   });
 });
 
+app.get('/form_data', (req, res) => {
+  db.all('SELECT * FROM onlyPostAvatar', (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
 // Route cho các file CSS và JS (nếu cần)
 app.get('*.css', (req, res) => {
   res.set('Content-Type', 'text/css');

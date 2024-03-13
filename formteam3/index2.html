@@ -46,50 +46,75 @@
         function auto_grow(element) {
             element.style.height = "5px";
             element.style.height = (element.scrollHeight) + "px";
-        } 
+        }
     </script>
     <script> 
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("hello");
-            document.querySelector('.card').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const data = {
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("hello");
+    document.querySelector('.card').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var file = document.getElementById("imageup").files[0]; // Lấy file được chọn
+        if (file) {
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            fetch('/uploadForm', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to upload avatar');
+                }
+                return response.json(); // Trả về JSON từ phản hồi của server
+            })
+            .then(data => {
+                console.log(data.message); // In ra thông báo từ server
+                // Lấy đường dẫn avatar từ phản hồi và gửi nó cùng với dữ liệu JSON cho server
+                const jsonData = {
                     title: document.getElementById('Name').value,
                     content: document.getElementById('post').value,
                     topic: document.getElementById("typeSelector").value
-                    //var imageValue = document.getElementById('imageup').value;
                 };
-                //console.log("Ảnh:", imageValue);
 
-                sendDataToServer(data);
+                console.log(jsonData);
+                sendDataToServer(jsonData); // Gửi dữ liệu JSON cho server
+            })
+            .catch(error => {
+                console.error(error.message);
             });
-        });
+        } else {
+            console.error('Please select an image file');
+        }
+    });
+});
 
-        function sendDataToServer(data) {
-            console.log(data);
-            fetch('/form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => {
-                if (!response.ok) { // Kiểm tra nếu phản hồi không thành công (mã lỗi HTTP 400 trở lên)
-                    throw new Error('Network response was not stable'); // Ném lỗi
-                }
-                return response.json(); // Chuyển đổi phản hồi thành JSON nếu phản hồi thành công
-            })
-            .then(data => {
-                console.log('Success:', data);
-                window.location.href = `/backhome`;
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Login failed: Invalid credentials');
-                // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi
-            });
-        }        
+function sendDataToServer(jsonData) {
+    console.log(jsonData);
+    fetch('/form', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not stable');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        window.location.href = `/backhome`;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Upload failed: An error occurred');
+    });
+}
+
     </script>
 </body>
 </html>

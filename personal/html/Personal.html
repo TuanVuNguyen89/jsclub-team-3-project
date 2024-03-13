@@ -48,7 +48,8 @@
                 </div>
                 <div class="edit">
                   <a href="./update/profile" class="editProfile btn-primary btn ">Edit your profile</a>
-                  <button class="deleteBtn"><a href="updateProfile.html" class="editProfile btn-primary btn ">Delete account</a></button>
+                  <button class="deleteBtn profileDelete btn-primary btn logout"><i class="ti-share"></i> Log out</button>
+                  <button class="deleteBtn jsDelete profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</button>
                 </div>
               </div>
             </div>
@@ -62,6 +63,90 @@
       </div>
     </div>
   </div>
+  <div class="modalDelete jsmodalDelete">
+    <div class="modalContainer rounded-2">
+      <div class="closeBtn jsmodalClose"><i class="ti-close"></i>
+      </div>
+      <header class="modalHeader rounded-2">
+        <i class="modalHeadingicon ti-trash">
+          <p class="askDelete">Are you really want to delete account ?</p>
+        </i>
+      </header>
+      <div class="modalBody row">
+        <div class="cancelBtn col-6">
+          <button class="jsmodalClose cancle deleteBtn editProfile btn-primary btn ">Cancel</button>
+        </div>
+        <div class="firmDeleteBtn col-6">
+          <button class="deleteBtn confirmDelete"><a href="" class="profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const Delete = document.querySelector('.jsDelete')
+    const modalDelete = document.querySelector('.jsmodalDelete')
+    const modalCloses = document.querySelectorAll('.jsmodalClose')
+    function showDeleteform(){
+      modalDelete.classList.add('open')
+    }
+    function hideDeleteform(){
+      modalDelete.classList.remove('open')
+    }
+    Delete.addEventListener('click', showDeleteform)
+    for(const modalClose of modalCloses){
+      modalClose.addEventListener('click', hideDeleteform)
+    }
+
+    const logout = document.querySelector('.logout');
+    if (logout) {
+        logout.addEventListener('click', () => {
+            fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    alert('Hẹn gặp lại bạn!');
+                    //console.log("123");
+                    window.location.href = `/`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while logging out the profile.');
+                });
+        });
+    }
+
+    const confirmDelete = document.querySelector('.confirmDelete');
+      if (confirmDelete.addEventListener('click', () => {
+        fetch('/delete/account', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+          })
+          .then(data => {
+            console.log('Success:', data);
+            alert('Tài khoản đã bị xóa!');
+            window.location.href = `/`;
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the profile.');
+          });
+      }));
+  </script>
 </body>
 
 </html>
