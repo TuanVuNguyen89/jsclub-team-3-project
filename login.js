@@ -130,7 +130,7 @@ router.get('/update/profile', (req, res) => {
 
     // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
     //console.log("changed");
-    console.log(row);
+    //console.log(row);
     const $ = cheerio.load(htmlTem);
     $('.userName').text(row.name);
     $('.face').text(row.facebook);
@@ -159,7 +159,7 @@ router.post('/update/profile', (req, res) => {
       return res.status(500).send('Internal Server Error');
     }
 
-    if (!row || !row.tempAvatar) {
+    if (!row) {
       return res.status(404).send('Temporary avatar not found for the current user');
     }
 
@@ -313,6 +313,45 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     });
   });*/
 
+  router.get('/user/profile', (req, res) => {
+    const userID = req.query.id; // Lấy ID của user từ tham số id trong URL
+    // Xử lý hiển thị profile của user có ID là userId
+
+    if (userID == session.userID) {
+      res.redirect('/profile');
+      return;
+    }
+
+   const htmlTem = fs.readFileSync('./personal/html/_Personal.html', 'utf8');
+    //console.log(session.userID);
+    const sql = 'SELECT name, avatar, facebook, phone, mail FROM user WHERE id = ?';
+    db.get(sql, [userID], (err, row) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      
+      if (!row) {
+        return res.status(404).send('Profile not found');
+      }
+
+      // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
+      //console.log("changed");
+      const $ = cheerio.load(htmlTem);
+      $('.userName').text(row.name);
+      $('.face').text(row.facebook);
+      $('.face').attr('href', row.facebook);
+      $('.phone').text(row.phone);
+      $('.mmail').text(row.mail);
+      if (!row.avatar) $('.linkAvatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
+      else $('.linkAvatar').attr('src', `../${row.avatar}`);
+
+      res.send($.html());
+    });
+
+    //res.sendFile(path.join(personalPath, './html/Personal.html'));
+  });
+
+
   router.get('/post/main', (req, res) => {
     if (!session.userID) {
         res.status(401).json({ error: 'Unauthorized' });
@@ -321,6 +360,18 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
     const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
     const $ = cheerio.load(existingHtml);
+
+    db.get('SELECT name, avatar FROM user WHERE id = ?', [session.userID], (err, row) => {
+      if (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+
+      $('._name').text(row.name);
+      $('.user__avatar').attr('src', `../${row.avatar}`);
+    });
+
     $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
     db.all(`SELECT * FROM post ORDER BY created_at DESC`, (err, rows) => {
@@ -339,22 +390,25 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                         reject(err);
                     }
 
-                    var iconTopic;
-                    if (row.topic == "Trade items") iconTopic = "cash";
-                    else if (row.topic == "Exchange class") iconTopic = "book";
-                    else if (row.topic == "Story / Blog") iconTopic = "newspaper";
-                    else if (row.topic == "Find lover") iconTopic = "heart-circle";
+                    var iconTopic, typeTopic;
+                    if (row.topic == "Trade items") iconTopic = "cash", typeTopic = "nameTopic";
+                    else if (row.topic == "Exchange class") iconTopic = "book", typeTopic = "nameTopicbook";
+                    else if (row.topic == "Story / Blog") iconTopic = "newspaper", typeTopic = "nameTopicBlog";
+                    else if (row.topic == "Find lover") iconTopic = "heart-circle", typeTopic = "nameTopiclove";
+                    
+                    var avatar = row2.avatar;
+                    if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
                     //console.log(row2.facebook);
                     const dataDiv = `
                         <div class="post">
-                            <div class="post__top"><a href="${row2.facebook}">
-                                    <img class="user__avatar1 post__avatar" src="../${row2.avatar}" alt="" />
+                            <div class="post__top"><a href="/user/profile?id=${row.user_id}">
+                                    <img class="user__avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
                                         <p>${row.created_at}</p>
                                     </div>
                                 </a>
-                                <div class="nameTopic rounded-3">
+                                <div class="${typeTopic} rounded-3">
                                     <ion-icon name="${iconTopic}"></ion-icon>
                                     ${row.topic}
                                 </div>
@@ -401,6 +455,109 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     });
 });
 
+router.get('/post/topic', (req, res) => {
+  if (!session.userID) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+  }
+
+  const topic = req.query.topic;
+  const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
+  const $ = cheerio.load(existingHtml);
+
+  db.get('SELECT name, avatar FROM user WHERE id = ?', [session.userID], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+
+    $('._name').text(row.name);
+    $('.user__avatar').attr('src', `../${row.avatar}`);
+  });
+
+  $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
+
+  db.all(`SELECT * FROM post WHERE topic = ? ORDER BY created_at DESC`, [topic], (err, rows) => {
+      if (err) {
+          console.log(err.message);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+      }
+
+      let promises = [];
+      rows.forEach(row => {
+          let promise = new Promise((resolve, reject) => {
+              db.get(`SELECT facebook, avatar, name FROM user WHERE id = ?`, [row.user_id], (err, row2) => {
+                  if (err) {
+                      console.error(err.message);
+                      reject(err);
+                  }
+
+                  var iconTopic, typeTopic;
+                  if (row.topic == "Trade items") iconTopic = "cash", typeTopic = "nameTopic";
+                  else if (row.topic == "Exchange class") iconTopic = "book", typeTopic = "nameTopicbook";
+                  else if (row.topic == "Story / Blog") iconTopic = "newspaper", typeTopic = "nameTopicBlog";
+                  else if (row.topic == "Find lover") iconTopic = "heart-circle", typeTopic = "nameTopiclove";
+                  
+                  var avatar = row2.avatar;
+                  if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
+                  //console.log(row2.facebook);
+                  const dataDiv = `
+                      <div class="post">
+                          <div class="post__top"><a href="/user/profile?id=${row.user_id}">
+                                  <img class="user__avatar1 post__avatar" src="../${avatar}" alt="" />
+                                  <div class="post__topInfo">
+                                      <h3>${row2.name}</h3>
+                                      <p>${row.created_at}</p>
+                                  </div>
+                              </a>
+                              <div class="${typeTopic} rounded-3">
+                                  <ion-icon name="${iconTopic}"></ion-icon>
+                                  ${row.topic}
+                              </div>
+                          </div>
+                          <div class="post__bottom">
+                              <div class="title">
+                                  <h4>${row.title}</h4>
+                              </div>
+                              <p>${row.content}</p>
+                          </div>
+                          <div class="post__image">
+                              <img class="rounded-2" src="../${row.avatar}" alt="" />
+                          </div>
+                          <div class="post__options">
+                              <div class="heart">
+                                  <button class="heartBtn">
+                                      <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                          <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                      </svg>
+                                  </button>
+                                  <p class="numberHeart">100</p>
+                              </div>
+                          </div>
+                      </div>
+                  `;
+                  $('.feed').append(dataDiv);
+                  resolve();
+              });
+          });
+          promises.push(promise);
+      });
+
+      Promise.all(promises)
+          .then(() => {
+              // Sau khi thêm tất cả dữ liệu mới, ghi lại tệp HTML và gửi lại cho người dùng
+              const updatedHtml = $.html();
+              fs.writeFileSync('./post/post.html', updatedHtml);
+              res.send(updatedHtml);
+          })
+          .catch(error => {
+              console.error(error.message);
+              res.status(500).json({ error: 'Internal Server Error' });
+          });
+  });
+});
 
   router.get('/form', (req, res) => {
     if (!session.userID) {
@@ -535,8 +692,8 @@ router.post('/logout', (req, res) => {
 // update post
 router.put('/update/posts', (req, res) => {
   const {postID, topic, title, content } = req.body; // Giả sử bạn gửi "topic", "title" và "content" trong body của request cập nhật
-  console.log(session.userID);
-  console.log(postID);
+  //console.log(session.userID);
+  //console.log(postID);
   // Kiểm tra xem bài viết có thuộc về người dùng này không
   const checkPostOwnerSql = `SELECT * FROM post WHERE id = ? AND user_id = ?`;
   db.get(checkPostOwnerSql, [postID, session.userID], (err, row) => {

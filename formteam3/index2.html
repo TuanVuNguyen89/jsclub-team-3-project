@@ -2,11 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <title>FORM ĐIỀN</title>
 </head>
 <body>
+    <div class="navbar">
+        <li class="list-item"><i class="fa-solid fa-house"></i>
+          <span class="list-item-name">Home</span>
+        </li>
+        <li class="list-item">
+            <i class="fa-solid fa-images"></i>
+          <span class="list-item-name">Post</span>
+        </li>
+        <li class="list-item">
+          <i class="fa-solid fa-user"></i>
+          <span class="list-item-name">Profile</span>
+        </li>
+        
+      </div>
     <div class="container-xl container-sm ">
         <div class="card">
             <div class="card-image">	
@@ -14,10 +29,10 @@
             <form class="card-form" id="post-form">
                 <label for="typeSelector">Chọn TOPIC:</label>
                 <select id="typeSelector">
-                    <option value="type1">Exchange class</option>
-                    <option value="type2">Trade items</option>
-                    <option value="type3">Story / Blog</option>
-                    <option value="type4">Find lover</option>
+                    <option value="Exchange class">Exchange class</option>
+                    <option value="Trade items">Trade items</option>
+                    <option value="Story / Blog">Story / Blog</option>
+                    <option value="Find lover">Find lover</option>
                 </select>
                 <!-- <button type="button" onclick="submitForm()">Submit</button> -->
                 <div class="input">
@@ -33,7 +48,7 @@
                     <label class="input-label">Upload</label>
                 </div>
                 <div class="action">
-                    <button type="submit" class="action-button"  id="clickbtn">Đăng bài</button>
+                    <button type="submit" class="action-button"  id="clickbtn" onclick="submitForm()">Đăng bài</button>
                 </div>
             </form>
             <div class="card-info mb-0 p-3">Copyright © 2024 Team 3 CTV JS . All Rights Reserved.</div>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap">
+  <link rel="stylesheet" href="../assets/css/style2.css">
+  <link rel="stylesheet" href="../assets/fonts/themify-icons2.css">
+  <title>Trang cá nhân</title>
+</head>
+
+<body>
+  <div class="main">
+    <div id="content">
+      <div class="personalRow row rounded-2">
+        <div class="container row">
+          <div class="profile rounded-2 col-md-4">
+            <div class="menubar mt-3">
+              <a href="./"><i class="ti-home"></i></a>
+              <a href="./profile"><i class="ti-user"></i></a>
+            </div>
+            <div class="avtProfile mt-3">
+              <div class="avtContainer">
+                <div class="avatar">
+                  <img class="linkAvatar" src="../assets/img/avatar-trang.jpg" alt="Avatar">
+                </div>
+              </div>
+              <div class="profileAll">
+                <p class="userName"></p>
+                <div class="information">
+                  <label for="" class="phoneCt">
+                    <i class="ti-link"></i>
+                    <a class="face" href="" target="_blank"></a>
+                  </label>
+                  <label for="" class="phoneCt">
+                    <i class="ti-email" style="display: inline-block;"></i> <p class="mmail" style="display: inline-block; margin-bottom: 3px;"></p>
+                  </label>
+                  <label for="" class="phoneCt">
+                    <i class="ti-mobile" style="display: inline-block;"></i> <p class="phone" style="display: inline-block; margin-bottom: 5px;"></p>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container row rounded-2">
+          <div class="seePost col-md-8 rounded-2">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modalDelete jsmodalDelete">
+    <div class="modalContainer rounded-2">
+      <div class="closeBtn jsmodalClose"><i class="ti-close"></i>
+      </div>
+      <header class="modalHeader rounded-2">
+        <i class="modalHeadingicon ti-trash">
+          <p class="askDelete">Are you really want to delete account ?</p>
+        </i>
+      </header>
+      <div class="modalBody row">
+        <div class="cancelBtn col-6">
+          <button class="jsmodalClose cancle deleteBtn editProfile btn-primary btn ">Cancel</button>
+        </div>
+        <div class="firmDeleteBtn col-6">
+          <button class="deleteBtn confirmDelete"><a href="" class="profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const Delete = document.querySelector('.jsDelete')
+    const modalDelete = document.querySelector('.jsmodalDelete')
+    const modalCloses = document.querySelectorAll('.jsmodalClose')
+    function showDeleteform(){
+      modalDelete.classList.add('open')
+    }
+    function hideDeleteform(){
+      modalDelete.classList.remove('open')
+    }
+    Delete.addEventListener('click', showDeleteform)
+    for(const modalClose of modalCloses){
+      modalClose.addEventListener('click', hideDeleteform)
+    }
+
+    const logout = document.querySelector('.logout');
+    if (logout) {
+        logout.addEventListener('click', () => {
+            fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    alert('Hẹn gặp lại bạn!');
+                    //console.log("123");
+                    window.location.href = `/`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while logging out the profile.');
+                });
+        });
+    }
+
+    const confirmDelete = document.querySelector('.confirmDelete');
+      if (confirmDelete.addEventListener('click', () => {
+        fetch('/delete/account', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+          })
+          .then(data => {
+            console.log('Success:', data);
+            alert('Tài khoản đã bị xóa!');
+            window.location.href = `/`;
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the profile.');
+          });
+      }));
+  </script>
+</body>
+
+</html>
