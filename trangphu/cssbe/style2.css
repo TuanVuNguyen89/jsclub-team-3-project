@@ -5,12 +5,13 @@
 body {
 	font-family: "DM Sans", sans-serif;
 	line-height: 1.5;
-	background-image: linear-gradient(to bottom,#F78301,#ecbe5e);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    margin: 0;
+	/* background-image: linear-gradient(to bottom,#F78301,#ecbe5e); */
+	/* background-image: url("image/bg.png"); */
+    width: 100%;
 	padding: 0 2;
+	top:0;
+	left:0;
+	position: absolute;
 }
 
 img {
