@@ -434,6 +434,7 @@ body {
   border-radius: 15px;
   background-color: rgb(215, 208, 208);
   box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  animation: signin-container ease 1.5s;
 }
 
 .post__image {
@@ -528,6 +529,17 @@ svg.red {
 .post__option:hover {
   background-color: #eff2f5;
   border-radius: 10px;
+}
+@keyframes signin-container {
+  from {
+      opacity: 0;
+      transform: translateY(140px);
+  }
+  to {
+      opacity: 100;
+      transform: translateY(0px);
+  }
+  
 }
 
 @media (max-width: 768px) {
