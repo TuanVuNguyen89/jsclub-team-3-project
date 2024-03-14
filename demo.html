@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit/Delete Button</title>
+<style>
+/* CSS Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic Styles for the Button */
+.edit-delete-btn {
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #f0f2f5;
+  color: #333;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Styles for the Dropdown Content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 1;
+}
+
+/* Styles for the Dropdown Links */
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+</style>
+</head>
+<body>
+
+<!-- Edit/Delete Button -->
+<div class="edit-delete-btn" id="editDeleteBtn">
+  Options
+  <div class="dropdown-content" id="dropdownContent">
+    <a href="#" onclick="editPost()">Edit Post</a>
+    <a href="#" onclick="deletePost()">Delete Post</a>
+  </div>
+</div>
+
+<script>
+// JavaScript to toggle dropdown content
+document.getElementById("editDeleteBtn").addEventListener("click", function() {
+  var dropdownContent = document.getElementById("dropdownContent");
+  if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+  } else {
+    dropdownContent.style.display = "block";
+  }
+});
+
+// Function to handle edit post action
+function editPost() {
+  alert("Edit post action");
+}
+
+// Function to handle delete post action
+function deletePost() {
+  alert("Delete post action");
+}
+</script>
+
+</body>
+</html>

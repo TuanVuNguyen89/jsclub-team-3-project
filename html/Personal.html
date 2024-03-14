@@ -25,10 +25,12 @@
       <div class="personalRow row rounded-2">
         <div class="container row">
           <div class="profile rounded-2 col-md-4">
-            <div class="menubar mt-3">
-              <a href="#"><i class="ti-home"></i></a>
-              <a href="#"><i class="ti-user"></i></a>
+            <div class="menubar mt-1 rounded-2">
+              <a href="#" title="Home"><ion-icon name="home"></ion-icon></a>
+              <a href="#" title="Post Page"><ion-icon name="newspaper"></ion-icon></a>
+              <a href="#" title="Form Page"><ion-icon name="receipt"></ion-icon></a>
             </div>
+            
             <div class="avtProfile mt-3">
               <div class="avtContainer">
                 <div class="avatar">
@@ -77,6 +79,13 @@
                       <ion-icon name="cash"></ion-icon>
                       Trade items
                   </div>
+                  <div class="edit-delete-btn" id="editDeleteBtn">
+                    <button title="Edit post" class="editPostBtn btn-primary btn "><ion-icon name="ellipsis-horizontal"></ion-icon></button>
+                    <div class="dropdown-content rounded-2" id="dropdownContent">
+                      <a class="editPostbtn1 rounded-2" href="#" onclick="editPost()">Edit Post</a>
+                      <a class="deletePostBtn rounded-2" href="#" onclick="deletePost()">Delete Post</a>
+                    </div>
+                  </div>
               </div>
               <div class="post__bottom">
                   <div class="title">
@@ -107,17 +116,25 @@
           <!-- post2 -->
           <div class="post">
             <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
-                    <img class="avatar1 post__avatar" src="../assets/img/gold-shiny-background-with-variating-hues.jpg" alt="" />
+                    <img class="avatar1 post__avatar" src="./assets/img/99.jpg" alt="" />
                     <div class="post__topInfo">
                         <h3>mèn</h3>
                         <p>29 September at 20:30</p>
                     </div>
                 </a>
 
-                <div class="nameTopic rounded-3">
-                    <ion-icon name="cash"></ion-icon>
-                    Trade items
+                <div class="nameTopicbook rounded-3">
+                        <ion-icon name="book"></ion-icon>
+                        Exchange class
                 </div>
+                <div class="edit-delete-btn" id="editDeleteBtn">
+                  <button title="Edit post" class="editPostBtn btn-primary btn "><ion-icon name="ellipsis-horizontal"></ion-icon></button>
+                  <div class="dropdown-content rounded-2" id="dropdownContent">
+                    <a class="editPostbtn1 rounded-2" href="#" onclick="editPost()">Edit Post</a>
+                    <a class="deletePostBtn rounded-2" href="#" onclick="deletePost()">Delete Post</a>
+                  </div>
+                </div>
+  
             </div>
             <div class="post__bottom">
                 <div class="title">
@@ -130,7 +147,7 @@
                 </p>
             </div>
             <div class="post__image">
-                <img class="rounded-2" src="../assets/img/backroundend.png" alt="" />
+                <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
             </div>
             <div class="post__options">
                 <div class="heart">
@@ -157,7 +174,7 @@
       </div>
       <header class="modalHeader rounded-2">
         <i class="modalHeadingicon ti-trash">
-          <p class="askDelete">Are you really want to delete account ?</p>
+          <p class="askDelete">Do you really want to delete account ?</p>
         </i>
       </header>
       <div class="modalBody row">
@@ -184,7 +201,25 @@
     for(const modalClose of modalCloses){
       modalClose.addEventListener('click', hideDeleteform)
     }
+// bấm nút editpost
+var editDeleteBtns = document.querySelectorAll(".edit-delete-btn");
+editDeleteBtns.forEach(function(btn) {
+  btn.addEventListener("click", function(event) {
+    var dropdownContent = this.querySelector(".dropdown-content");
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+  });
+});
 
+
+// // Function to handle edit post action
+// function editPost() {
+//   alert("Edit post action");
+// }
+
+// // Function to handle delete post action
+// function deletePost() {
+//   alert("Delete post action");
+// }
 
   </script>
 </body>
