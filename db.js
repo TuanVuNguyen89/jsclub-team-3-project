@@ -155,9 +155,36 @@ db.run(sql, function(err) {
   db.close();
 });*/
 
+/*const sql = `ALTER TABLE post ADD COLUMN like_count INTEGER DEFAULT(0)`;
+db.run(sql, function(err) {
+  if (err) {
+    console.error('Error adding column:', err.message);
+  }
+  else {
+    console.log('Column added successfully');
+  }
+
+  db.close();
+});*/
+
 /*db.serialize(() => {
   db.run(`CREATE TABLE onlyPostAvatar (
     avatar BLOB
+  )`, (err) => {
+    if (err) {
+      console.error('Error creating table:', err.message);
+    } else {
+      console.log('Created your_table successfully.');
+    }
+  });
+});*/
+
+/*db.serialize(() => {
+  db.run(`CREATE TABLE user_like (
+    id       INTEGER   PRIMARY KEY AUTOINCREMENT,
+    user_id  INTEGER,
+    post_id  INTEGER,
+    liked_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP) 
   )`, (err) => {
     if (err) {
       console.error('Error creating table:', err.message);
@@ -194,6 +221,54 @@ db.run(sql, function(err) {
               
               // Đổi tên bảng mới thành tên của bảng cũ
               db.run(`ALTER TABLE onlyPostAvatar_new RENAME TO onlyPostAvatar`, (err) => {
+                if (err) {
+                  console.error('Error renaming table:', err.message);
+                } else {
+                  console.log('Table renamed successfully.');
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+});*/
+
+/*db.serialize(() => {
+  // 1. Tạo bảng mới với cấu trúc mới
+  db.run(`CREATE TABLE post_new (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    title TEXT,
+    content TEXT,
+    topic INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    like_count INTEGER DEFAULT 0,
+    avatar BLOB,
+    FOREIGN KEY(user_id) REFERENCES user(id)
+  )`, (err) => {
+    if (err) {
+      console.error('Error creating new table:', err.message);
+    } else {
+      console.log('Created new table successfully.');
+      
+      // 2. Sao chép dữ liệu từ bảng cũ sang bảng mới
+      db.run(`INSERT INTO post_new (id, user_id, title, content, topic, created_at, avatar) SELECT id, user_id, title, content, topic, created_at, avatar FROM post`, (err) => {
+        if (err) {
+          console.error('Error copying data:', err.message);
+        } else {
+          console.log('Data copied successfully.');
+          
+          // 3. Xóa bảng cũ
+          db.run(`DROP TABLE post`, (err) => {
+            if (err) {
+              console.error('Error dropping old table:', err.message);
+            } else {
+              console.log('Old table dropped successfully.');
+              
+              // Đổi tên bảng mới thành tên của bảng cũ
+              db.run(`ALTER TABLE post_new RENAME TO post`, (err) => {
                 if (err) {
                   console.error('Error renaming table:', err.message);
                 } else {
