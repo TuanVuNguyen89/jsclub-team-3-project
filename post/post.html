@@ -27,13 +27,13 @@
                 </div>
             </div>
             <div title="Form Page" class="header__option active">
-                <ion-icon name="receipt"></ion-icon>
+                <a href="/form"><ion-icon name="receipt"></ion-icon></a> 
             </div>
             <div title="Home" class="header__option active">
-                <ion-icon name="home"></ion-icon>
+                <a href="../"><ion-icon name="home"></ion-icon></a>
             </div>
             <div title="Profile" class="header__option active">
-                <ion-icon name="person"></ion-icon>
+                <a href="/profile"><ion-icon name="person"></ion-icon></a>
             </div>
         </div>
 
@@ -59,23 +59,23 @@
                 
                 <div class="uldinh">
                     <ul>
-                        <li><a class="Main" href="#">
+                        <li><a class="Main" href="../post/main">
                                 <ion-icon name="accessibility-outline"></ion-icon>
                                 Main
                             </a></li>
-                        <li><a class="Exchangeclass" href="#">
+                        <li><a class="Exchangeclass" href="../post/topic?topic=Exchange class">
                                 <ion-icon name="book"></ion-icon>
                                 Exchange class
                             </a></li>
-                        <li><a class="Tradeitems" href="#">
+                        <li><a class="Tradeitems" href="../post/topic?topic=Trade items">
                                 <ion-icon name="cash"></ion-icon>
                                 Trade items
                             </a></li>
-                        <li><a class="StoryBlog" href="#">
+                        <li><a class="StoryBlog" href="../post/topic?topic=Story / Blog">
                                 <ion-icon name="newspaper"></ion-icon>
                                 Story / Blog
                             </a></li>
-                        <li><a class="Findlover" href="#">
+                        <li><a class="Findlover" href="../post/topic?topic=Find lover">
                                 <ion-icon name="heart-circle"></ion-icon>
                                 Find lover
                             </a></li>
@@ -148,41 +148,6 @@
                                     <img class="user__avatar1 post__avatar" src="../uploads\9271893cc37444d6a6469e8be4e1493b" alt="">
                                     <div class="post__topInfo">
                                         <h3>Nguyễn Tuấn Vũ</h3>
-                                        <p>2024-03-14 04:09:51</p>
-                                    </div>
-                                </a>
-                                <div class="nameTopicBlog rounded-3">
-                                    <ion-icon name="newspaper"></ion-icon>
-                                    Story / Blog
-                                </div>
-                            </div>
-                            <div class="post__bottom">
-                                <div class="title">
-                                    <h4>tiêu đề 1</h4>
-                                </div>
-                                <p>line 1<br>line 2<br>line 3</p>
-                            </div>
-                            <div class="post__image">
-                                <img class="rounded-2" src="../uploads\376a08e97c606cf3714110d2c4453da2" alt="">
-                            </div>
-                            <div class="post__options">
-                                <div class="heart">
-                                  <button class="heartBtn" data-post-id="56"> <!-- Thêm thuộc tính data-post-id vào đây -->
-                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                                  </svg>
-                              </button>
-                              <p class="numberHeart" id="likeCount_56">2</p> 
-                              </div>
-                                </div>
-                            </div>
-                        
-                    
-                        <div class="post">
-                            <div class="post__top"><a href="/user/profile?id=1">
-                                    <img class="user__avatar1 post__avatar" src="../uploads\9271893cc37444d6a6469e8be4e1493b" alt="">
-                                    <div class="post__topInfo">
-                                        <h3>Nguyễn Tuấn Vũ</h3>
                                         <p>2024-03-14 15:31:08</p>
                                     </div>
                                 </a>
@@ -243,6 +208,41 @@
                                   </svg>
                               </button>
                               <p class="numberHeart" id="likeCount_57">1</p> 
+                              </div>
+                                </div>
+                            </div>
+                        
+                    
+                        <div class="post">
+                            <div class="post__top"><a href="/user/profile?id=1">
+                                    <img class="user__avatar1 post__avatar" src="../uploads\9271893cc37444d6a6469e8be4e1493b" alt="">
+                                    <div class="post__topInfo">
+                                        <h3>Nguyễn Tuấn Vũ</h3>
+                                        <p>2024-03-14 04:09:51</p>
+                                    </div>
+                                </a>
+                                <div class="nameTopicBlog rounded-3">
+                                    <ion-icon name="newspaper"></ion-icon>
+                                    Story / Blog
+                                </div>
+                            </div>
+                            <div class="post__bottom">
+                                <div class="title">
+                                    <h4>tiêu đề 1</h4>
+                                </div>
+                                <p>line 1<br>line 2<br>line 3</p>
+                            </div>
+                            <div class="post__image">
+                                <img class="rounded-2" src="../uploads\376a08e97c606cf3714110d2c4453da2" alt="">
+                            </div>
+                            <div class="post__options">
+                                <div class="heart">
+                                  <button class="heartBtn" data-post-id="56"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                                  </svg>
+                              </button>
+                              <p class="numberHeart" id="likeCount_56">2</p> 
                               </div>
                                 </div>
                             </div>

@@ -691,7 +691,9 @@ router.get('/post/topic', (req, res) => {
     }
 
     $('._name').text(row.name);
-    $('.user__avatar').attr('src', `../${row.avatar}`);
+    var avatar = row.avatar;
+    if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
+    $('.user__avatar').attr('src', `../${avatar}`);
   });
 
   $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
