@@ -129,6 +129,8 @@ router.post('/login', (req, res) => {
                     var avatar = row2.avatar;
                     if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
                     //console.log(row2.facebook);
+                    let content = row.content;
+                  let formattedContent = content.replace(/\n/g, '<br/>');
                     const dataDiv = `
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=${row.user_id}">
@@ -147,7 +149,7 @@ router.post('/login', (req, res) => {
                                 <div class="title">
                                     <h4>${row.title}</h4>
                                 </div>
-                                <p>${row.content}</p>
+                                <p>${formattedContent}</p>
                             </div>
                             <div class="post__image">
                                 <img class="rounded-2" src="../${row.avatar}" alt="" />
@@ -401,7 +403,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
       return;
     }
 
-    console.log(userID);
+    //console.log(userID);
     const htmlTem = fs.readFileSync('./personal/html/_Personal.html', 'utf8');
     //console.log(session.userID);
     const $ = cheerio.load(htmlTem);
@@ -655,7 +657,7 @@ router.post("/like", async (req, res) => {
           }
       
           if (row) {
-              console.log(row);
+              //console.log(row);
               res.json({ success: true, like_count: row.like_count });
           } else {
               console.error("Error fetching like count: Post not found");
@@ -722,6 +724,8 @@ router.get('/post/topic', (req, res) => {
                   
                   var avatar = row2.avatar;
                   if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
+                  let content = row.content;
+                  let formattedContent = content.replace(/\n/g, '<br/>');
                   //console.log(row2.facebook);
                   const dataDiv = `
                       <div class="post">
@@ -741,7 +745,7 @@ router.get('/post/topic', (req, res) => {
                               <div class="title">
                                   <h4>${row.title}</h4>
                               </div>
-                              <p>${row.content}</p>
+                              <p>${formattedContent}</p>
                           </div>
                           <div class="post__image">
                               <img class="rounded-2" src="../${row.avatar}" alt="" />
