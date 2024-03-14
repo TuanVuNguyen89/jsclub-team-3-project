@@ -14,23 +14,31 @@
   display: contents;
   color: #000
 }
+.header__left{
+  background-color: #bcd5ee;
 
+  padding: 0 10px;
+}
+.header__left:hover{
+  background-color: #8cc6ff;
+}
 
 .Logofpt{
   font-size: 19px;
     font-weight: 600;
     font-family: system-ui;
-    margin: 0 15px;
     margin-bottom: 0;
+    margin-left: 5px;
 }
 li {
   display: block;
 }
 
 nav {
-  position: fixed;
-  width: 250px;
-  height: 100%;
+  position: sticky;
+  top: 59px;
+  width: 20vw;
+  height: 100vh;
   background: #f1f2f5;
   display: flex;
   align-items: center;
@@ -100,21 +108,6 @@ h5 {
 .listBtn{
   display: block;
 }
-nav .sidebarRow {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  position: absolute;
-  top: 20px;
-  right: -90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f1f2f5;
-  border-radius: 0 10px 10px 0;
-  cursor: pointer;
-  transition: linear 0.2s;
-
-}
-
 .avatar1 {
   width: 50px;
   height: 50px;
@@ -136,7 +129,8 @@ nav .sidebarRow:hover {
   
   } */
 .user__avatar {
-  margin-right: 10px;
+  overflow: hidden;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   width: 35px;
 }
@@ -156,8 +150,6 @@ img.user__avatar.post__avatar,
   color: #eff2f5;
   margin-top: -80px;
   text-align: center;
-
-    width: 170px;
     padding: 11px;
     margin-right: 50px;
     right: 0;
@@ -169,8 +161,6 @@ img.user__avatar.post__avatar,
   color: #eff2f5;
   margin-top: -80px;
   text-align: center;
-
-    width: 170px;
     padding: 11px;
     margin-right: 50px;
     right: 0;
@@ -183,9 +173,11 @@ img.user__avatar.post__avatar,
   margin-top: -80px;
   text-align: center;
   margin-left: 111px;
-    width: 170px;
+  
     padding: 11px;
+    margin-right: 50px;
     right: 0;
+    position: absolute;
 }
 .nameTopic{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
@@ -193,7 +185,6 @@ img.user__avatar.post__avatar,
   margin-top: -80px;
   text-align: center;
   background-color: green;
-    width: 170px;
     padding: 11px;
     margin-right: 50px;
     right: 0;
@@ -232,7 +223,7 @@ img.user__avatar.post__avatar,
 }
 
 .header {
-  padding: 15px 20px;
+  padding: 5px 20px;
   display: flex;
   justify-content: space-between;
   position: sticky;
@@ -272,10 +263,10 @@ img.user__avatar.post__avatar,
   justify-content: center;
 }
 
-.header__option .material-icons {
+.header__option ion-icon {
 
-  font-size: xx-large;
-  color: rgb(108, 132, 198);
+  font-size: 25px;
+  color: rgb(0, 0, 0);
 }
 
 .header__option:hover .material-icons {
@@ -297,12 +288,28 @@ img.user__avatar.post__avatar,
   margin-right: 20px;
   border-bottom: 4px solid #2e81f4;
 }
+.header__option1.active {
+  margin-right: 20px;
+  border-bottom: 4px solid #2e81f4;
+}
+.header__option1 ion-icon {
 
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
 .header__option:hover {
   background-color: #eff2f5;
   border-radius: 10px;
   align-items: center;
   padding: 0 30px;
+  border-bottom: none;
+}
+.header__option1:hover {
+  padding-bottom: 4px;
+  background-color: #eff2f5;
+  border-radius: 10px;
+  align-items: center;
+  padding: auto;
   border-bottom: none;
 }
 
@@ -328,19 +335,24 @@ img.user__avatar.post__avatar,
 .header__right .material-icons:hover {
   cursor: pointer;
 }
+.header__right:hover{
+  background-color: #c6c8ca;
+}
+.header__right{
+  background-color: #dbe7f4;
 
+  padding: 0 10px;
+}
 /* sidebar  */
 
 .sidebarRow {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 10px 30px;
   cursor: pointer;
 }
 
-.sidebarRow:hover {
-  background-color: lightgray;
-}
+
 
 .sidebarRow h4 {
   margin-left: 20px;

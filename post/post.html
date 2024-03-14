@@ -13,31 +13,35 @@
 <body>
     <!-- header starts -->
     <div class="header">
-        <div class="header__left"><a href="../">
+        <div class="header__left rounded-3"><a href="">
                 <img src="./assets/img/LogoJS.png" style=" overflow: hidden;
             border-radius: 50%;" alt="">
                 <p class="Logofpt">FPT Secret</p>
             </a>
-
         </div>
 
         <div class="header__middle">
-            <div class="header__option active">
+            <div class="header__option1 active">
+                <div title="Topic" class="sidebarRow">
+                    <ion-icon name="list"></ion-icon>
+                </div>
+            </div>
+            <div title="Form Page" class="header__option active">
                 <ion-icon name="receipt"></ion-icon>
             </div>
-            <div class="header__option active">
+            <div title="Home" class="header__option active">
                 <ion-icon name="home"></ion-icon>
             </div>
-            <div class="header__option active">
+            <div title="Profile" class="header__option active">
                 <ion-icon name="person"></ion-icon>
             </div>
         </div>
 
-        <div class="header__right">
+        <div class="header__right rounded-3">
             <div class="header__info">
-                <a href="/profile">
-                    <img class="user__avatar" src="../null" alt="">
-                    <h5 class="_name">Nguyễn Văn A</h5>
+                <a href="https://www.facebook.com/1257913698299f">
+                    <img class="user__avatar" src="../uploads\9271893cc37444d6a6469e8be4e1493b" alt="">
+                    <h5>mèn</h5>
                 </a>
             </div>
             <!-- <span class="material-icons"> add </span>
@@ -52,39 +56,128 @@
     <div class="main__body">
         <nav class="hide">
             <div class="sidebar">
-                <div class="sidebarRow">
-                    <i class="ti-view-list-alt"></i>
-                    <h5>Topic</h5>
-                </div>
+                
                 <div class="uldinh">
-                <ul>
-                    <li><a class="Main" href="../post/main">
+                    <ul>
+                        <li><a class="Main" href="#">
+                                <ion-icon name="accessibility-outline"></ion-icon>
+                                Main
+                            </a></li>
+                        <li><a class="Exchangeclass" href="#">
+                                <ion-icon name="book"></ion-icon>
+                                Exchange class
+                            </a></li>
+                        <li><a class="Tradeitems" href="#">
+                                <ion-icon name="cash"></ion-icon>
+                                Trade items
+                            </a></li>
+                        <li><a class="StoryBlog" href="#">
+                                <ion-icon name="newspaper"></ion-icon>
+                                Story / Blog
+                            </a></li>
+                        <li><a class="Findlover" href="#">
+                                <ion-icon name="heart-circle"></ion-icon>
+                                Find lover
+                            </a></li>
+                    </ul>
+                </div>
+                <!-- <ul>
+                    <li><a class="Main" href="#">
                             <ion-icon name="accessibility-outline"></ion-icon>
                             Main
                         </a></li>
-                    <li><a class="Exchangeclass" href="../post/topic?topic=Exchange class">
+                    <li><a class="Exchangeclass" href="#">
                             <ion-icon name="book"></ion-icon>
                             Exchange class
                         </a></li>
-                    <li><a class="Tradeitems" href="../post/topic?topic=Trade items">
+                    <li><a class="Tradeitems" href="#">
                             <ion-icon name="cash"></ion-icon>
                             Trade items
                         </a></li>
-                    <li><a class="StoryBlog" href="../post/topic?topic=Story / Blog">
+                    <li><a class="StoryBlog" href="#">
                             <ion-icon name="newspaper"></ion-icon>
                             Story / Blog
                         </a></li>
-                    <li><a class="Findlover" href="../post/topic?topic=Find lover">
+                    <li><a class="Findlover" href="#">
                             <ion-icon name="heart-circle"></ion-icon>
                             Find lover
                         </a></li>
-                </ul>
-                </div>
+                </ul> -->
             </div>
 
         </nav>
         <!-- feed starts -->
         <div class="feed">
+                        <div class="post">
+                            <div class="post__top"><a href="/user/profile?id=1">
+                                    <img class="user__avatar1 post__avatar" src="../uploads\9271893cc37444d6a6469e8be4e1493b" alt="">
+                                    <div class="post__topInfo">
+                                        <h3>Nguyễn Tuấn Vũ</h3>
+                                        <p>2024-03-14 15:33:09</p>
+                                    </div>
+                                </a>
+                                <div class="nameTopiclove rounded-3">
+                                    <ion-icon name="heart-circle"></ion-icon>
+                                    Find lover
+                                </div>
+                            </div>
+                            <div class="post__bottom">
+                                <div class="title">
+                                    <h4>ádfas</h4>
+                                </div>
+                                <p>ẻwe<br>ẻ<br>ưe<br>rew<br></p>
+                            </div>
+                            <div class="post__image">
+                                <img class="rounded-2" src="../uploads\201a53f0ed67931d17e862d69b58f665" alt="">
+                            </div>
+                            <div class="post__options">
+                                <div class="heart">
+                                  <button class="heartBtn" data-post-id="59"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                                  </svg>
+                              </button>
+                              <p class="numberHeart" id="likeCount_59">1</p> 
+                              </div>
+                                </div>
+                            </div>
+                        
+                    
+                        <div class="post">
+                            <div class="post__top"><a href="/user/profile?id=1">
+                                    <img class="user__avatar1 post__avatar" src="../uploads\9271893cc37444d6a6469e8be4e1493b" alt="">
+                                    <div class="post__topInfo">
+                                        <h3>Nguyễn Tuấn Vũ</h3>
+                                        <p>2024-03-14 15:31:08</p>
+                                    </div>
+                                </a>
+                                <div class="nameTopicBlog rounded-3">
+                                    <ion-icon name="newspaper"></ion-icon>
+                                    Story / Blog
+                                </div>
+                            </div>
+                            <div class="post__bottom">
+                                <div class="title">
+                                    <h4>aerew</h4>
+                                </div>
+                                <p>23<br>23<br>23<br>2<br>332<br>2<br></p>
+                            </div>
+                            <div class="post__image">
+                                <img class="rounded-2" src="../uploads\142e2b4860759051f73600a3108502df" alt="">
+                            </div>
+                            <div class="post__options">
+                                <div class="heart">
+                                  <button class="heartBtn" data-post-id="58"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                                  </svg>
+                              </button>
+                              <p class="numberHeart" id="likeCount_58">0</p> 
+                              </div>
+                                </div>
+                            </div>
+                        
+                    
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=36">
                                     <img class="user__avatar1 post__avatar" src="../uploads\1c0befee5ac8571068b0ad1ef153abd9" alt="">
@@ -163,11 +256,9 @@
 
     <div style="flex: 0.5" class="widgets">
         <div class="js-page">
-        
             
         </div>
     </div>
-
     
     <!-- main body ends -->
 
@@ -188,55 +279,9 @@
 <script>
     const heartBtns = document.querySelectorAll(".heartBtn");
 
-    heartBtns.forEach((btn) => {
-        btn.addEventListener("click", async function () {
-            const postId = this.getAttribute("data-post-id");
-
-            if (!postId) {
-                console.error("Post ID is not set.");
-                return;
-            }
-
-            // Vô hiệu hóa nút để ngăn like dồn dập
-            this.disabled = true;
-
-            try {
-                // Gửi yêu cầu POST đến '/like'
-                const response = await fetch("/like", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ postId }),
-                });
-
-                if (!response.ok) {
-                    console.error("Error:", await response.text());
-                    return;
-                }
-
-                // Nhận và xử lý phản hồi từ máy chủ
-                const data = await response.json();
-                console.log(data);
-                console.log(data.likecount);
-                if (data.success && data.like_count !== undefined) {
-                    const likeCounter = document.getElementById(`likeCount${postId}`);
-                    if (likeCounter) {
-                        likeCounter.textContent = data.like_count;
-                    }
-
-                    // Thêm/xóa lớp 'red' để thay đổi màu của biểu tượng trái tim
-                    this.querySelector(".heartIcon").classList.toggle("red");
-
-                    // Kích hoạt lại nút like
-                    this.disabled = false;
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                // Xử lý lỗi nếu có
-            }
+    heartBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            this.querySelector(".heartIcon").classList.toggle("red");
         });
     });
-</script>
-</body>
-</html>
+</script></body></html>

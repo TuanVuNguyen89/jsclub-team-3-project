@@ -51,6 +51,17 @@ app.get('/form_data', (req, res) => {
   });
 });
 
+app.get('/like_data', (req, res) => {
+  db.all('SELECT * FROM user_like', (err, rows) => {
+    if (err) {
+      console.error('Error executing query:', err.message);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 
 // Route cho các file CSS và JS (nếu cần)
 app.get('*.css', (req, res) => {
