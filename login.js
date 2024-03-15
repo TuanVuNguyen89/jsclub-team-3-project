@@ -7,6 +7,7 @@ const session = require('express-session');
 const multer = require('multer');
 const router = express.Router();
 const db = require('./db');
+const { v4: uuidv4 } = require('uuid');
 
 // Sử dụng middleware express-session
 router.use(session({
@@ -280,7 +281,8 @@ router.post('/upload', upload.single('avatar'), (req, res) => {
 router.post('/uploadForm', upload.single('avatar'), (req, res) => {
   // Lưu đường dẫn của file ảnh vào cơ sở dữ liệu
   const avatarPath = req.file.path;
-  db.run(`INSERT INTO onlyPostAvatar (avatar) VALUES (?)`, [avatarPath], function(err, row) {
+  const onlyPostAvatarID = uuidv4();
+  db.run(`INSERT INTO onlyPostAvatar (id, avatar) VALUES (?, ?)`, [onlyPostAvatarID, avatarPath], function(err, row) {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -456,6 +458,8 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                     var avatar = row2.avatar;
                     if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
                     //console.log(row2.facebook);
+                    let content = row.content;
+                    let formattedContent = content.replace(/\n/g, '<br/>');
                     const dataDiv = `
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=${row.user_id}">
@@ -474,7 +478,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                                 <div class="title">
                                     <h4>${row.title}</h4>
                                 </div>
-                                <p>${row.content}</p>
+                                <p>${formattedContent}</p>
                             </div>
                             <div class="post__image">
                                 <img class="rounded-2" src="../${row.avatar}" alt="" />
@@ -671,7 +675,8 @@ router.post("/like/:postId", async (req, res) => {
               });
           } else {
               // Nếu chưa like, thực hiện like
-              db.run("INSERT INTO user_like (user_id, post_id, liked_at) VALUES (?, ?, ?)", [userId, postId, timestamp], (err) => {
+              const user_likeID = uuidv4();
+              db.run("INSERT INTO user_like (id, user_id, post_id, liked_at) VALUES (?, ?, ?, ?)", [user_likeID, userId, postId, timestamp], (err) => {
                   if (err) {
                       console.error('Error inserting like:', err);
                       return res.status(500).json({ error: "An error occurred while liking the post." });
@@ -858,9 +863,10 @@ router.get('/post/topic', (req, res) => {
             res.status(404).send('Avatar data not found');
             return;
         }
-
-        const postSql = `INSERT INTO post (user_id, title, content, topic, avatar) VALUES (?, ?, ?, ?, ?)`;
-        db.run(postSql, [session.userID, title, content, topic, row.avatar], function(err) {
+        
+        const postID = uuidv4();
+        const postSql = `INSERT INTO post (id, user_id, title, content, topic, avatar) VALUES (?, ?, ?, ?, ?, ?)`;
+        db.run(postSql, [postID, session.userID, title, content, topic, row.avatar], function(err) {
             if (err) {
                 console.error('Error inserting post:', err.message);
                 res.status(500).send('Internal Server Error');

@@ -197,7 +197,7 @@ db.run(sql, function(err) {
 /*db.serialize(() => {
   // 1. Tạo bảng mới với cấu trúc mới
   db.run(`CREATE TABLE onlyPostAvatar_new (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY,
     avatar BLOB
   )`, (err) => {
     if (err) {
@@ -237,9 +237,52 @@ db.run(sql, function(err) {
 
 /*db.serialize(() => {
   // 1. Tạo bảng mới với cấu trúc mới
+  db.run(`CREATE TABLE user_like_new (
+    id       TEXT   PRIMARY KEY,
+    user_id  TEXT,
+    post_id  TEXT,
+    liked_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP) 
+  )`, (err) => {
+    if (err) {
+      console.error('Error creating new table:', err.message);
+    } else {
+      console.log('Created new table successfully.');
+      
+      // 2. Sao chép dữ liệu từ bảng cũ sang bảng mới
+      db.run(`INSERT INTO user_like_new (user_id, post_id, liked_at) SELECT user_id, post_id, liked_at FROM user_like`, (err) => {
+        if (err) {
+          console.error('Error copying data:', err.message);
+        } else {
+          console.log('Data copied successfully.');
+          
+          // 3. Xóa bảng cũ
+          db.run(`DROP TABLE user_like`, (err) => {
+            if (err) {
+              console.error('Error dropping old table:', err.message);
+            } else {
+              console.log('Old table dropped successfully.');
+              
+              // Đổi tên bảng mới thành tên của bảng cũ
+              db.run(`ALTER TABLE user_like_new RENAME TO user_like`, (err) => {
+                if (err) {
+                  console.error('Error renaming table:', err.message);
+                } else {
+                  console.log('Table renamed successfully.');
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+});*/
+
+/*db.serialize(() => {
+  // 1. Tạo bảng mới với cấu trúc mới
   db.run(`CREATE TABLE post_new (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
+    id TEXT PRIMARY KEY,
+    user_id TEXT,
     title TEXT,
     content TEXT,
     topic INTEGER,
@@ -254,7 +297,7 @@ db.run(sql, function(err) {
       console.log('Created new table successfully.');
       
       // 2. Sao chép dữ liệu từ bảng cũ sang bảng mới
-      db.run(`INSERT INTO post_new (id, user_id, title, content, topic, created_at, avatar) SELECT id, user_id, title, content, topic, created_at, avatar FROM post`, (err) => {
+      db.run(`INSERT INTO post_new (user_id, title, content, topic, created_at, avatar) SELECT user_id, title, content, topic, created_at, avatar FROM post`, (err) => {
         if (err) {
           console.error('Error copying data:', err.message);
         } else {
@@ -283,12 +326,92 @@ db.run(sql, function(err) {
   });
 });*/
 
+/*db.run(`DELETE FROM user`, function(err) {
+  if (err) {
+    console.error(err.message);
+    return;
+  }
+  console.log(`Dữ liệu đã được xóa khỏi bảng post`);
+});*/
+
 /*db.run(`DELETE FROM post`, function(err) {
   if (err) {
     console.error(err.message);
     return;
   }
   console.log(`Dữ liệu đã được xóa khỏi bảng post`);
+});
+
+db.run(`DELETE FROM user`, function(err) {
+  if (err) {
+    console.error(err.message);
+    return;
+  }
+  console.log(`Dữ liệu đã được xóa khỏi bảng post`);
+});
+
+db.run(`DELETE FROM onlyPostAvatar`, function(err) {
+  if (err) {
+    console.error(err.message);
+    return;
+  }
+  console.log(`Dữ liệu đã được xóa khỏi bảng post`);
+});
+
+db.run(`DELETE FROM user_like`, function(err) {
+  if (err) {
+    console.error(err.message);
+    return;
+  }
+  console.log(`Dữ liệu đã được xóa khỏi bảng post`);
+});*/
+
+/*db.serialize(() => {
+  // 1. Tạo bảng mới với cấu trúc mới
+  db.run(`CREATE TABLE user_new (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    userName TEXT UNIQUE,
+    password TEXT,
+    phone TEXT,
+    mail TEXT,
+    facebook TEXT,
+    avatar BLOB,
+    tempAvatar BLOB
+  )`, (err) => {
+    if (err) {
+      console.error('Error creating new table:', err.message);
+    } else {
+      console.log('Created new table successfully.');
+      
+      // 2. Sao chép dữ liệu từ bảng cũ sang bảng mới
+      db.run(`INSERT INTO user_new (id, name, userName, password, phone, mail, facebook, avatar) SELECT id, name, userName, password, phone, mail, facebook, avatar FROM user`, (err) => {
+        if (err) {
+          console.error('Error copying data:', err.message);
+        } else {
+          console.log('Data copied successfully.');
+          
+          // 3. Xóa bảng cũ
+          db.run(`DROP TABLE user`, (err) => {
+            if (err) {
+              console.error('Error dropping old table:', err.message);
+            } else {
+              console.log('Old table dropped successfully.');
+              
+              // Đổi tên bảng mới thành tên của bảng cũ
+              db.run(`ALTER TABLE user_new RENAME TO user`, (err) => {
+                if (err) {
+                  console.error('Error renaming table:', err.message);
+                } else {
+                  console.log('Table renamed successfully.');
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
 });*/
 
 module.exports = db;

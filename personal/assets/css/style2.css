@@ -161,7 +161,7 @@ label {
 
 .userName {
   font-family: "Montserrat", sans-serif;
-  margin-top: 24px;
+  margin-top: 26px;
   color: rgb(10, 98, 39);
   text-align: center;
   ;
@@ -393,6 +393,8 @@ header.modalHeader {
 img.user__avatar.post__avatar,
 .post__topInfo h3 {
   cursor: pointer;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 700;
 }
 .nameTopiclove{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
