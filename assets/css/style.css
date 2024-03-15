@@ -570,53 +570,66 @@ svg.red {
   
 }
 
-@media (max-width: 768px) {
-  .sidebar {
+@media only screen and (max-width: 739px) {
+  .feed{
+    flex: 1.5;
+   padding: 0px;
+  }
+  .Logofpt {
     display: none;
   }
-
-  .header__input input {
+  .sidebarRow {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+  }
+    .header__option {
+      display: flex;
+      align-items: center;
+      padding: 0 0px;
+    }
+      .header {
+        padding: 5px ;
+     }
+     .header__option.active {
+      margin-right: 16px
+    }
+      nav ul li a {
+        padding: 15px 5px;
+  }
+  nav ul li a ion-icon {
     display: none;
-  }
-
-  .header__middle {
-    display: none;
-  }
-
-  .header__info {
-    display: none;
-  }
-
-  .widgets {
-    display: none;
-  }
-
-  .feed {
-    margin-top: 20px;
-    width: 100%;
-    padding: 0;
-  }
-
-  .story h4 {
-    font-size: 10px;
-  }
-
-  .story img {
-    width: 40px;
-  }
 }
-
-@media (min-width: 320px) {
-  .storyReel {
-    width: 100%;
-    overflow-x: scroll;
-  }
+nav {
+  position: sticky;
+  top: 59px;
+  width: 34vw;
 }
-
-@media (min-width: 769px) and (max-width: 1440px) {
-
-  .feed {
-    width: 70%;
-
-  }
+.nameTopic{
+  margin-right: 0;
+  margin-left: 150px;
+}
+.nameTopicbook {
+  margin-right: 0;
+  margin-left: 150px;
+}
+.nameTopicBlog {
+  margin-right: 0;
+  margin-left: 150px;
+}
+.nameTopiclove {
+  margin-right: 0;
+  margin-left: 150px;
+}
+}
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+  nav {
+    position: sticky;
+    top: 59px;
+    width: 30vw;
+}
+.feed {
+  margin: 0 auto;
+   flex:1.5;
+}
 }
