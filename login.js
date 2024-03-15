@@ -134,7 +134,7 @@ router.post('/login', (req, res) => {
                     const dataDiv = `
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=${row.user_id}">
-                                    <img class="user__avatar1 post__avatar" src="../${avatar}" alt="" />
+                                    <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
                                         <p>${row.created_at}</p>
@@ -155,14 +155,14 @@ router.post('/login', (req, res) => {
                                 <img class="rounded-2" src="../${row.avatar}" alt="" />
                             </div>
                             <div class="post__options">
-                                <div class="heart">
-                                    <button class="heartBtn">
-                                        <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                        </svg>
-                                    </button>
-                                    <p class="numberHeart">100</p>
-                                </div>
+                            <div class="heart">
+                              <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                              <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                  <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                              </svg>
+                          </button>
+                          <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
+                          </div>
                             </div>
                         </div>
                     `;
@@ -310,7 +310,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
       if (row.count > 0) {
         console.log('Data exists in the column.');
         session.curUploadFormID = row.id;
-        console.log('curUploadFormID:', session.curUploadFormID);
+        //console.log('curUploadFormID:', session.curUploadFormID);
         //res.json({avatarPath});
       } else {
         console.log('No data found in the column.');
@@ -459,7 +459,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                     const dataDiv = `
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=${row.user_id}">
-                                    <img class="user__avatar1 post__avatar" src="../${avatar}" alt="" />
+                                    <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
                                         <p>${row.created_at}</p>
@@ -481,14 +481,14 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                             </div>
                             <div class="post__options">
                                 <div class="heart">
-                                    <button class="heartBtn">
-                                        <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                        </svg>
-                                    </button>
-                                    <p class="numberHeart">100</p>
+                                  <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                  </svg>
+                              </button>
+                              <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
+                              </div>
                                 </div>
-                            </div>
                         </div>
                     `;
                     $('.allPost').append(dataDiv);
@@ -532,7 +532,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
       $('._name').text(row.name);
       var avatar = row.avatar;
       if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
-      $('.user__avatar').attr('src', `../${avatar}`);
+      $('.avatar1').attr('src', `../${avatar}`);
     });
 
     $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
@@ -568,7 +568,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                     const dataDiv = `
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=${row.user_id}">
-                                    <img class="user__avatar1 post__avatar" src="../${avatar}" alt="" />
+                                    <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
                                         <p>${row.created_at}</p>
@@ -622,57 +622,92 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     });
 });
 
-router.post("/like", async (req, res) => {
+
+router.post("/like/:postId", async (req, res) => {
   const userId = session.userID;
-  const postId = req.body.postId;
+  const postId = req.params.postId;
   const timestamp = new Date().toISOString();
   //console.log(userId, postId, timestamp);
   if (!userId) {
-    return res.status(401).send("Unauthorized");
+      return res.status(401).send("Unauthorized");
   }
-  
-  try {
-    db.get("SELECT COUNT(*) AS count FROM user_like WHERE user_id = ? AND post_id = ?", [userId, postId], (err, row) => {
-      if (err) {
-          console.error('Error executing query:', err);
-          return;
-      }
-      //console.log('Number of likes:', row.count);
-      if (row.count > 0) {
-        return res.status(400).json({ error: "User already liked this post" });
-      } else {
-         db.run("INSERT INTO user_like (user_id, post_id, liked_at) VALUES (?, ?, ?)", [userId, postId, timestamp]);
 
-        // Cập nhật like count
-        const result =  db.run("UPDATE post SET like_count = like_count + 1 WHERE id = ?", [postId]);
-        if (result.changes === 0) {
-          console.error("Error updating like count: Post not found");
-          return res.status(404).json({ error: "Post not found." });
-        }
-    
-        db.get("SELECT like_count FROM post WHERE id = ?", [postId], (err, row) => {
+  try {
+      db.get("SELECT COUNT(*) AS count FROM user_like WHERE user_id = ? AND post_id = ?", [userId, postId], (err, row) => {
           if (err) {
               console.error('Error executing query:', err);
               return;
           }
-      
-          if (row) {
-              //console.log(row);
-              res.json({ success: true, like_count: row.like_count });
+          //console.log('Number of likes:', row.count);
+          if (row.count > 0) {
+              // Nếu đã like, thực hiện hủy like
+              db.run("DELETE FROM user_like WHERE user_id = ? AND post_id = ?", [userId, postId], (err) => {
+                  if (err) {
+                      console.error('Error deleting like:', err);
+                      return res.status(500).json({ error: "An error occurred while deleting the like." });
+                  }
+
+                  // Cập nhật like count
+                  const result = db.run("UPDATE post SET like_count = like_count - 1 WHERE id = ?", [postId]);
+                  if (result.changes === 0) {
+                      console.error("Error updating like count: Post not found");
+                      return res.status(404).json({ error: "Post not found." });
+                  }
+
+                  db.get("SELECT like_count FROM post WHERE id = ?", [postId], (err, row) => {
+                      if (err) {
+                          console.error('Error executing query:', err);
+                          return;
+                      }
+
+                      if (row) {
+                          //console.log(row);
+                          res.json({ success: true, like_count: row.like_count });
+                      } else {
+                          console.error("Error fetching like count: Post not found");
+                          res.status(404).json({ error: "Post not found" });
+                      }
+                  });
+              });
           } else {
-              console.error("Error fetching like count: Post not found");
-              res.status(404).json({ error: "Post not found" });
+              // Nếu chưa like, thực hiện like
+              db.run("INSERT INTO user_like (user_id, post_id, liked_at) VALUES (?, ?, ?)", [userId, postId, timestamp], (err) => {
+                  if (err) {
+                      console.error('Error inserting like:', err);
+                      return res.status(500).json({ error: "An error occurred while liking the post." });
+                  }
+
+                  // Cập nhật like count
+                  const result = db.run("UPDATE post SET like_count = like_count + 1 WHERE id = ?", [postId]);
+                  if (result.changes === 0) {
+                      console.error("Error updating like count: Post not found");
+                      return res.status(404).json({ error: "Post not found." });
+                  }
+
+                  db.get("SELECT like_count FROM post WHERE id = ?", [postId], (err, row) => {
+                      if (err) {
+                          console.error('Error executing query:', err);
+                          return;
+                      }
+
+                      if (row) {
+                          //console.log(row);
+                          res.json({ success: true, like_count: row.like_count });
+                      } else {
+                          console.error("Error fetching like count: Post not found");
+                          res.status(404).json({ error: "Post not found" });
+                      }
+                  });
+              });
           }
       });
-    
-      }
-  });
-  
+
   } catch (error) {
-    console.error("Error liking post:", error);
-    res.status(500).json({ error: "An error occurred while liking the post." });
+      console.error("Error liking post:", error);
+      res.status(500).json({ error: "An error occurred while liking the post." });
   }
 });
+
 
 
 router.get('/post/topic', (req, res) => {
@@ -695,7 +730,7 @@ router.get('/post/topic', (req, res) => {
     $('._name').text(row.name);
     var avatar = row.avatar;
     if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
-    $('.user__avatar').attr('src', `../${avatar}`);
+    $('.avatar1').attr('src', `../${avatar}`);
   });
 
   $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
@@ -730,7 +765,7 @@ router.get('/post/topic', (req, res) => {
                   const dataDiv = `
                       <div class="post">
                           <div class="post__top"><a href="/user/profile?id=${row.user_id}">
-                                  <img class="user__avatar1 post__avatar" src="../${avatar}" alt="" />
+                                  <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                   <div class="post__topInfo">
                                       <h3>${row2.name}</h3>
                                       <p>${row.created_at}</p>
@@ -751,15 +786,15 @@ router.get('/post/topic', (req, res) => {
                               <img class="rounded-2" src="../${row.avatar}" alt="" />
                           </div>
                           <div class="post__options">
-                              <div class="heart">
-                                  <button class="heartBtn">
-                                      <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                          <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                      </svg>
-                                  </button>
-                                  <p class="numberHeart">100</p>
+                                <div class="heart">
+                                  <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                  </svg>
+                              </button>
+                              <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
                               </div>
-                          </div>
+                                </div>
                       </div>
                   `;
                   $('.feed').append(dataDiv);

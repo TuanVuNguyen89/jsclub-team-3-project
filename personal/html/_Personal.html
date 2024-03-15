@@ -27,7 +27,7 @@
             <div class="avtProfile mt-3">
               <div class="avtContainer">
                 <div class="avatar">
-                  <img class="linkAvatar" src="../uploads\1c0befee5ac8571068b0ad1ef153abd9" alt="Avatar">
+                  <img class="linkAvatar" src="../uploads\72353802602a48e6c252b1930f942768" alt="Avatar">
                 </div>
               </div>
               <div class="profileAll">
@@ -53,7 +53,7 @@
           <div class="allPost seePost col-md-8 rounded-2">
                         <div class="post">
                             <div class="post__top"><a href="/user/profile?id=36">
-                                    <img class="user__avatar1 post__avatar" src="../uploads\1c0befee5ac8571068b0ad1ef153abd9" alt="">
+                                    <img class="avatar1 post__avatar" src="../uploads\72353802602a48e6c252b1930f942768" alt="">
                                     <div class="post__topInfo">
                                         <h3>Thái Lê Hiếu</h3>
                                         <p>2024-03-14 10:01:34</p>
@@ -75,14 +75,14 @@
                             </div>
                             <div class="post__options">
                                 <div class="heart">
-                                    <button class="heartBtn">
-                                        <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                                        </svg>
-                                    </button>
-                                    <p class="numberHeart">100</p>
+                                  <button class="heartBtn" data-post-id="57"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                                  </svg>
+                              </button>
+                              <p class="numberHeart" id="likeCount_57">3</p> 
+                              </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
         </div>
@@ -184,5 +184,60 @@ editDeleteBtns.forEach(function(btn) {
       }));
   </script>
 
+<script>
+  const heartBtns = document.querySelectorAll(".heartBtn");
 
+  heartBtns.forEach((btn) => {
+      btn.addEventListener("click", async function () {
+          const postId = this.getAttribute("data-post-id");
+          const isLiked = this.querySelector(".heartIcon").classList.contains("red");
+  
+          if (!postId) {
+              console.error("Post ID is not set.");
+              return;
+          }
+  
+          // Vô hiệu hóa nút để ngăn like dồn dập
+          this.disabled = true;
+  
+          try {
+              // Gửi yêu cầu POST hoặc DELETE tùy thuộc vào trạng thái like
+              const response = await fetch(`/like/${postId}`, {
+                  method: isLiked ? "DELETE" : "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ postId }),
+              });
+  
+              if (!response.ok) {
+                  console.error("Error:", await response.text());
+                  return;
+              }
+  
+              // Nhận và xử lý phản hồi từ máy chủ
+              const data = await response.json();
+              console.log(data);
+              console.log(data.like_count);
+              if (data.success && data.like_count !== undefined) {
+                  const likeCounter = document.getElementById(`likeCount_${postId}`);
+                  if (likeCounter) {
+                      likeCounter.textContent = data.like_count;
+                  }
+  
+                  // Thêm/xóa lớp 'red' để thay đổi màu của biểu tượng trái tim
+                  
+  
+                  // Kích hoạt lại nút like
+                  this.disabled = false;
+              }
+          } catch (error) {
+              console.error("Error:", error);
+              // Xử lý lỗi nếu có
+          }
+      });
+  });
+  
+  
+</script>
 </body></html>
