@@ -760,6 +760,9 @@ header.modalHeader {
         margin-bottom: 133px;
         width: 90vw;
     }
+    .personalRow{
+      width: 90vw;
+    }
 }
 
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
