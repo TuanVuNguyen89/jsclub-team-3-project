@@ -105,7 +105,7 @@ router.post('/login', (req, res) => {
 
     $('.allPost').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
-    db.all(`SELECT * FROM post WHERE user_id = ? ORDER BY created_at DESC`, [session.userID], (err, rows) => {
+    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE user_id = ? ORDER BY created_at DESC`, [session.userID], (err, rows) => {
         if (err) {
             console.log(err.message);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -138,7 +138,7 @@ router.post('/login', (req, res) => {
                                     <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
-                                        <p>${row.created_at}</p>
+                                        <p>${row.formatted_created_at}</p>
                                     </div>
                                 </a>
                                 <div class="${typeTopic} rounded-3">
@@ -433,7 +433,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
     $('.allPost').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
-    db.all(`SELECT * FROM post WHERE user_id = ? ORDER BY created_at DESC`, [userID], (err, rows) => {
+    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE user_id = ? ORDER BY created_at DESC`, [userID], (err, rows) => {
         if (err) {
             console.log(err.message);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -466,7 +466,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                                     <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
-                                        <p>${row.created_at}</p>
+                                        <p>${row.formatted_created_at}</p>
                                     </div>
                                 </a>
                                 <div class="${typeTopic} rounded-3">
@@ -741,7 +741,7 @@ router.get('/post/topic', (req, res) => {
 
   $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
-  db.all(`SELECT * FROM post WHERE topic = ? ORDER BY created_at DESC`, [topic], (err, rows) => {
+  db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE topic = ? ORDER BY created_at DESC`, [topic], (err, rows) => {
       if (err) {
           console.log(err.message);
           res.status(500).json({ error: 'Internal Server Error' });
@@ -774,7 +774,7 @@ router.get('/post/topic', (req, res) => {
                                   <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                   <div class="post__topInfo">
                                       <h3>${row2.name}</h3>
-                                      <p>${row.created_at}</p>
+                                      <p>${row.formatted_created_at}</p>
                                   </div>
                               </a>
                               <div class="${typeTopic} rounded-3">
