@@ -1,17 +1,40 @@
+@media only screen and (min-width: 1024px) {
+	body{
+		background-image: url("imagebe/bg.png");
+		background-size: cover;
+	}
+    .card {
+        width: 50%;
+		margin:auto;
+		box-shadow:  0 0 5px 5px rgba(4, 86, 35, 0.142);
+    }
+}
+
+/* CSS cho điện thoại */
+@media only screen and (max-width: 600px) {
+    .card {
+        width: 100%;
+		margin:auto;
+		box-shadow: none;
+		margin-top: 0;
+    }
+}
+
 *{
 	box-sizing: border-box;
 }
 
 body {
 	font-family: "DM Sans", sans-serif;
-	line-height: 1.5;
+	/* line-height: 1.5; */
 	/* background-image: linear-gradient(to bottom,#F78301,#ecbe5e); */
 	/* background-image: url("image/bg.png"); */
     width: 100%;
 	padding: 0 2;
-	top:0;
-	left:0;
-	position: absolute;
+	margin: 0;
+	position: relative;
+	justify-content: center;
+	align-items: center;
 }
 
 img {
@@ -20,27 +43,28 @@ img {
 }
 
 .card {
-	margin: auto;
+	border-radius: 15px;
 	display: flex;
 	flex-direction: column;
-	width: 70%;
+	line-height:50%;
 	background-color: #FFF;
-	border-radius: 10px;
 	padding: 0.9rem;
-    position: absolute;
-    top: 50%;
+	top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+	justify-content: center;
+	position: absolute;
+	transform: translate(-50%, 50%);
 }
 
 .card-image {
 	border-radius: 10px;
-	padding-bottom: 45%;
-	background-image: url('imagebe/upxong.png');
+	padding-bottom: 7rem;
+	background-image: url('imagebe/LogoJS.png');
+	height:fit-content;
 	background-repeat: no-repeat;
-	background-size: cover;
-    background-position: left;
+	background-size:contain;
 	position: relative;
+	background-position: center;
 }
 
 .action {
@@ -48,12 +72,13 @@ img {
 }
 
 .action-button {
-	font: inherit;
-	font-size: 1.25rem;
+	display: block;
+	margin: auto;
+	font-size: 0.9rem;
 	padding: 1em;
-	width: 100%;
-	font-weight: 500;
-	background-color: #F78301;
+	width: 20rem;
+	background-color: #004f36;
+	cursor: pointer;
 	border-radius: 6px;
 	color: #FFF;
 	border: 0;
@@ -62,7 +87,7 @@ img {
 	}
 }
 .action-button:hover {
-	background-color: #ecbe5e;
+	background-color: #00845a;
 }
 
 .card-info {
@@ -71,7 +96,15 @@ img {
 	font-size: .875rem;
 	color: #8597a3;
 	display: block;
+	margin-top: 1.25rem;
 }
 
-
+.text {
+	color:#8597a3;
+	padding: 0.5rem 0.5rem;
+    text-align: center;
+    font-size: 1.27rem;
+    display: block;
+    margin-top: 1rem;
+}
 

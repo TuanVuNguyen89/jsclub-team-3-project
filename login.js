@@ -541,89 +541,90 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
     $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
-    db.all(`SELECT * FROM post ORDER BY created_at DESC`, (err, rows) => {
-        if (err) {
-            console.log(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-            return;
-        }
-
-        let promises = [];
-        rows.forEach(row => {
-            let promise = new Promise((resolve, reject) => {
-                db.get(`SELECT facebook, avatar, name FROM user WHERE id = ?`, [row.user_id], (err, row2) => {
-                    if (err) {
-                        console.error(err.message);
-                        reject(err);
-                    }
-
-                    var iconTopic, typeTopic;
-                    if (row.topic == "Trade items") iconTopic = "cash", typeTopic = "nameTopic";
-                    else if (row.topic == "Exchange class") iconTopic = "book", typeTopic = "nameTopicbook";
-                    else if (row.topic == "Story / Blog") iconTopic = "newspaper", typeTopic = "nameTopicBlog";
-                    else if (row.topic == "Find lover") iconTopic = "heart-circle", typeTopic = "nameTopiclove";
-                    
-                    var avatar = row2.avatar;
-                    if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
-                    //console.log(row2.facebook);
-                    let content = row.content;
-                    let formattedContent = content.replace(/\n/g, '<br/>');
-                    //console.log(formattedContent);
-                    const dataDiv = `
-                        <div class="post">
-                            <div class="post__top"><a href="/user/profile?id=${row.user_id}">
-                                    <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
-                                    <div class="post__topInfo">
-                                        <h3>${row2.name}</h3>
-                                        <p>${row.created_at}</p>
-                                    </div>
-                                </a>
-                                <div class="${typeTopic} rounded-3">
-                                    <ion-icon name="${iconTopic}"></ion-icon>
-                                    ${row.topic}
-                                </div>
-                            </div>
-                            <div class="post__bottom">
-                                <div class="title">
-                                    <h4>${row.title}</h4>
-                                </div>
-                                <p>${formattedContent}</p>
-                            </div>
-                            <div class="post__image">
-                                <img class="rounded-2" src="../${row.avatar}" alt="" />
-                            </div>
-                            <div class="post__options">
-                                <div class="heart">
-                                  <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
-                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                  </svg>
-                              </button>
-                              <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
+    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post ORDER BY created_at DESC`, (err, rows) => {
+      if (err) {
+          console.log(err.message);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+      }
+  
+      let promises = [];
+      rows.forEach(row => {
+          let promise = new Promise((resolve, reject) => {
+              db.get(`SELECT facebook, avatar, name FROM user WHERE id = ?`, [row.user_id], (err, row2) => {
+                  if (err) {
+                      console.error(err.message);
+                      reject(err);
+                  }
+  
+                  var iconTopic, typeTopic;
+                  if (row.topic == "Trade items") iconTopic = "cash", typeTopic = "nameTopic";
+                  else if (row.topic == "Exchange class") iconTopic = "book", typeTopic = "nameTopicbook";
+                  else if (row.topic == "Story / Blog") iconTopic = "newspaper", typeTopic = "nameTopicBlog";
+                  else if (row.topic == "Find lover") iconTopic = "heart-circle", typeTopic = "nameTopiclove";
+                  
+                  var avatar = row2.avatar;
+                  if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
+                  //console.log(row2.facebook);
+                  let content = row.content;
+                  let formattedContent = content.replace(/\n/g, '<br/>');
+                  //console.log(formattedContent);
+                  const dataDiv = `
+                      <div class="post">
+                          <div class="post__top"><a href="/user/profile?id=${row.user_id}">
+                                  <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
+                                  <div class="post__topInfo">
+                                      <h3>${row2.name}</h3>
+                                      <p>${row.formatted_created_at}</p>
+                                  </div>
+                              </a>
+                              <div class="${typeTopic} rounded-3">
+                                  <ion-icon name="${iconTopic}"></ion-icon>
+                                  ${row.topic}
                               </div>
-                                </div>
+                          </div>
+                          <div class="post__bottom">
+                              <div class="title">
+                                  <h4>${row.title}</h4>
+                              </div>
+                              <p>${formattedContent}</p>
+                          </div>
+                          <div class="post__image">
+                              <img class="rounded-2" src="../${row.avatar}" alt="" />
+                          </div>
+                          <div class="post__options">
+                              <div class="heart">
+                                <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                                <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </button>
+                            <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
                             </div>
-                        </div>
-                    `;
-                    $('.feed').append(dataDiv);
-                    resolve();
-                });
-            });
-            promises.push(promise);
-        });
-
-        Promise.all(promises)
-            .then(() => {
-                // Sau khi thêm tất cả dữ liệu mới, ghi lại tệp HTML và gửi lại cho người dùng
-                const updatedHtml = $.html();
-                fs.writeFileSync('./post/post.html', updatedHtml);
-                res.send(updatedHtml);
-            })
-            .catch(error => {
-                console.error(error.message);
-                res.status(500).json({ error: 'Internal Server Error' });
-            });
-    });
+                              </div>
+                          </div>
+                      </div>
+                  `;
+                  $('.feed').append(dataDiv);
+                  resolve();
+              });
+          });
+          promises.push(promise);
+      });
+  
+      Promise.all(promises)
+          .then(() => {
+              // Sau khi thêm tất cả dữ liệu mới, ghi lại tệp HTML và gửi lại cho người dùng
+              const updatedHtml = $.html();
+              fs.writeFileSync('./post/post.html', updatedHtml);
+              res.send(updatedHtml);
+          })
+          .catch(error => {
+              console.error(error.message);
+              res.status(500).json({ error: 'Internal Server Error' });
+          });
+  });
+  
 });
 
 

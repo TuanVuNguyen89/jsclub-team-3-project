@@ -334,7 +334,8 @@ db.run(sql, function(err) {
   console.log(`Dữ liệu đã được xóa khỏi bảng post`);
 });*/
 
-/*db.run(`DELETE FROM post`, function(err) {
+/*
+db.run(`DELETE FROM post`, function(err) {
   if (err) {
     console.error(err.message);
     return;
@@ -364,7 +365,8 @@ db.run(`DELETE FROM user_like`, function(err) {
     return;
   }
   console.log(`Dữ liệu đã được xóa khỏi bảng post`);
-});*/
+});
+*/
 
 /*db.serialize(() => {
   // 1. Tạo bảng mới với cấu trúc mới

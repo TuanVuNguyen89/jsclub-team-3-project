@@ -159,6 +159,7 @@ textarea {
 	font-size: 0.9rem;
 	padding: 1em;
 	width: 10rem;
+	cursor: pointer;
 	/* font-weight: 500; */
 	background-color: #004f36;
 	border-radius: 6px;
