@@ -24,7 +24,7 @@ app.use(express.static(path.join(homePath)));
 app.use(express.static(path.join(personalPath)));
 
 // tạo ra nhánh /data và show dữ liệu ra màn hình
-app.get('/data', (req, res) => {
+/*app.get('/data', (req, res) => {
   db.all('SELECT * FROM user', (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);
@@ -55,7 +55,7 @@ app.get('/like_data', (req, res) => {
       res.json(rows);
     }
   });
-});
+});*/
 
 
 // Route cho các file CSS và JS (nếu cần)
@@ -69,7 +69,7 @@ app.get('*.js', (req, res) => {
   res.sendFile(path.join(__dirname, req.path));
 });
 
-app.get('/post_data', (req, res) => {
+/*app.get('/post_data', (req, res) => {
   db.all('SELECT * FROM post', (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);
@@ -78,6 +78,6 @@ app.get('/post_data', (req, res) => {
       res.json(rows);
     }
   });
-});
+});*/
 
 app.listen(3000)
