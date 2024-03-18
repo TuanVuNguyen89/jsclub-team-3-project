@@ -38,7 +38,7 @@ function sendDataToServer(data) {
     })
     .then(data => {
         console.log('Success:', data);
-        window.location.href = `/`;
+        window.location.href = `/home`;
     })
     .catch((error) => {
         console.error('Error:', error);

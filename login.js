@@ -21,12 +21,14 @@ const personalPath = path.join(__dirname, './personal');
 const formPath = path.join(__dirname, './formteam3');
 const phuPath = path.join(__dirname, './formteam3/trangphu');
 const postPath = path.join(__dirname, './post');
+const homePath = path.join(__dirname, './homePage');
 // Phục vụ các tệp tĩnh từ thư mục hiện tại
 router.use(express.static(path.join(__dirname)));
 router.use(express.static(filePath));
 router.use(express.static(personalPath));
 router.use(express.static(formPath));
 router.use(express.static(phuPath));
+router.use(express.static(path.join(homePath)));
 router.use(express.static(postPath));
 
 // Xử lý yêu cầu đăng nhập
@@ -67,6 +69,45 @@ router.post('/login', (req, res) => {
         console.log('No data found in the column.');
         res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
       }
+    });
+  });
+
+  router.get('/', function (req, res) {
+    //res.sendFile(path.join(filePath, './html/signin.html'));
+    res.sendFile(path.join(homePath, './home.html'));
+  });
+
+  router.get('/home', function (req, res) {
+    if (!session.userID) {
+      //alert('Login failed: Invalid credentials');
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+   }
+  
+   const htmlTem = fs.readFileSync('./homePage/homelogin.html', 'utf8');
+    //console.log(session.userID);
+    const sql = 'SELECT avatar FROM user WHERE id = ?';
+    db.get(sql, [session.userID], (err, row) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      
+      if (!row) {
+        return res.status(404).send('Profile not found');
+      }
+  
+      // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
+      //console.log("changed");
+      //console.log(row);
+      const $ = cheerio.load(htmlTem);
+      
+      $('.linkAvatar').attr('href', `./profile`);
+
+      if (!row.avatar) $('.user__avatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
+      else $('.user__avatar').attr('src', `../${row.avatar}`);
+      //$('#linkAvatar').attr('src', `../${row.avatar}`);
+  
+      res.send($.html());
     });
   });
 
@@ -187,7 +228,6 @@ router.post('/login', (req, res) => {
             });
     });
 });
-  
 
 
 const upload = multer({ dest: 'uploads/' });

@@ -23,11 +23,6 @@ app.use(express.static(path.join(filePath)));
 app.use(express.static(path.join(homePath)));
 app.use(express.static(path.join(personalPath)));
 
-app.get('/', function (req, res) {
-  //res.sendFile(path.join(filePath, './html/signin.html'));
-  res.sendFile(path.join(homePath, './home.html'));
-})
-
 // tạo ra nhánh /data và show dữ liệu ra màn hình
 app.get('/data', (req, res) => {
   db.all('SELECT * FROM user', (err, rows) => {
