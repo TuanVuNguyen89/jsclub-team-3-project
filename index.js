@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path');
+const port = 3000;
 const app = express()
 
 const db = require('./db');
@@ -80,4 +81,6 @@ app.get('*.js', (req, res) => {
   });
 });*/
 
-app.listen(3000)
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
