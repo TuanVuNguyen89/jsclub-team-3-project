@@ -80,9 +80,10 @@ router.post('/login', (req, res) => {
   router.get('/home', function (req, res) {
     if (!session.userID) {
       //alert('Login failed: Invalid credentials');
-      res.status(401).json({ error: 'Unauthorized' });
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-   }
+  }
   
    const htmlTem = fs.readFileSync('./homePage/homelogin.html', 'utf8');
     //console.log(session.userID);
@@ -115,9 +116,10 @@ router.post('/login', (req, res) => {
     //location.reload();
     if (!session.userID) {
       //alert('Login failed: Invalid credentials');
-      res.status(401).json({ error: 'Unauthorized' });
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-   }
+  }
 
    const htmlTem = fs.readFileSync('./personal/html/Personal.html', 'utf8');
     //console.log(session.userID);
@@ -234,9 +236,10 @@ const upload = multer({ dest: 'uploads/' });
 router.get('/update/profile', (req, res) => {
   if (!session.userID) {
     //alert('Login failed: Invalid credentials');
-    res.status(401).json({ error: 'Unauthorized' });
+    res.status(401);
+    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
     return;
- }
+}
 
  const htmlTem = fs.readFileSync('./personal/html/updateProfile.html', 'utf8');
   //console.log(session.userID);
@@ -269,8 +272,11 @@ router.get('/update/profile', (req, res) => {
 
 router.post('/update/profile', (req, res) => {
   if (!session.userID) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
+    //alert('Login failed: Invalid credentials');
+    res.status(401);
+    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+    return;
+}
 
   // SQL query để lấy giá trị cột tempAvatar của hàng hiện tại
   const getTempAvatarSql = `SELECT tempAvatar FROM user WHERE id = ?`;
@@ -364,9 +370,11 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
   function getPostByUser(userID, callback) 
   {
     if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
+      //alert('Login failed: Invalid credentials');
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-   }
+  }
 
     const sql = 
       `SELECT user.name, user.avatar, post.title, post.content, post.topic
@@ -385,9 +393,11 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
   // tao route de vao function
   router.get('/myposts', (req, res) => {
     if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
+      //alert('Login failed: Invalid credentials');
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-    }
+  }
 
     getPostByUser(session.userID, (err, data) => {
       if (err) {
@@ -559,9 +569,11 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
   router.get('/post/main', (req, res) => {
     if (!session.userID) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
-    }
+      //alert('Login failed: Invalid credentials');
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+      return;
+  }
 
     const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
     const $ = cheerio.load(existingHtml);
@@ -758,9 +770,11 @@ router.post("/like/:postId", async (req, res) => {
 
 router.get('/post/topic', (req, res) => {
   if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-  }
+    //alert('Login failed: Invalid credentials');
+    res.status(401);
+    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+    return;
+}
 
   const topic = req.query.topic;
   const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
@@ -866,9 +880,11 @@ router.get('/post/topic', (req, res) => {
 
   router.get('/form', (req, res) => {
     if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
+      //alert('Login failed: Invalid credentials');
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-   }
+  }
    
     res.sendFile(path.join(formPath, "./index2.html"));
   });
@@ -879,14 +895,18 @@ router.get('/post/topic', (req, res) => {
 
   router.post('/form', (req, res) => {
     if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
+      //alert('Login failed: Invalid credentials');
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-   }
+  }
 
-    if (!session.userID) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
-    }
+   if (!session.userID) {
+    //alert('Login failed: Invalid credentials');
+    res.status(401);
+    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+    return;
+}
 
     const { title, content, topic} = req.body;
 
@@ -953,8 +973,11 @@ function deleteAccount(userID, callback) {
 
 router.post('/delete/account', (req, res) => {
   if (!session.userID) {
-      return res.status(401).json({ error: 'Unauthorized' });
-  }
+    //alert('Login failed: Invalid credentials');
+    res.status(401);
+    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+    return;
+}
 
   deleteAccount(session.userID, (err, result) => {
       if (err) {
@@ -967,9 +990,11 @@ router.post('/delete/account', (req, res) => {
 
   router.delete('/delete/post', (req, res) => {
     if (!session.userID) {
-      res.status(401).json({ error: 'Unauthorized' });
+      //alert('Login failed: Invalid credentials');
+      res.status(401);
+      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
-   }
+  }
 
     deleteUserPost(session.userID, (err, result) => {
       if (err) {
