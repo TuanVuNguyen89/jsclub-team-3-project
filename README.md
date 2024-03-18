@@ -40,28 +40,15 @@ npm start
 
 This will start the server and it will be accessible at `http://localhost:3000`.
 
-## Endpoints
-
-List endpoints or routes available in the server
-
-- ### **Endpoint 1: http://localhost:3000**
-
-    - Description: This endpoint is the home page of the application.
-    - Usage: Access this endpoint to view the home page of the application after successful login.
-
-- ### **Endpoint 2: http://localhost:3000/register**
-
-    - Description: This endpoint is used for user registration.
-    - Usage: Send a POST request with user details (e.g., username, email, password) to register a new user.
-
-- ### **Endpoint 3: http://localhost:3000/login**
-
-    - Description: This endpoint is used for user authentication and login.
-    - Usage: Send a POST request with user credentials (e.g., username, password) to authenticate and login.
-
-## Contributing
-
-If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. Contributions, issues, and feature requests are welcome!
+## Endpoint
+| Endpoint                       | Description                                         | Usage                                                                                   |
+|--------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------|
+| http://localhost:3000          | Home page of the application                        | Access this endpoint to view the home page of the application after successful login. |
+| http://localhost:3000/register | Used for user registration                          | Send a POST request with user details (e.g., username, email, password) to register a new user. |
+| http://localhost:3000/login    | Used for user authentication and login              | Send a POST request with user credentials (e.g., username, password) to authenticate and login. |
+| http://localhost:3000/profile  | Move to user's profile                              | Send a GET request with user credentials (e.g., name, mail, link) to render user data on the screen. |
+| http://localhost:3000/form     | Move to the posting form                             | Send a POST request with post information (e.g., topic, title, content, and image) to submit data for a new post. |
+| http://localhost:3000/post/main     | Move to posts                                       | Send a GET request to retrieve and display posts on the screen.                          |
 
 ## Team Members
 
@@ -80,3 +67,15 @@ If you'd like to contribute to this project, feel free to fork the repository an
     - Lê Đức Anh
     - Nguyễn Khôi
     - Nguyễn Ngọc Chi
+
+## Meeting Reports
+- [Biên bản họp ngày 1](https://github.com/TuanVuNguyen89/jsclub-te\am-3-project/blob/master/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp%20ng%C3%A0y%201.md)
+
+- [Biên bản họp ngày 2](https://github.com/TuanVuNguyen89/jsclub-team-3-project/blob/master/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp%20ng%C3%A0y%202.md)
+
+- [Biên bản họp ngày 3](https://github.com/TuanVuNguyen89/jsclub-team-3-project/blob/master/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp%20ng%C3%A0y%204.md)
+
+- [Biên bản họp ngày 4](https://github.com/TuanVuNguyen89/jsclub-team-3-project/blob/master/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp%20ng%C3%A0y%204.md)
+
+- [Biên bản họp ngày 5](https://github.com/TuanVuNguyen89/jsclub-team-3-project/blob/master/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp/Bi%C3%AAn%20b%E1%BA%A3n%20h%E1%BB%8Dp%20ng%C3%A0y%205.md)
+
