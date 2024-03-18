@@ -12,8 +12,8 @@ const { v4: uuidv4 } = require('uuid');
 // Sử dụng middleware express-session
 router.use(session({
   secret: 'secret_key', // Chuỗi bí mật để ký và mã hóa phiên
-  resave: true, // Không lưu lại phiên nếu không có thay đổi
-  saveUninitialized: true // Không tạo phiên cho người dùng mới mà không có dữ liệu
+  resave: false, // Không lưu lại phiên nếu không có thay đổi
+  saveUninitialized: false // Không tạo phiên cho người dùng mới mà không có dữ liệu
 }));
 
 const filePath = path.join(__dirname, './register-login');
