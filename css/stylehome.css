@@ -179,7 +179,8 @@ nav ul li a:hover::before{
 }
 .title{
     display: flex;
-    position: absolute;
+    padding-top: 10px;
+    margin: 30px 0;
     justify-content: center;
     align-items: center;
     left: 0;
@@ -266,9 +267,9 @@ nav ul li a:hover::before{
     pointer-events: none;
 }
 .carousel img{
-    margin-top: 50px;
-    height: 450px;
-    padding: 40px 33px 0 33px;
+   
+    
+    padding: 0px 33px 0 33px;
     /* width: 250px; */
     object-fit: cover;
     user-select: none;
