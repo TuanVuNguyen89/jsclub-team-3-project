@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         console.log(data);
+        localStorage.setItem("userName", data.userName);
+        localStorage.setItem("password", data.password);
         sendDataToServer(data);
     });
 });
@@ -38,11 +40,41 @@ function sendDataToServer(data) {
     })
     .then(data => {
         console.log('Success:', data);
-        window.location.href = `/home`;
+        localStorage.setItem("userID", data.id);
+        getHome();
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Login failed: Invalid credentials');
         // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi
+    });
+}
+
+function getHome() {
+// Dữ liệu cần gửi
+const dataToSend = {
+    userID: localStorage.getItem('userID')
+  };
+  
+  // Biến đổi dữ liệu thành query string
+  const queryString = new URLSearchParams(dataToSend).toString();
+  
+  // Gửi yêu cầu GET đến backend
+  fetch(`/home?${queryString}`)
+    .then(response => {
+        console.log(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      window.location.href = response.url;
+      //return response.json();
+    })
+    //.then(data => {
+    //  console.log(data);
+      
+      // Xử lý kết quả
+    //})
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
     });
 }

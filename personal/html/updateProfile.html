@@ -27,12 +27,12 @@
         <div class="container row">
           <div class="profile rounded-2">
             <div class="menubar mt-3 rounded-2">
-              <a href="./home" title="Home">                
+              <a class = "homee" href="" title="Home">                
                 <li class="list-item"><i class="fa-solid fa-house"></i>
                 <span class="list-item-name">Home</span>
               </li>
             </a>
-              <a href="/profile" title="Profile"> <li class="list-item">
+              <a class = "profilee" href="" title="Profile"> <li class="list-item">
                 <i class="fa-solid fa-user"></i>
                 <span class="list-item-name">Profile</span>
             </li></a>
@@ -192,6 +192,7 @@ function saveProfilelink() {
       if (file) {
                 const formData = new FormData();
                 formData.append('avatar', file);
+                formData.append('userID', localStorage.getItem("userID"));
 
                 fetch('/upload', {
                     method: 'POST',
@@ -224,7 +225,8 @@ function saveProfilelink() {
   var updatedData = {
     mail: email,
     facebook: facebookLink,
-    phone: phone
+    phone: phone,
+    userID: localStorage.getItem("userID")
   };
 
   //console.log(updatedData);
@@ -246,7 +248,8 @@ function saveProfilelink() {
   .then(data => {
     console.log('Success:', data);
     alert('Profile updated successfully!');
-    window.location.href = '/profile';
+    //getSaveChanges();
+    window.location.href = `/profile?userID=${updatedData.userID}`;
   })
   .catch((error) => {
     console.error('Error:', error);

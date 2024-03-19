@@ -21,17 +21,17 @@
         <div class="container row">
           <div class="profile rounded-2 col-md-4">
             <div class="menubar mt-1 rounded-2">
-              <a href="./home" title="Home">                
+              <a class="homee" href="../home?userID=c541a839-d1b4-40fd-b4ce-dfbaad79f189" title="Home">                
                 <li class="list-item"><i class="fa-solid fa-house"></i>
                 <span class="list-item-name">Home</span>
               </li>
             </a>
-              <a href="/post/main" title="Post Page">         
+              <a class="postee" href="../post/main?userID=c541a839-d1b4-40fd-b4ce-dfbaad79f189" title="Post Page">         
                 <li class="list-item">
                 <i class="fa-solid fa-images"></i>
               <span class="list-item-name">Post</span>
             </li></a>
-              <a href="/form" title="Form Page">               <li class="list-item">
+              <a class="formee" href="../form?userID=c541a839-d1b4-40fd-b4ce-dfbaad79f189" title="Form Page">               <li class="list-item">
                 <i class="fa-solid fa-file-lines"></i>
               <span class="list-item-name">Form</span>
             </li></a>
@@ -39,27 +39,27 @@
             <div class="avtProfile mt-3">
               <div class="avtContainer">
                 <div class="avatar">
-                  <img class="linkAvatar" src="./personal/assets/img/avatar-trang.jpg" alt="Avatar">
+                  <img class="linkAvatar" src="uploads\3700edca345b3a690cc70d46242d6da1" alt="Avatar">
                 </div>
               </div>
               <div class="profileAll">
-                <p class="userName">Nguyễn Tuấn Ninh</p>
+                <p class="userName">Nguyễn Văn A</p>
                 <div class="information">
                   <label for="" class="phoneCt">
                     <i class="ti-link"></i>
-                    <a class="face" target="_blank" href="https://www.facebook.com/Tonnyle210905">https://www.facebook.com/Tonnyle210905</a>
+                    <a class="face" target="_blank" href="../facebook.com">facebook.com</a>
                   </label>
                   <label for="" class="phoneCt">
-                    <i class="ti-email" style="display: inline-block;"></i> <p class="mmail" style="display: inline-block; margin-bottom: 3px;">ducanhdeptraile651@gmail.com</p>
+                    <i class="ti-email" style="display: inline-block;"></i> <p class="mmail" style="display: inline-block; margin-bottom: 3px;">facebook.com</p>
                   </label>
                   <label for="" class="phoneCt">
-                    <i class="ti-mobile" style="display: inline-block;"></i> <p class="phone" style="display: inline-block; margin-bottom: 5px;">0869014634</p>
+                    <i class="ti-mobile" style="display: inline-block;"></i> <p class="phone" style="display: inline-block; margin-bottom: 5px;">1234567</p>
                   </label>
                 </div>
                 <div class="edit">
-                  <a href="./update/profile" class="editProfile btn-primary btn "><i class="ti-pencil-alt"></i> Edit your profile</a>
+                  <a href="../update/profile?userID=c541a839-d1b4-40fd-b4ce-dfbaad79f189" class="editProfilee editProfile btn-primary btn "><i class="ti-pencil-alt"></i> Edit your profile</a>
                   <button class="deleteBtn profileDelete btn-primary btn logout"><i class="ti-share"></i> Log out</button>
-                  <button class="deleteBtn jsDelete profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</button>
+
                 </div>
               </div>
             </div>
@@ -73,97 +73,57 @@
       </div>
     </div>
   </div>
-  <div class="modalDelete jsmodalDelete">
-    <div class="modalContainer rounded-2">
-      <div class="closeBtn jsmodalClose"><i class="ti-close"></i>
-      </div>
-      <header class="modalHeader rounded-2">
-        <i class="modalHeadingicon ti-trash">
-          <p class="askDelete">Do you really want to delete account ?</p>
-        </i>
-      </header>
-      <div class="modalBody row">
-        <div class="cancelBtn col-6">
-          <button class="jsmodalClose cancle deleteBtn editProfile btn-primary btn ">Cancel</button>
-        </div>
-        <div class="firmDeleteBtn col-6">
-          <button class="deleteBtn confirmDelete"><a href="" class="profileDelete btn-primary btn "><i class="ti-trash"></i> Delete account</a></button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    const Delete = document.querySelector('.jsDelete')
-    const modalDelete = document.querySelector('.jsmodalDelete')
-    const modalCloses = document.querySelectorAll('.jsmodalClose')
-    function showDeleteform(){
-      modalDelete.classList.add('open')
-    }
-    function hideDeleteform(){
-      modalDelete.classList.remove('open')
-    }
-    Delete.addEventListener('click', showDeleteform)
-    for(const modalClose of modalCloses){
-      modalClose.addEventListener('click', hideDeleteform)
-    }
-    
 
-    // bấm nút editpost
-var editDeleteBtns = document.querySelectorAll(".edit-delete-btn");
-editDeleteBtns.forEach(function(btn) {
-  btn.addEventListener("click", function(event) {
-    var dropdownContent = this.querySelector(".dropdown-content");
-    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
-  });
-});
-    const logout = document.querySelector('.logout');
-    if (logout) {
-        logout.addEventListener('click', () => {
-            fetch('/logout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                })
-                .then(data => {
-                    alert('Hẹn gặp lại bạn!');
-                    //console.log("123");
-                    window.location.href = `/`;
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('An error occurred while logging out the profile.');
-                });
-        });
-    }
+  <script>
+const logout = document.querySelector('.logout');
+if (logout) {
+    logout.addEventListener('click', () => {
+        fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Xóa biến userID khỏi localStorage
+                localStorage.removeItem('userID');
+                alert('Hẹn gặp lại bạn!');
+                window.location.href = `/`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred while logging out the profile.');
+            });
+    });
+}
 
     const confirmDelete = document.querySelector('.confirmDelete');
       if (confirmDelete.addEventListener('click', () => {
         fetch('/delete/account', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-          })
-          .then(data => {
-            console.log('Success:', data);
-            alert('Tài khoản đã bị xóa!');
-            window.location.href = `/`;
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            alert('An error occurred while deleting the profile.');
-          });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userID: localStorage.getItem('userID') })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+                localStorage.removeItem('userID');
+                window.location.href = `/`;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the profile.');
+            });
       }));
   </script>
 
@@ -174,6 +134,7 @@ editDeleteBtns.forEach(function(btn) {
       btn.addEventListener("click", async function () {
           const postId = this.getAttribute("data-post-id");
           const isLiked = this.querySelector(".heartIcon").classList.contains("red");
+          const userID = localStorage.getItem("userID");
   
           if (!postId) {
               console.error("Post ID is not set.");
@@ -185,12 +146,12 @@ editDeleteBtns.forEach(function(btn) {
   
           try {
               // Gửi yêu cầu POST hoặc DELETE tùy thuộc vào trạng thái like
-              const response = await fetch(`/like/${postId}`, {
+              const response = await fetch(`/like/${postId}?userID=${userID}`, {
                   method: isLiked ? "DELETE" : "POST",
                   headers: {
                       "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({ postId }),
+                  body: JSON.stringify({ postId, userID }),
               });
   
               if (!response.ok) {

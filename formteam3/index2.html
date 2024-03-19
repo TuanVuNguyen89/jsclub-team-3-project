@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
@@ -9,18 +7,18 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="./home">
+        <a class="homee" href="../home?userID=f0a0efd9-3f65-4d04-8b6e-a29b4143abe9">
             <li class="list-item"><i class="fa-solid fa-house"></i>
                 <span class="list-item-name">Home</span>
               </li>
         </a>
-        <a href="/post/main">
+        <a class="postee" href="../post/main?userID=f0a0efd9-3f65-4d04-8b6e-a29b4143abe9">
             <li class="list-item">
                 <i class="fa-solid fa-images"></i>
               <span class="list-item-name">Post</span>
             </li>
         </a>
-        <a href="/profile">
+        <a class="profilee" href="../profile?userID=f0a0efd9-3f65-4d04-8b6e-a29b4143abe9">
             <li class="list-item">
                 <i class="fa-solid fa-user"></i>
                 <span class="list-item-name">Profile</span>
@@ -41,19 +39,19 @@
                 </select>
                 <!-- <button type="button" onclick="submitForm()">Submit</button> -->
                 <div class="input">
-                    <input type="text" class="input-field" id="Name" required/>
+                    <input type="text" class="input-field" id="Name" required="">
                     <label class="input-label">Tiêu đề</label>
                 </div>
                 <div class="input">
-                    <textarea oninput="auto_grow(this)" type="text" class="input-field" id="post" required></textarea>
+                    <textarea oninput="auto_grow(this)" type="text" class="input-field" id="post" required=""></textarea>
                     <label class="input-label">Viết bài ở đây...</label>
                 </div>
                 <div class="input">
-                    <input type="file" class="input-field" id="imageup" required/>
+                    <input type="file" class="input-field" id="imageup" required="">
                     <label class="input-label">Upload</label>
                 </div>
                 <div class="action">
-                    <button type="submit" class="action-button"  id="clickbtn" onclick="submitForm()">Đăng bài</button>
+                    <button type="submit" class="action-button" id="clickbtn">Đăng bài</button>
                 </div>
             </form>
             <div class="card-info mb-0 p-3">Copyright © 2024 Team 3 CTV JS . All Rights Reserved.</div>
@@ -77,27 +75,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (file) {
             const formData = new FormData();
             formData.append('avatar', file);
+            //formData.append('userID', localStorage.getItem('userID'));
 
             fetch('/uploadForm', {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
+                console.log(response);
                 if (!response.ok) {
                     throw new Error('Failed to upload avatar');
                 }
                 return response.json(); // Trả về JSON từ phản hồi của server
             })
             .then(data => {
-                console.log(data.message); // In ra thông báo từ server
+                //console.log(data); // In ra thông báo từ server
                 // Lấy đường dẫn avatar từ phản hồi và gửi nó cùng với dữ liệu JSON cho server
+                localStorage.setItem('curUploadFormID', data.curUploadFormID)
                 const jsonData = {
                     title: document.getElementById('Name').value,
                     content: document.getElementById('post').value,
-                    topic: document.getElementById("typeSelector").value
+                    topic: document.getElementById("typeSelector").value,
+                    userID: localStorage.getItem('userID'),
+                    curUploadFormID: data.curUploadFormID
                 };
 
-                console.log(jsonData);
+                //console.log(jsonData);
                 sendDataToServer(jsonData); // Gửi dữ liệu JSON cho server
             })
             .catch(error => {
@@ -110,8 +113,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function sendDataToServer(jsonData) {
-    console.log(jsonData);
-    fetch('/form', {
+    //console.log(jsonData);
+    const dataToSend = {
+    userID: localStorage.getItem('userID')
+  };
+  
+  // Biến đổi dữ liệu thành query string
+  const queryString = new URLSearchParams(dataToSend).toString();
+
+  console.log(queryString);
+    fetch(`/form?${queryString}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -135,6 +146,7 @@ function sendDataToServer(jsonData) {
 }
 
     </script>
-</body>
-</html>
 
+
+
+</body></html>

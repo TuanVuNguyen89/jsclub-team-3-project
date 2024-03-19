@@ -70,7 +70,7 @@ app.get('*.js', (req, res) => {
   res.sendFile(path.join(__dirname, req.path));
 });
 
-/*app.get('/post_data', (req, res) => {
+app.get('/post_data', (req, res) => {
   db.all('SELECT * FROM post', (err, rows) => {
     if (err) {
       console.error('Error executing query:', err.message);
@@ -79,7 +79,7 @@ app.get('*.js', (req, res) => {
       res.json(rows);
     }
   });
-});*/
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

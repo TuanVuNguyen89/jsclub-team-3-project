@@ -5,6 +5,7 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const session = require('express-session');
 const multer = require('multer');
+const bodyParser = require('body-parser');
 const router = express.Router();
 const db = require('./db');
 const { v4: uuidv4 } = require('uuid');
@@ -23,6 +24,9 @@ const phuPath = path.join(__dirname, './formteam3/trangphu');
 const postPath = path.join(__dirname, './post');
 const homePath = path.join(__dirname, './homePage');
 // Phục vụ các tệp tĩnh từ thư mục hiện tại
+// Sử dụng body-parser để xử lý dữ liệu từ các yêu cầu HTTP
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 router.use(express.static(path.join(__dirname)));
 router.use(express.static(filePath));
 router.use(express.static(personalPath));
@@ -62,9 +66,9 @@ router.post('/login', (req, res) => {
       if (row.count > 0) {
         //console.log(row);
         console.log('Data exists in the column.');
-        session.userID = row.id;
-        console.log('User ID:', session.userID);
-        res.json({userName});
+        //session.userID = row.id;
+        //console.log('User ID:', session.userID);
+        res.json({"id": row.id});
       } else {
         console.log('No data found in the column.');
         res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
@@ -78,7 +82,8 @@ router.post('/login', (req, res) => {
   });
 
   router.get('/home', function (req, res) {
-    if (!session.userID) {
+    const userID = req.query.userID;
+    if (!userID) {
       //alert('Login failed: Invalid credentials');
       res.status(401);
       res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
@@ -86,9 +91,9 @@ router.post('/login', (req, res) => {
   }
   
    const htmlTem = fs.readFileSync('./homePage/homelogin.html', 'utf8');
-    //console.log(session.userID);
+    //console.log(userID);
     const sql = 'SELECT avatar FROM user WHERE id = ?';
-    db.get(sql, [session.userID], (err, row) => {
+    db.get(sql, [userID], (err, row) => {
       if (err) {
         return res.status(500).send(err.message);
       }
@@ -102,7 +107,10 @@ router.post('/login', (req, res) => {
       //console.log(row);
       const $ = cheerio.load(htmlTem);
       
-      $('.linkAvatar').attr('href', `./profile`);
+      $('.homee').attr('href', `../home?userID=${userID}`);
+      $('.postee').attr('href', `../post/main?userID=${userID}`);
+      $('.formee').attr('href', `../form?userID=${userID}`);
+      $('.linkAvatar').attr('href', `./profile?userID=${userID}`);
 
       if (!row.avatar) $('.user__avatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
       else $('.user__avatar').attr('src', `../${row.avatar}`);
@@ -113,8 +121,9 @@ router.post('/login', (req, res) => {
   });
 
   router.get('/profile', (req, res) => {
+    const userID = req.query.userID;
     //location.reload();
-    if (!session.userID) {
+    if (!userID) {
       //alert('Login failed: Invalid credentials');
       res.status(401);
       res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
@@ -126,7 +135,7 @@ router.post('/login', (req, res) => {
     const $ = cheerio.load(htmlTem);
 
     const sql = 'SELECT name, avatar, facebook, phone, mail FROM user WHERE id = ?';
-    db.get(sql, [session.userID], (err, row) => {
+    db.get(sql, [userID], (err, row) => {
       if (err) {
         return res.status(500).send(err.message);
       }
@@ -137,6 +146,10 @@ router.post('/login', (req, res) => {
 
       // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
       //console.log("changed");
+      $('.postee').attr('href', `../post/main?userID=${userID}`);
+      $('.homee').attr('href', `../home?userID=${userID}`);
+      $('.formee').attr('href', `../form?userID=${userID}`);
+      $('.editProfilee').attr('href', `../update/profile?userID=${userID}`);
       $('.userName').text(row.name);
       $('.face').text(row.facebook);
       $('.face').attr('href', row.facebook);
@@ -148,7 +161,7 @@ router.post('/login', (req, res) => {
 
     $('.allPost').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
-    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE user_id = ? ORDER BY created_at DESC`, [session.userID], (err, rows) => {
+    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE user_id = ? ORDER BY created_at DESC`, [userID], (err, rows) => {
         if (err) {
             console.log(err.message);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -234,7 +247,8 @@ router.post('/login', (req, res) => {
 
 const upload = multer({ dest: 'uploads/' });
 router.get('/update/profile', (req, res) => {
-  if (!session.userID) {
+  const userID = req.query.userID;
+  if (!userID) {
     //alert('Login failed: Invalid credentials');
     res.status(401);
     res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
@@ -242,9 +256,9 @@ router.get('/update/profile', (req, res) => {
 }
 
  const htmlTem = fs.readFileSync('./personal/html/updateProfile.html', 'utf8');
-  //console.log(session.userID);
+  //console.log(userID);
   const sql = 'SELECT name, avatar, facebook, phone, mail FROM user WHERE id = ?';
-  db.get(sql, [session.userID], (err, row) => {
+  db.get(sql, [userID], (err, row) => {
     if (err) {
       return res.status(500).send(err.message);
     }
@@ -257,6 +271,8 @@ router.get('/update/profile', (req, res) => {
     //console.log("changed");
     //console.log(row);
     const $ = cheerio.load(htmlTem);
+    $('.homee').attr('href', `../home?userID=${userID}`);
+    $('.profilee').attr('href', `../profile?userID=${userID}`);
     $('.userName').text(row.name);
     $('.face').text(row.facebook);
     $('.face').attr('href', row.facebook);
@@ -271,7 +287,8 @@ router.get('/update/profile', (req, res) => {
 });
 
 router.post('/update/profile', (req, res) => {
-  if (!session.userID) {
+  const userID = req.body.userID;
+  if (!userID) {
     //alert('Login failed: Invalid credentials');
     res.status(401);
     res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
@@ -281,7 +298,7 @@ router.post('/update/profile', (req, res) => {
   // SQL query để lấy giá trị cột tempAvatar của hàng hiện tại
   const getTempAvatarSql = `SELECT tempAvatar FROM user WHERE id = ?`;
 
-  db.get(getTempAvatarSql, [session.userID], (err, row) => {
+  db.get(getTempAvatarSql, [userID], (err, row) => {
     if (err) {
       console.error('Error fetching tempAvatar:', err.message);
       return res.status(500).send('Internal Server Error');
@@ -300,7 +317,7 @@ router.post('/update/profile', (req, res) => {
     // SQL query để cập nhật thông tin người dùng
     const updateProfileSql = `UPDATE user SET avatar = ?, facebook = ?, phone = ?, mail = ? WHERE id = ?`;
 
-    db.run(updateProfileSql, [avatar, facebook, phone, mail, session.userID], function(err) {
+    db.run(updateProfileSql, [avatar, facebook, phone, mail, userID], function(err) {
       if (err) {
         console.error('Error updating profile:', err.message);
         return res.status(500).send('Internal Server Error');
@@ -312,9 +329,10 @@ router.post('/update/profile', (req, res) => {
 });
 
 router.post('/upload', upload.single('avatar'), (req, res) => {
+  const userID = req.body.userID;
   // Lưu đường dẫn của file ảnh vào cơ sở dữ liệu
   const avatarPath = req.file.path;
-  db.run(`UPDATE user SET tempAvatar = ? WHERE id = ?`, [avatarPath, session.userID], (err) => {
+  db.run(`UPDATE user SET tempAvatar = ? WHERE id = ?`, [avatarPath, userID], (err) => {
       if (err) {
           console.error(err.message);
           res.status(500).json({ error: 'Internal Server Error' });
@@ -333,39 +351,38 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
       console.error(err.message);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-        res.json({ message: 'Avatar uploaded successfully' });
+      /* Construct the SQL query to check if the data exist */ 
+      const sql =  `SELECT id, COUNT(*) AS count FROM onlyPostAvatar WHERE avatar = ?`;
+      
+      // Execute the SQL query
+      db.get(sql, [avatarPath], function(err, row) {
+        if (err) {
+          console.error('Error checking data:', err.message);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+        }
+    
+        // check if row is undefined or if count is not defined
+        if (!row || typeof row.count === 'undefined') {
+          console.log('No data found in the column.');
+          res.status(404).json({ error: 'Data not found' });
+          return;
+        }
+    
+        // check the count returned by the query
+        if (row.count > 0) {
+          console.log('Data exists in the column.');
+          console.log(row.id);
+          res.json({ "curUploadFormID": row.id });
+        } else {
+          console.log('No data found in the column.');
+          res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
+        }
+      });
     }
   });
-
-    /* Construct the SQL query to check if the data exist */ 
-    const sql =  `SELECT id, COUNT(*) AS count FROM onlyPostAvatar WHERE 
-      avatar = ?`;
-    
-    // Execute the SQL query
-    db.get(sql, [avatarPath], function(err, row) {
-      if (err) {
-        console.error('Error checking data:', err.message);
-        return;
-      }
-  
-      // check if row is undefined or if count is not defined
-      if (!row || typeof row.count === 'undefined') {
-        console.log('No data found in the column.');
-        return;
-      }
-  
-      // check the count returned by the query
-      if (row.count > 0) {
-        console.log('Data exists in the column.');
-        session.curUploadFormID = row.id;
-        //console.log('curUploadFormID:', session.curUploadFormID);
-        //res.json({avatarPath});
-      } else {
-        console.log('No data found in the column.');
-        res.status(401).json({ error: 'Invalid username or password.' }); // Handle invalid credentials
-      }
-    });
 });
+
 
   function getPostByUser(userID, callback) 
   {
@@ -447,11 +464,11 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
   });*/
 
   router.get('/user/profile', (req, res) => {
-    const userID = req.query.id; // Lấy ID của user từ tham số id trong URL
+    const _userID = req.query._userID; // Lấy ID của user từ tham số id trong URL
     // Xử lý hiển thị profile của user có ID là userId
-
-    if (userID == session.userID) {
-      res.redirect('/profile');
+    const userID = req.query.userID;
+    if (_userID == userID) {
+      res.redirect(`/profile?userID=${userID}`);
       return;
     }
 
@@ -461,7 +478,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     const $ = cheerio.load(htmlTem);
 
     const sql = 'SELECT name, avatar, facebook, phone, mail FROM user WHERE id = ?';
-    db.get(sql, [userID], (err, row) => {
+    db.get(sql, [_userID], (err, row) => {
       if (err) {
         return res.status(500).send(err.message);
       }
@@ -472,6 +489,9 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
       // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
       //console.log("changed");
+      $('.postee').attr('href', `../post/main?userID=${userID}`);
+      $('.homee').attr('href', `../home?userID=${userID}`);
+      $('.formee').attr('href', `../form?userID=${userID}`);
       $('.userName').text(row.name);
       $('.face').text(row.facebook);
       $('.face').attr('href', row.facebook);
@@ -483,7 +503,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
     $('.allPost').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
-    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE user_id = ? ORDER BY created_at DESC`, [userID], (err, rows) => {
+    db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE user_id = ? ORDER BY created_at DESC`, [_userID], (err, rows) => {
         if (err) {
             console.log(err.message);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -512,7 +532,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                     let formattedContent = content.replace(/\n/g, '<br/>');
                     const dataDiv = `
                         <div class="post">
-                            <div class="post__top"><a href="/user/profile?id=${row.user_id}">
+                            <div class="post__top"><a href="/user/profile?_userID=${row.user_id}&userID=${userID}">
                                     <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                     <div class="post__topInfo">
                                         <h3>${row2.name}</h3>
@@ -568,7 +588,8 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
 
   router.get('/post/main', (req, res) => {
-    if (!session.userID) {
+    const userID = req.query.userID;
+    if (!userID) {
       //alert('Login failed: Invalid credentials');
       res.status(401);
       res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
@@ -576,9 +597,19 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
   }
 
     const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
-    const $ = cheerio.load(existingHtml);
+    const $ = cheerio.load(existingHtml)
 
-    db.get('SELECT name, avatar FROM user WHERE id = ?', [session.userID], (err, row) => {
+    //$('.postee').attr('href', `../post/main?userID=${userID}`);
+    $('.homee').attr('href', `../home?userID=${userID}`);
+    $('.formee').attr('href', `../form?userID=${userID}`);
+    $('.profilee').attr('href', `../profile?userID=${userID}`);
+    $('.Main').attr('href', `../post/main?userID=${userID}`);
+    $('.Exchangeclass').attr('href', `../post/topic?topic=Exchange class&userID=${userID}`);
+    $('.Tradeitems').attr('href', `../post/topic?topic=Trade items&userID=${userID}`);
+    $('.StoryBlog').attr('href', `../post/topic?topic=Story / Blog&userID=${userID}`);
+    $('.Findlover').attr('href', `../post/topic?topic=Find lover&userID=${userID}`);
+
+    db.get('SELECT name, avatar FROM user WHERE id = ?', [userID], (err, row) => {
       if (err) {
         console.error(err.message);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -623,7 +654,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
                   //console.log(formattedContent);
                   const dataDiv = `
                       <div class="post">
-                          <div class="post__top"><a href="/user/profile?id=${row.user_id}">
+                          <div class="post__top"><a href="/user/profile?_userID=${row.user_id}&userID=${userID}">
                                   <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
                                   <div class="post__topInfo">
                                       <h3>${row2.name}</h3>
@@ -681,16 +712,19 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
 
 
 router.post("/like/:postId", async (req, res) => {
-  const userId = session.userID;
+  const userID = req.query.userID;
   const postId = req.params.postId;
   const timestamp = new Date().toISOString();
   //console.log(userId, postId, timestamp);
-  if (!userId) {
-      return res.status(401).send("Unauthorized");
-  }
+  if (!userID) {
+    //alert('Login failed: Invalid credentials');
+    res.status(401);
+    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+    return;
+}
 
   try {
-      db.get("SELECT COUNT(*) AS count FROM user_like WHERE user_id = ? AND post_id = ?", [userId, postId], (err, row) => {
+      db.get("SELECT COUNT(*) AS count FROM user_like WHERE user_id = ? AND post_id = ?", [userID, postId], (err, row) => {
           if (err) {
               console.error('Error executing query:', err);
               return;
@@ -698,7 +732,7 @@ router.post("/like/:postId", async (req, res) => {
           //console.log('Number of likes:', row.count);
           if (row.count > 0) {
               // Nếu đã like, thực hiện hủy like
-              db.run("DELETE FROM user_like WHERE user_id = ? AND post_id = ?", [userId, postId], (err) => {
+              db.run("DELETE FROM user_like WHERE user_id = ? AND post_id = ?", [userID, postId], (err) => {
                   if (err) {
                       console.error('Error deleting like:', err);
                       return res.status(500).json({ error: "An error occurred while deleting the like." });
@@ -729,7 +763,7 @@ router.post("/like/:postId", async (req, res) => {
           } else {
               // Nếu chưa like, thực hiện like
               const user_likeID = uuidv4();
-              db.run("INSERT INTO user_like (id, user_id, post_id, liked_at) VALUES (?, ?, ?, ?)", [user_likeID, userId, postId, timestamp], (err) => {
+              db.run("INSERT INTO user_like (id, user_id, post_id, liked_at) VALUES (?, ?, ?, ?)", [user_likeID, userID, postId, timestamp], (err) => {
                   if (err) {
                       console.error('Error inserting like:', err);
                       return res.status(500).json({ error: "An error occurred while liking the post." });
@@ -769,7 +803,8 @@ router.post("/like/:postId", async (req, res) => {
 
 
 router.get('/post/topic', (req, res) => {
-  if (!session.userID) {
+  const userID = req.query.userID;
+  if (!userID) {
     //alert('Login failed: Invalid credentials');
     res.status(401);
     res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
@@ -780,7 +815,7 @@ router.get('/post/topic', (req, res) => {
   const existingHtml = fs.readFileSync('./post/post.html', 'utf8');
   const $ = cheerio.load(existingHtml);
 
-  db.get('SELECT name, avatar FROM user WHERE id = ?', [session.userID], (err, row) => {
+  db.get('SELECT name, avatar FROM user WHERE id = ?', [userID], (err, row) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -796,97 +831,107 @@ router.get('/post/topic', (req, res) => {
   $('.feed').empty(); // Xóa bất kỳ dữ liệu cũ nào trước khi thêm dữ liệu mới
 
   db.all(`SELECT *, strftime('%Y-%m-%d %H:%M', datetime(created_at, '+7 hours')) AS formatted_created_at FROM post WHERE topic = ? ORDER BY created_at DESC`, [topic], (err, rows) => {
-      if (err) {
-          console.log(err.message);
-          res.status(500).json({ error: 'Internal Server Error' });
-          return;
-      }
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+  }
 
-      let promises = [];
-      rows.forEach(row => {
-          let promise = new Promise((resolve, reject) => {
-              db.get(`SELECT facebook, avatar, name FROM user WHERE id = ?`, [row.user_id], (err, row2) => {
-                  if (err) {
-                      console.error(err.message);
-                      reject(err);
-                  }
+  let promises = [];
+  rows.forEach(row => {
+      let promise = new Promise((resolve, reject) => {
+          db.get(`SELECT facebook, avatar, name FROM user WHERE id = ?`, [row.user_id], (err, row2) => {
+              if (err) {
+                  console.error(err.message);
+                  reject(err);
+              }
 
-                  var iconTopic, typeTopic;
-                  if (row.topic == "Trade items") iconTopic = "cash", typeTopic = "nameTopic";
-                  else if (row.topic == "Exchange class") iconTopic = "book", typeTopic = "nameTopicbook";
-                  else if (row.topic == "Story / Blog") iconTopic = "newspaper", typeTopic = "nameTopicBlog";
-                  else if (row.topic == "Find lover") iconTopic = "heart-circle", typeTopic = "nameTopiclove";
-                  
-                  var avatar = row2.avatar;
-                  if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
-                  let content = row.content;
-                  let formattedContent = content.replace(/\n/g, '<br/>');
-                  //console.log(row2.facebook);
-                  const dataDiv = `
-                      <div class="post">
-                          <div class="post__top"><a href="/user/profile?id=${row.user_id}">
-                                  <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
-                                  <div class="post__topInfo">
-                                      <h3>${row2.name}</h3>
-                                      <p>${row.formatted_created_at}</p>
-                                  </div>
-                              </a>
-                              <div class="${typeTopic} rounded-3">
-                                  <ion-icon name="${iconTopic}"></ion-icon>
-                                  ${row.topic}
+              var iconTopic, typeTopic;
+              if (row.topic == "Trade items") iconTopic = "cash", typeTopic = "nameTopic";
+              else if (row.topic == "Exchange class") iconTopic = "book", typeTopic = "nameTopicbook";
+              else if (row.topic == "Story / Blog") iconTopic = "newspaper", typeTopic = "nameTopicBlog";
+              else if (row.topic == "Find lover") iconTopic = "heart-circle", typeTopic = "nameTopiclove";
+              
+              var avatar = row2.avatar;
+              if (!avatar) avatar = "./personal/assets/img/avatar-trang.jpg";
+              //console.log(row2.facebook);
+              let content = row.content;
+              let formattedContent = content.replace(/\n/g, '<br/>');
+              //console.log(formattedContent);
+              const dataDiv = `
+                  <div class="post">
+                      <div class="post__top"><a href="/user/profile?_userID=${row.user_id}&userID=${userID}">
+                              <img class="avatar1 post__avatar" src="../${avatar}" alt="" />
+                              <div class="post__topInfo">
+                                  <h3>${row2.name}</h3>
+                                  <p>${row.formatted_created_at}</p>
                               </div>
+                          </a>
+                          <div class="${typeTopic} rounded-3">
+                              <ion-icon name="${iconTopic}"></ion-icon>
+                              ${row.topic}
                           </div>
-                          <div class="post__bottom">
-                              <div class="title">
-                                  <h4>${row.title}</h4>
-                              </div>
-                              <p>${formattedContent}</p>
-                          </div>
-                          <div class="post__image">
-                              <img class="rounded-2" src="../${row.avatar}" alt="" />
-                          </div>
-                          <div class="post__options">
-                                <div class="heart">
-                                  <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
-                                  <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                      <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                  </svg>
-                              </button>
-                              <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
-                              </div>
-                                </div>
                       </div>
-                  `;
-                  $('.feed').append(dataDiv);
-                  resolve();
-              });
+                      <div class="post__bottom">
+                          <div class="title">
+                              <h4>${row.title}</h4>
+                          </div>
+                          <p>${formattedContent}</p>
+                      </div>
+                      <div class="post__image">
+                          <img class="rounded-2" src="../${row.avatar}" alt="" />
+                      </div>
+                      <div class="post__options">
+                          <div class="heart">
+                            <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                            <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </button>
+                        <p class="numberHeart" id="likeCount_${row.id}">${row.like_count}</p> 
+                        </div>
+                          </div>
+                      </div>
+                  </div>
+              `;
+              $('.feed').append(dataDiv);
+              resolve();
           });
-          promises.push(promise);
       });
+      promises.push(promise);
+  });
 
-      Promise.all(promises)
-          .then(() => {
-              // Sau khi thêm tất cả dữ liệu mới, ghi lại tệp HTML và gửi lại cho người dùng
-              const updatedHtml = $.html();
-              fs.writeFileSync('./post/post.html', updatedHtml);
-              res.send(updatedHtml);
-          })
-          .catch(error => {
-              console.error(error.message);
-              res.status(500).json({ error: 'Internal Server Error' });
-          });
+  Promise.all(promises)
+      .then(() => {
+          // Sau khi thêm tất cả dữ liệu mới, ghi lại tệp HTML và gửi lại cho người dùng
+          const updatedHtml = $.html();
+          fs.writeFileSync('./post/post.html', updatedHtml);
+          res.send(updatedHtml);
+      })
+      .catch(error => {
+          console.error(error.message);
+          res.status(500).json({ error: 'Internal Server Error' });
+      });
   });
 });
 
   router.get('/form', (req, res) => {
-    if (!session.userID) {
+    const userID = req.query.userID;
+    if (!userID) {
       //alert('Login failed: Invalid credentials');
       res.status(401);
       res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
   }
    
-    res.sendFile(path.join(formPath, "./index2.html"));
+  const htmlTem = fs.readFileSync('./formteam3/index2.html', 'utf8');
+  const $ = cheerio.load(htmlTem);
+      $('.postee').attr('href', `../post/main?userID=${userID}`);
+      $('.homee').attr('href', `../home?userID=${userID}`);
+      $('.profilee').attr('href', `../profile?userID=${userID}`);
+      const updatedHtml = $.html();
+      fs.writeFileSync('./formteam3/index2.html', updatedHtml);
+      res.send(updatedHtml);
   });
 
   router.get('/backhome', (req, res) => {
@@ -894,25 +939,19 @@ router.get('/post/topic', (req, res) => {
   });
 
   router.post('/form', (req, res) => {
-    if (!session.userID) {
+    const userID = req.body.userID;
+    if (!userID) {
       //alert('Login failed: Invalid credentials');
       res.status(401);
       res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
       return;
   }
 
-   if (!session.userID) {
-    //alert('Login failed: Invalid credentials');
-    res.status(401);
-    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
-    return;
-}
-
-    const { title, content, topic} = req.body;
+    const {title, content, topic, curUploadFormID} = req.body;
 
     // Lấy dữ liệu từ bảng onlyPostAvatar
     const formSql = `SELECT * FROM onlyPostAvatar WHERE id = ?`;
-    db.get(formSql, [session.curUploadFormID], (err, row) => {
+    db.get(formSql, [curUploadFormID], (err, row) => {
         if (err) {
             console.error('Error fetching data from onlyFormAvatar:', err.message);
             res.status(500).send('Internal Server Error');
@@ -927,7 +966,7 @@ router.get('/post/topic', (req, res) => {
         
         const postID = uuidv4();
         const postSql = `INSERT INTO post (id, user_id, title, content, topic, avatar) VALUES (?, ?, ?, ?, ?, ?)`;
-        db.run(postSql, [postID, session.userID, title, content, topic, row.avatar], function(err) {
+        db.run(postSql, [postID, userID, title, content, topic, row.avatar], function(err) {
             if (err) {
                 console.error('Error inserting post:', err.message);
                 res.status(500).send('Internal Server Error');
@@ -972,21 +1011,22 @@ function deleteAccount(userID, callback) {
 }
 
 router.post('/delete/account', (req, res) => {
-  if (!session.userID) {
-    //alert('Login failed: Invalid credentials');
-    res.status(401);
-    res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
-    return;
-}
+  const userID = req.body.userID;
+  if (!userID) {
+      res.status(400).json({ error: 'Missing userID' });
+      return;
+  }
 
-  deleteAccount(session.userID, (err, result) => {
+  deleteAccount(userID, (err, result) => {
       if (err) {
-          console.error(err.message);
-          return res.status(500).send(err.message);
+          console.error('Error deleting account:', err.message);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
       }
-      res.json(result);
+      res.status(200).json(result);
   });
 });
+
 
   router.delete('/delete/post', (req, res) => {
     if (!session.userID) {
@@ -1008,16 +1048,9 @@ router.post('/delete/account', (req, res) => {
 
 // Đăng xuất - Xóa phiên
 router.post('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error logging out:', err.message);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    session.userID = null;
+    // Không cần sử dụng session ở đây nữa
     console.log('User logged out successfully.');
     res.status(200).send('Logged out successfully');
-  });
 });
 
 // update post
