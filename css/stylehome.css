@@ -416,6 +416,7 @@ footer{
     /* transform: translateY(20px); */
     /* background-color: rgba(0, 0, 0, 0.1);    */
     transition: 0.2s;
+    z-index: 1000;
 }
 .nav-btn:hover{
     color: #27904b77;
