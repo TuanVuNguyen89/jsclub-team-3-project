@@ -84,23 +84,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const userIcon = document.getElementById('user-icon');
-    const userMenu = document.createElement('div');
-    userMenu.classList.add('user-menu');
-    userMenu.innerHTML = `
-        <ul>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Log Out</a></li>
-        </ul>
-    `;
-    userIcon.appendChild(userMenu);
+// document.addEventListener("DOMContentLoaded", function() {
+//     const userIcon = document.getElementById('user-icon');
+//     const userMenu = document.createElement('div');
+//     userMenu.classList.add('user-menu');
+//     userMenu.innerHTML = `
+//         <ul>
+//             <li><a href="#">Profile</a></li>
+//             <li><a href="#">Log Out</a></li>
+//         </ul>
+//     `;
+//     userIcon.appendChild(userMenu);
 
-    userIcon.addEventListener('mouseenter', function() {
-        userMenu.style.display = 'block';
-    });
+//     userIcon.addEventListener('mouseenter', function() {
+//         userMenu.style.display = 'block';
+//     });
 
-    userIcon.addEventListener('mouseleave', function() {
-        userMenu.style.display = 'none';
-    });
-});
+//     userIcon.addEventListener('mouseleave', function() {
+//         userMenu.style.display = 'none';
+//     });
+// });
+
+
+// slider2js
+// var swiper = new Swiper(".mySwiper", {
+//     slidesPerView: 1,
+//     grabCursor: true,
+//     loop: true,
+//     pagination: {
+//       el: ".swiper-pagination",
+//       clickable: true,
+//     },
+//     navigation: {
+//       nextEl: ".swiper-button-next",
+//       prevEl: ".swiper-button-prev",
+//     },
+// });

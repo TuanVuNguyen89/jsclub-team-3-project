@@ -205,7 +205,10 @@ nav ul li a:hover::before{
     pointer-events: none;
 }
 .carousel img{
-    height: 340px;
+    margin-top: 50px;
+    height: 450px;
+    padding: 40px 33px 0 33px;
+    /* width: 250px; */
     object-fit: cover;
     user-select: none;
     margin-left: 14px;
@@ -315,7 +318,7 @@ footer{
 }
 
 /* userprofile */
-.user-menu {
+/* .user-menu {
     display: flex;
     flex-direction:column ;
     position: absolute;
@@ -344,4 +347,97 @@ footer{
 
 .user-menu ul li a:hover {
     color: #000;
+} */
+
+
+/* slider for mentor takecare */
+.container3{
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+.testimonial{
+    margin: 100px 0;
+    position: relative;
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+    /* row-gap: 30px; */
+    overflow: hidden;
+}
+.testimonial .image{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.testimonial .slide{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.slide p{
+    margin: 20px 0;
+    text-align: center;
+    padding: 0 160px;
+    font-size: 14px;
+    font-weight: 400;
+    color:#333;
+}
+.slide .quote-icon{
+    font-size: 20px;
+    color: darkgreen;
+}
+.slide .details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+.details .name{
+    font-size: 20px;
+    font-weight: 600;
+    color:#333;
+}
+.details .name{
+    font-size: 15px;
+    font-weight: 600;
+    color:#333;
+}
+.nav-btn{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    color: #043c18;
+    /* transform: translateY(20px); */
+    /* background-color: rgba(0, 0, 0, 0.1);    */
+    transition: 0.2s;
+}
+.nav-btn:hover{
+    color: #27904b77;
+}
+.nav-btn::after,
+.nav-btn::before {
+    font-size: 40px;
+    /* color: #fff; */
+}
+.swiper-pagination-bullet{
+    margin-top: 30px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.swiper-pagination-bullet-active{
+    background-color: darkgreen;
+}
+
+@media screen and (max-width:768px) {
+    .nav-btn{
+        display: none;
+    }
+    .slide p{
+        padding: 0 20px;
+    }
 }
