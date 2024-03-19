@@ -201,6 +201,12 @@ router.post('/login', (req, res) => {
                                     <ion-icon name="${iconTopic}"></ion-icon>
                                     ${row.topic}
                                 </div>
+                                <div class="edit-delete-btn" id="editDeleteBtn">
+                                <button title="Edit post" class="editPostBtn btn-primary btn " ><ion-icon name="ellipsis-horizontal"></ion-icon></button>
+                                <div class="dropdown-content rounded-2" id="dropdownContent">
+                                <a class="deletePostBtn rounded-2" href="#" onclick="deletePost('${row.id}')">Delete Post</a>
+                                </div>
+                              </div>
                             </div>
                             <div class="post__bottom">
                                 <div class="title">
@@ -213,7 +219,7 @@ router.post('/login', (req, res) => {
                             </div>
                             <div class="post__options">
                             <div class="heart">
-                              <button class="heartBtn" data-post-id="${row.id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
+                              <button class="heartBtn" data-post-id="${row.id}" data-user-id="${row.user_id}"> <!-- Thêm thuộc tính data-post-id vào đây -->
                               <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                   <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                               </svg>
@@ -979,10 +985,10 @@ router.get('/post/topic', (req, res) => {
 });
 
 
-function deleteUserPost(userID, callback) {
-  const sql = `DELETE FROM post WHERE user_id = ?`;
+function deleteUserPost(userID, postId, callback) {
+  const sql = `DELETE FROM post WHERE user_id = ? AND id = ?`;
 
-  db.run(sql, [userID], function(err) {
+  db.run(sql, [userID, postId], function(err) {
       if (err) {
           return callback(err);
       }
@@ -1028,23 +1034,24 @@ router.post('/delete/account', (req, res) => {
 });
 
 
-  router.delete('/delete/post', (req, res) => {
-    if (!session.userID) {
-      //alert('Login failed: Invalid credentials');
-      res.status(401);
-      res.send('<script>alert("Bạn cần đăng nhập để sử dụng dịch vụ"); window.location="/login";</script>');
+router.post('/delete/post', (req, res) => {
+  const { userID, postId } = req.body;
+  if (!userID || !postId) {
+      res.status(400).json({ message: 'Invalid parameters' });
       return;
   }
 
-    deleteUserPost(session.userID, (err, result) => {
+  deleteUserPost(userID, postId, (err, result) => {
       if (err) {
-        console.error(err.message);
-        res.status(500).send(err.message);
-        return;
+          console.error(err.message);
+          res.status(500).json({ message: 'An error occurred while deleting the post.' });
+          return;
       }
       res.json(result);
-    });
   });
+});
+
+
 
 // Đăng xuất - Xóa phiên
 router.post('/logout', (req, res) => {
