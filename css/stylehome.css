@@ -3,6 +3,7 @@
 	margin: 0; 
     padding: 0;
     box-sizing: border-box;
+    animation: homect ease 1.5s;
 }
 body{
     display: flex;
@@ -16,20 +17,73 @@ body{
     /* align-items: center;
     justify-content: center;  */
     /* background: #343F4F; */
-  }
-  .user__avatar {
+}
+.user__avatar {
     overflow: hidden;
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
     border-radius: 50%;
     width: 35px;
     height: 35px;
-  }
-#header {
-    width: 100%;
-    height: 100vh;
-    background-image: url('imageh/HOME.png');
-	background-size: cover;
-    background-position: center;
+}
+@media screen and (min-width: 900px) {
+    #header {
+        width: 100%;
+        height: 100vh;
+        background-image: url('imageh/HOME.png');
+        background-size: cover;
+        background-position: center;
+    }
+}
+  
+@media screen and (max-width: 899px) {
+    #header {
+        width: 100%;
+        /* height: 100vh; */
+        background-image: url('imageh/ip.png');
+        background-size: cover;
+        background-position: center;
+    }
+}
+.menu-icon {
+    display: none; /* Ẩn icon menu trên desktop */
+}
+
+/* Media query cho thiết bị có chiều rộng nhỏ hơn 600px */
+@media screen and (max-width: 899px) {
+    .menu-icon {
+        display: block; /* Hiển thị icon menu trên điện thoại */
+    }
+
+    ul {
+        display: none; /* Ẩn menu list trên điện thoại */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Điều chỉnh vị trí xuất hiện của menu list */
+        right: 0;
+        background-color: #f9f9f9;
+        width: 45%;
+        animation: none;
+        border-radius: 10px;
+    }
+
+    ul.active {
+        display: flex; /* Hiển thị menu list khi được kích hoạt */
+        animation: none;
+    }
+
+    ul li {
+        margin: 10px;
+        animation: none;
+        border-radius: 10px;
+    }
+}
+@media screen and (min-width: 900px) {
+    .menu-icon {
+        display: none; /* Ẩn icon menu trên desktop */
+    }
+    ul {
+        display:flex;
+    }
 }
 /* Thêm lớp white-background cho nav khi lướt xuống */
 .white-background {
@@ -49,7 +103,7 @@ nav{
     position: sticky;
 }
 nav ul {
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     list-style: none;
@@ -142,7 +196,7 @@ nav ul li a:hover::before{
         
     }
 }
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 899px) {
     .title{
         top:13%;
         img{
@@ -448,4 +502,16 @@ footer{
     .slide p{
         padding: 0 20px;
     }
+}
+
+@keyframes homect {
+    from {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+    to {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+    
 }

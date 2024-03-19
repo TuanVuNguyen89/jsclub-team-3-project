@@ -1,0 +1,57 @@
+/* Normal desktop styles */
+.container2 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+li {
+    margin: 0 10px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.menu-icon {
+    display: none; /* Ẩn icon menu trên desktop */
+}
+
+/* Media query cho thiết bị có chiều rộng nhỏ hơn 600px */
+@media screen and (max-width: 600px) {
+    .menu-icon {
+        display: block; /* Hiển thị icon menu trên điện thoại */
+    }
+
+    ul {
+        display: none; flex/* Ẩn menu list trên điện thoại */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Điều chỉnh vị trí xuất hiện của menu list */
+        left: 0;
+        background-color: #f9f9f9;
+        width: 100%;
+    }
+
+    ul.active {
+        display: flex; /* Hiển thị menu list khi được kích hoạt */
+    }
+
+    ul li {
+        margin: 10px;
+    }
+}

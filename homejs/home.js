@@ -84,6 +84,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.querySelector('.menu-icon').addEventListener('click', function() {
+    document.querySelector('ul').classList.toggle('active');
+});
+
+window.addEventListener('resize', function() {
+    if (window.innerWidth <= 600) {
+        document.querySelector('#user-icon').innerHTML = '<a href="https://www.facebook.com/1257913698299f">Profile</a>';
+    } else {
+        document.querySelector('#user-icon').innerHTML = '<a href="https://www.facebook.com/1257913698299f"><img class="user__avatar" src="./css/imageh/HOME.png" alt="" /></a>';
+    }
+});
+
+// Thực hiện kiểm tra ngay khi trang được tải
+window.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth <= 600) {
+        document.querySelector('#user-icon').innerHTML = '<a href="https://www.facebook.com/1257913698299f">Profile</a>';
+    }
+});
+
 // document.addEventListener("DOMContentLoaded", function() {
 //     const userIcon = document.getElementById('user-icon');
 //     const userMenu = document.createElement('div');
