@@ -22,7 +22,10 @@
 .header__left:hover{
   background-color: #8cc6ff;
 }
-
+.header a {
+    color: #000;
+    text-decoration: none;
+}
 .Logofpt{
   font-size: 19px;
     font-weight: 600;
@@ -505,20 +508,141 @@ body {
   border-top: 1px solid lightgray;
   display: flex;
   font-size: medium;
-  color: gray;
+  color: rgb(0, 0, 0);
 
 }
-
+p.post__options{
+  margin-bottom: 1px;
+}
 .heart {
   display: ruby;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
   margin-left: 20px;
   align-items: center;
   justify-content: center;
 
   flex: 1;
 }
-
+.commentBtn{
+  margin-right: 35px;
+  display: flex;
+padding: 8px 8px 0 8px ;
+  font-size: 25px;
+  border: none;
+  background-color: rgb(215, 208, 208);
+}
+.chatIcon{
+padding-top: 3px;
+}
+p.numberChat {
+  padding-left: 4px ;
+  font-size: 17px;
+}
+.commentContainer{
+  display: none;
+  padding: 8px;
+  border-top: 1px solid #685858;
+  background-color: #c6c8ca
+}
+.commentImg{
+  box-shadow: none;
+  height: 30px;
+  width: 30px;
+}
+.commentInput{
+  width: 100%;
+  
+}
+.commentBox{
+  background-color: #ffffff;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+p.commentname {
+  padding-left: 5px;
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+.seeComment{
+  display: flex;
+  margin-left: 36px;
+}
+p.commentp {
+  margin-bottom: 5px;
+}
+.commet__options{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #fff;
+}
+p.numberHeartComment {
+  margin-bottom: 0;
+}
+.edit-deleteComment-btn{
+  position: relative;
+  margin: 0 0 0 auto;
+  }
+  .editCommentBtn{
+    margin-top: 10px;
+      border: none;
+      background-color: #fff;
+      font-family: inherit;
+      font-size: 1em;
+      color: rgb(0, 0, 0);
+      align-items: center;  
+      margin: 0 0 0 auto;
+      height: 35px;
+      border: #dbd3cb;
+      --bs-btn-border-color: #f0ebe1;
+  }
+  .editCommentBtn:hover{
+    background-color: #5f6164;
+    --bs-btn-active-bg: #484b51;
+      --bs-btn-active-border-color: #484b51;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    white-space: nowrap;
+  }
+  .editPostbtn1:hover{
+    color: rgb(234, 232, 232);
+    background-color: rgb(139, 133, 133);
+  }
+  .deletePostBtn:hover{
+    color: rgb(243, 243, 243);
+    background-color: red;
+  }
+  /* Styles for the Dropdown Links */
+  /* Styles for the Dropdown Links */
+  .dropdown-content a {
+    display: inline-block; /* Thay đổi từ block thành inline-block */
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  .send-Btn{
+    position: relative;
+    margin: 0 0 0 auto;
+  }
+  .sendbtn {
+    margin-top: 10px;
+    border: none;
+    background-color: #fff;
+    font-family: inherit;
+    font-size: 1em;
+    color: rgb(0, 0, 0);
+    align-items: center;
+    margin: 0 0 0 auto;
+    height: 35px;
+    border: #dbd3cb;
+    --bs-btn-border-color: #f0ebe1;
+}
 svg.red {
   color: red;
 

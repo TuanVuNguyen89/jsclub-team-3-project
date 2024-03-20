@@ -156,6 +156,51 @@
                         </button>
                         <p class="numberHeart">100</p>
                     </div>
+                    <button class="commentBtn">
+                        <ion-icon class="chatIcon" name="chatbox-ellipses"></ion-icon>
+                        <p class="numberChat">50</p>
+                    </button>
+                </div>
+                <div class="commentContainer rounded-2">
+                    <!-- 1 cái comment input -->
+                    <div class="commentBox rounded-2">
+                        <div class="avtComment">
+                            <a href="https://www.facebook.com/1257913698299f">
+                                <img class="commentImg user__avatar" src="./assets/img/99.jpg" alt="" />
+                                <p class="commentname" >mèn</p>
+                            </a>
+                        </div>
+                        <div class="seeComment">
+                            <textarea oninput="auto_grow(this)" type="text" class="commentInput" id="comment" required="" placeholder="Add your comment"></textarea>
+                            <div class="send-Btn">
+                                <button class="sendbtn"><ion-icon name="send"></ion-icon></button>
+                            </div>
+                           
+                        </div>
+                        
+                    </div>
+                    <!-- Hết 1 cái comment -->
+                    <!-- 1 cái comment  -->
+                    <div class="commentBox rounded-2">
+                        <div class="avtComment">
+                            <a href="https://www.facebook.com/1257913698299f">
+                                <img class="commentImg user__avatar" src="./assets/img/99.jpg" alt="" />
+                                <p class="commentname" >mèn</p>
+                            </a>
+                        </div>
+                        <div class="seeComment">
+                            <p class="commentp">Wao đẹp vcl đang thừa mấy trăm tỷ </p>
+                            
+                            <div class="edit-deleteComment-btn" id="editDeleteCommentBtn">
+                                <button title="Edit comment" class="editCommentBtn btn-primary btn "><ion-icon name="ellipsis-horizontal"></ion-icon></button>
+                                <div class="dropdown-content rounded-2" id="dropdownContent">
+                                  <a class="deletePostBtn rounded-2" href="#" onclick="deletePost()">Delete Comment</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- Hết 1 cái comment -->
                 </div>
             </div>
             <!-- post-st 2-->
@@ -168,9 +213,9 @@
                         </div>
                     </a>
 
-                    <div class="nameTopicbook rounded-3">
-                            <ion-icon name="book"></ion-icon>
-                            Exchange class
+                    <div class="nameTopic rounded-3">
+                        <ion-icon name="cash"></ion-icon>
+                        Trade items
                     </div>
                 </div>
                 <div class="post__bottom">
@@ -197,91 +242,54 @@
                         </button>
                         <p class="numberHeart">100</p>
                     </div>
+                    <button class="commentBtn">
+                        <ion-icon class="chatIcon" name="chatbox-ellipses"></ion-icon>
+                        <p class="numberChat">50</p>
+                    </button>
                 </div>
-            </div>
-
-            <!-- post-st 3-->
-            <div class="post">
-                <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
-                        <img class="avatar1 post__avatar" src="./assets/img/99.jpg" alt="" />
-                        <div class="post__topInfo">
-                            <h3>mèn</h3>
-                            <p>29 September at 20:30</p>
+                <div class="commentContainer rounded-2">
+                    <!-- 1 cái comment input -->
+                    <div class="commentBox rounded-2">
+                        <div class="avtComment">
+                            <a href="https://www.facebook.com/1257913698299f">
+                                <img class="commentImg user__avatar" src="./assets/img/99.jpg" alt="" />
+                                <p class="commentname" >mèn</p>
+                            </a>
                         </div>
-                    </a>
-
-                    <div class="nameTopicBlog rounded-3">
-                        <ion-icon name="newspaper"></ion-icon>
-                        Story / Blog
-                    </div>
-                </div>
-                <div class="post__bottom">
-                    <div class="title">
-                        <h4>
-                            --Buôn bán Hồ Bơi--
-                        </h4>
-                    </div>
-                    <p>Muốn bán vài cái hồ bơi giá gẻ
-                        Giá ib
-                    </p>
-                </div>
-                <div class="post__image">
-                    <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
-                </div>
-                <div class="post__options">
-                    <div class="heart">
-                        <button class="heartBtn">
-                            <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                            </svg>
-                        </button>
-                        <p class="numberHeart">100</p>
-                    </div>
-                </div>
-            </div>
-            <!-- st post 3 -->
-            <div class="post">
-                <div class="post__top"><a href="https://www.facebook.com/1257913698299f">
-                        <img class="avatar1 post__avatar" src="./assets/img/99.jpg" alt="" />
-                        <div class="post__topInfo">
-                            <h3>mèn</h3>
-                            <p>29 September at 20:30</p>
+                        <div class="seeComment">
+                            <textarea oninput="auto_grow(this)" type="text" class="commentInput" id="comment" required="" placeholder="Add your comment"></textarea>
+                            <div class="send-Btn">
+                                <button class="sendbtn"><ion-icon name="send"></ion-icon></button>
+                            </div>
+                           
                         </div>
-                    </a>
-
-                    <div class="nameTopiclove rounded-3">
-                        <ion-icon name="heart-circle"></ion-icon>
-                            Find lover
+                        
                     </div>
-                </div>
-                <div class="post__bottom">
-                    <div class="title">
-                        <h4>
-                            --Buôn bán Hồ Bơi--
-                        </h4>
+                    <!-- Hết 1 cái comment -->
+                    <!-- 1 cái comment  -->
+                    <div class="commentBox rounded-2">
+                        <div class="avtComment">
+                            <a href="https://www.facebook.com/1257913698299f">
+                                <img class="commentImg user__avatar" src="./assets/img/99.jpg" alt="" />
+                                <p class="commentname" >mèn</p>
+                            </a>
+                        </div>
+                        <div class="seeComment">
+                            <p class="commentp">Wao đẹp vcl đang thừa mấy trăm tỷ đô lahehehehehe </p>
+                            
+                            <div class="edit-deleteComment-btn" id="editDeleteCommentBtn">
+                                <button title="Edit comment" class="editCommentBtn btn-primary btn "><ion-icon name="ellipsis-horizontal"></ion-icon></button>
+                                <div class="dropdown-content rounded-2" id="dropdownContent">
+                                  <a class="deletePostBtn rounded-2" href="#" onclick="deletePost()">Delete Comment</a>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <p>Muốn bán vài cái hồ bơi giá gẻ
-                        Giá ib
-                    </p>
-                </div>
-                <div class="post__image">
-                    <img class="rounded-2" src="./assets/img/anhhihi.jpg" alt="" />
-                </div>
-                <div class="post__options">
-                    <div class="heart">
-                        <button class="heartBtn">
-                            <svg class="heartIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                            </svg>
-                        </button>
-                        <p class="numberHeart">100</p>
-                    </div>
+                    <!-- Hết 1 cái comment -->
                 </div>
             </div>
+            
         </div>
         <!-- feed ends -->
     </div>
@@ -320,4 +328,36 @@
             this.querySelector(".heartIcon").classList.toggle("red");
         });
     });
+    //nút bấm comment hiện ra comment
+    document.addEventListener("DOMContentLoaded", function() {
+  var commentBtns = document.querySelectorAll(".commentBtn");
+  var commentContainers = document.querySelectorAll(".commentContainer");
+
+  commentBtns.forEach(function(commentBtn, index) {
+    commentBtn.addEventListener("click", function() {
+      commentContainers.forEach(function(container, containerIndex) {
+        if (containerIndex === index) {
+          container.style.display = (container.style.display === "block") ? "none" : "block";
+        } else {
+          container.style.display = "none";
+        }
+      });
+    });
+  });
+});
+
+    //nút xóa comment
+    var editDeleteBtns = document.querySelectorAll(".edit-deleteComment-btn");
+editDeleteBtns.forEach(function(btn) {
+  btn.addEventListener("click", function(event) {
+    var dropdownContent = this.querySelector(".dropdown-content");
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+  });
+});
+//xuống donggf
+function auto_grow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+
 </script>
