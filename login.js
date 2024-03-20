@@ -806,7 +806,96 @@ router.post("/like/:postId", async (req, res) => {
   }
 });
 
+router.post("/comment/:postId", async (req, res) => {
+  const userId = session.userID;
+  const postId = req.params.postId;
+  const content = req.body.content; // Đoạn này giả sử bạn nhận được nội dung comment từ body của request
+  const timestamp = new Date().toISOString();
 
+  if (!userId) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  try {
+    db.run("INSERT INTO comment (user_id, post_id, content, commented_at) VALUES (?, ?, ?, ?)", [userId, postId, content, timestamp], (err) => {
+      if (err) {
+        console.error('Error inserting comment:', err);
+        return res.status(500).json({ error: "An error occurred while posting the comment." });
+      }
+
+      // Cập nhật số lượng comment
+      const result = db.run("UPDATE post SET comment_count = comment_count + 1 WHERE id = ?", [postId]);
+      if (result.changes === 0) {
+        console.error("Error updating comment count: Post not found");
+        return res.status(404).json({ error: "Post not found." });
+      }
+
+      db.get("SELECT * FROM comment WHERE post_id = ? AND commented_at = ?", [postId, timestamp], (err, row) => {
+        if (err) {
+          console.error('Error executing query:', err);
+          return;
+        }
+
+        if (row) {
+          res.json({ success: true, comment: row });
+        } else {
+          console.error("Error fetching comment: Comment not found");
+          res.status(404).json({ error: "Comment not found" });
+        }
+      });
+    });
+  } catch (error) {
+    console.error("Error posting comment:", error);
+    res.status(500).json({ error: "An error occurred while posting the comment." });
+  }
+});
+
+router.delete("/comment/:commentId", async (req, res) => {
+  const userId = session.userID;
+  const commentId = req.params.commentId;
+
+  if (!userId) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  try {
+    // Kiểm tra xem comment có tồn tại và có thuộc về người dùng hiện tại không
+    db.get("SELECT * FROM comment WHERE comment_id = ?", [commentId], (err, row) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ error: "An error occurred while deleting the comment." });
+      }
+
+      if (!row) {
+        return res.status(404).json({ error: "Comment not found." });
+      }
+
+      if (row.user_id !== userId) {
+        return res.status(403).json({ error: "You do not have permission to delete this comment." });
+      }
+
+      // Xóa comment từ cơ sở dữ liệu
+      db.run("DELETE FROM comment WHERE comment_id = ?", [commentId], (err) => {
+        if (err) {
+          console.error('Error deleting comment:', err);
+          return res.status(500).json({ error: "An error occurred while deleting the comment." });
+        }
+
+        // Cập nhật số lượng comment
+        const result = db.run("UPDATE post SET comment_count = comment_count - 1 WHERE id = ?", [row.post_id]);
+        if (result.changes === 0) {
+          console.error("Error updating comment count: Post not found");
+          return res.status(404).json({ error: "Post not found." });
+        }
+
+        res.json({ success: true, message: "Comment deleted successfully." });
+      });
+    });
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ error: "An error occurred while deleting the comment." });
+  }
+});
 
 router.get('/post/topic', (req, res) => {
   const userID = req.query.userID;
@@ -1050,7 +1139,6 @@ router.post('/delete/post', (req, res) => {
       res.json(result);
   });
 });
-
 
 
 // Đăng xuất - Xóa phiên
