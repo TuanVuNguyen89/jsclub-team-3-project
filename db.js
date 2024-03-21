@@ -326,6 +326,7 @@ db.run(sql, function(err) {
   });
 });*/
 
+/*
 db.run(`DELETE FROM user`, function(err) {
   if (err) {
     console.error(err.message);
@@ -366,7 +367,7 @@ db.run(`DELETE FROM user_like`, function(err) {
   }
   console.log(`Dữ liệu đã được xóa khỏi bảng post`);
 });
-
+*/
 
 /*db.serialize(() => {
   // 1. Tạo bảng mới với cấu trúc mới
