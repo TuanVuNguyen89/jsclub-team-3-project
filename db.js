@@ -326,7 +326,7 @@ db.run(sql, function(err) {
   });
 });*/
 
-/*db.run(`DELETE FROM user`, function(err) {
+db.run(`DELETE FROM user`, function(err) {
   if (err) {
     console.error(err.message);
     return;
@@ -365,7 +365,7 @@ db.run(`DELETE FROM user_like`, function(err) {
     return;
   }
   console.log(`Dữ liệu đã được xóa khỏi bảng post`);
-});*/
+});
 
 
 /*db.serialize(() => {
