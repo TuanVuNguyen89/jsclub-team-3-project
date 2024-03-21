@@ -170,10 +170,6 @@ li:hover{
 .header__right1:hover{
   background-color: #fff;
 }
-:host .ionicon {
-  margin-top: 2px;
-  stroke: currentcolor;
-}
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
 html {
  
@@ -494,7 +490,7 @@ background-color: #5f6164;
 .seePost {
 box-shadow: 0px 0px 30px rgba(102, 60, 11, 0.6);
   justify-content: center;
-  display: ruby;
+display: flex;
   background-color: #eff2f5;
 }
 .dropdown-content {
@@ -721,6 +717,7 @@ body {
 }
 
 .post {
+  height: fit-content;
   margin-bottom: 20px;
   width: 95%;
   margin-top: 15px;
