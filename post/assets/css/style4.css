@@ -122,6 +122,12 @@ h5 {
   width: 30px;
   border-radius: 50%;
   overflow: hidden;
+  height: 30px;
+}
+
+:host .ionicon {
+  margin-top: 2px;
+  stroke: currentcolor;
 }
 /* nav .sizebarRow ion-icon {
     color:#2e81f4;

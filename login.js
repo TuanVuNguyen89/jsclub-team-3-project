@@ -92,7 +92,7 @@ router.post('/login', (req, res) => {
   
    const htmlTem = fs.readFileSync('./homePage/homelogin.html', 'utf8');
     //console.log(userID);
-    const sql = 'SELECT avatar FROM user WHERE id = ?';
+    const sql = 'SELECT avatar, name FROM user WHERE id = ?';
     db.get(sql, [userID], (err, row) => {
       if (err) {
         return res.status(500).send(err.message);
@@ -111,7 +111,9 @@ router.post('/login', (req, res) => {
       $('.postee').attr('href', `../post/main?userID=${userID}`);
       $('.formee').attr('href', `../form?userID=${userID}`);
       $('.linkAvatar').attr('href', `./profile?userID=${userID}`);
+      $('.profilee').attr('href', `./profile?userID=${userID}`)
 
+      $('._name').text(row.name);
       if (!row.avatar) $('.user__avatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
       else $('.user__avatar').attr('src', `../${row.avatar}`);
       //$('#linkAvatar').attr('src', `../${row.avatar}`);
@@ -149,12 +151,14 @@ router.post('/login', (req, res) => {
       $('.postee').attr('href', `../post/main?userID=${userID}`);
       $('.homee').attr('href', `../home?userID=${userID}`);
       $('.formee').attr('href', `../form?userID=${userID}`);
+      $('.profilee').attr('href', `./profile?userID=${userID}`)
       $('.editProfilee').attr('href', `../update/profile?userID=${userID}`);
       $('.userName').text(row.name);
       $('.face').text(row.facebook);
       $('.face').attr('href', row.facebook);
       $('.phone').text(row.phone);
       $('.mmail').text(row.mail);
+      $('._name').text(row.name);
       if (!row.avatar) $('.linkAvatar').attr('src', "./personal/assets/img/avatar-trang.jpg");
       else $('.linkAvatar').attr('src', row.avatar);
     });
@@ -284,8 +288,9 @@ router.get('/update/profile', (req, res) => {
     $('.face').attr('href', row.facebook);
     $('#updatePhone').text(row.phone);
     $('#updateEmail').text(row.mail);
-    if (!row.avatar) $('#linkAvatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
-    else $('#linkAvatar').attr('src', `../${row.avatar}`);
+    $('._name').text(row.name);
+    if (!row.avatar) $('.linkAvatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
+    else $('.linkAvatar').attr('src', `../${row.avatar}`);
     //$('#linkAvatar').attr('src', `../${row.avatar}`);
 
     res.send($.html());
