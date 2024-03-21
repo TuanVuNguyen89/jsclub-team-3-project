@@ -12,28 +12,54 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
-    <div id="header">
-        <div class="container2">
-            <nav>
-                <a href="https://www.facebook.com/fu.jsclub">
-                    <img src="css/imageh/LogoJS.png" alt="Logo" class="logo">
-                </a>
-                <ul>
-                    <li><a href=''>Home</a></li>
-                    <li><a href='/post/main'>Post</a></li>
-                    <li><a href='./form'>Form</a></li>
-                    <li><a href='./login'>Sign in</a></li>
-                    <li>|</li>
-                    <li><a href='./register'>Sign up</a></li>
-                </ul>
-                <div class="menu-icon">☰</div>
-            </nav>
+    <div class="header">
+        <div class="header__left rounded-3"><a class="homee" href="../home?userID=bb4f7df1-6bc7-4b0a-9843-eb236665cdf9">
+            <img src="./css/imageh/LogoJS.png" style=" overflow: hidden;
+        border-radius: 50%;" alt="">
+            <p class="Logofpt">FPT Secret</p>
+        </a>
+    </div>
+
+    <div class="header__middle">
+        <div title="Form Page" class="header__option active">
+            <a class="formee" href="../form?userID=bb4f7df1-6bc7-4b0a-9843-eb236665cdf9"><ion-icon name="receipt"></ion-icon></a> 
         </div>
+        <div title="Home" class="header__option active">
+            <a class="homee" href="../home?userID=bb4f7df1-6bc7-4b0a-9843-eb236665cdf9"><ion-icon name="home"></ion-icon></a>
+        </div>
+        <div title="Profile" class="header__option active">
+            <a class="profilee" href="../profile?userID=bb4f7df1-6bc7-4b0a-9843-eb236665cdf9"><ion-icon name="person"></ion-icon></a>
+        </div>
+        <div title="Post" class="header__option active">
+            <a class="profilee" href="../profile?userID=bb4f7df1-6bc7-4b0a-9843-eb236665cdf9"><ion-icon name="images"></ion-icon></a>
+        </div>
+    </div>
+
+    <div class="header__right1 header__right rounded-3">
+        <div class="header__info">
+            <li><a href='./login'>Sign in</a></li>
+            <li>|</li>
+            <li><a href='./register'>Sign up</a></li>
+        </div>
+        <!-- <span class="material-icons"> add </span>
+        <span class="material-icons"> forum </span>
+        <span class="material-icons"> notifications_active </span>
+        <span class="material-icons"> expand_more </span> -->
+    </div>
+    </div>
+    <div class="homepicture">
+        <img src="./css/imageh/HOME.png" alt="">
     </div>
     <div class="container">
         <div class="title">

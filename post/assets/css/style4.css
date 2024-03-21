@@ -1,6 +1,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "Inter";
 }
 .header__info a {
   display: contents;
@@ -15,12 +16,12 @@
   color: #000
 }
 .header__left{
-  background-color: #bcd5ee;
+  background-color: #ffffff;
 
   padding: 0 10px;
 }
 .header__left:hover{
-  background-color: #8cc6ff;
+  background-color: #ffffff;
 }
 .header a {
     color: #000;
@@ -28,18 +29,21 @@
 }
 .Logofpt{
   font-size: 19px;
-    font-weight: 600;
-    font-family: system-ui;
+
+    font-family: "Inter";
     margin-bottom: 0;
     margin-left: 5px;
 }
 li {
   display: block;
 }
-
+:host .ionicon {
+  margin-top: 2px;
+  stroke: currentcolor;
+}
 nav {
   position: sticky;
-  top: 59px;
+  top:  47px;;
   width: 20vw;
   height: 100vh;
   background: #f1f2f5;
@@ -105,6 +109,9 @@ nav ul li a:hover ion-icon {
   color: white;
 }
 h5 {
+  font-weight: 700;
+  font-size: smaller;
+  font-family: "Inter";
   margin-left: 10px;
   margin-bottom: 0;
 }
@@ -112,11 +119,9 @@ h5 {
   display: block;
 }
 .avatar1 {
-  width: 50px;
-  height: 50px;
+  width: 30px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
 }
 /* nav .sizebarRow ion-icon {
     color:#2e81f4;
@@ -203,8 +208,8 @@ img.user__avatar.post__avatar,
 .main__body {
   position: relative;
   background-color: blanchedalmond;
-  background: url(../img/fpthanoi01-130.png);
-  background-size: contain;
+  background: url(../img/d44893a9a031394c0b9c7a35caba39b2.jpg);
+  background-size: cover;
   background-attachment: fixed;
   width: 100%;
   min-height: 100vh;
@@ -289,11 +294,9 @@ img.user__avatar.post__avatar,
 
 .header__option.active {
   margin-right: 20px;
-  border-bottom: 4px solid #2e81f4;
 }
 .header__option1.active {
   margin-right: 20px;
-  border-bottom: 4px solid #2e81f4;
 }
 .header__option1 ion-icon {
 
@@ -301,15 +304,15 @@ img.user__avatar.post__avatar,
   color: rgb(0, 0, 0);
 }
 .header__option:hover {
-  background-color: #eff2f5;
+  background-color: #bfdfff;
   border-radius: 10px;
   align-items: center;
-  padding: 0 30px;
+
   border-bottom: none;
 }
 .header__option1:hover {
   padding-bottom: 4px;
-  background-color: #eff2f5;
+  background-color: #bfdfff;
   border-radius: 10px;
   align-items: center;
   padding: auto;
@@ -339,10 +342,10 @@ img.user__avatar.post__avatar,
   cursor: pointer;
 }
 .header__right:hover{
-  background-color: #c6c8ca;
+  background-color: #bfdfff;
 }
 .header__right{
-  background-color: #dbe7f4;
+  background-color: #fff;
 
   padding: 0 10px;
 }
@@ -461,7 +464,7 @@ body {
   width: 95%;
   margin-top: 15px;
   border-radius: 15px;
-  background-color: rgb(215, 208, 208);
+  background-color: rgb(255, 255, 255);
   box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   animation: signin-container ease 1.5s;
 }

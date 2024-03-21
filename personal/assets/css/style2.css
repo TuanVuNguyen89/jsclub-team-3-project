@@ -2,11 +2,181 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Inter";
+}
+h5._name {
+  margin-bottom: 0;
+  font-size: smaller;
+}
+.header__info a {
+  display: contents;
+  font-family: revert;
+    color: black;
+}
+.header__left img {
+  height: 40px;
+}
+.header__left a {
+  display: contents;
+  color: #000
+}
+.header__left{
+  background-color: #ffffff;
+  font-weight: 500;
+  font-family: 'Inter';
+  padding: 0 10px;
+}
+.header__left:hover{
+  background-color: #ffffff;
+}
+.header a {
+    color: #000;
+    text-decoration: none;
+}
+.header {
+  width: -webkit-fill-available;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  background-color: white;
+  z-index: 100;
+  top: 0;
+  box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
+}
 
+.header__left {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.header__left ion-icon{
+  font-size: 10px;
+}
+p.Logofpt {
+  margin-bottom: 0;
+}
+.header__input {
+  display: flex;
+  align-items: center;
+  background-color: #80a5c9;
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 999px;
+}
+
+.header__input input {
+  border: none;
+  background-color: transparent;
+  outline-width: 0;
+}
+
+.header__middle {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.header__option ion-icon {
+
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
+
+.header__option:hover .material-icons {
+  color: #fb7d2e;
+}
+
+.header__option {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  cursor: pointer;
+}
+
+
+.header__option1 ion-icon {
+
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
+.header__option:hover {
+  background-color: #bfdfff;
+  border-radius: 10px;
+  align-items: center;
+  padding: 0 30px;
+  border-bottom: none;
+}
+.header__option1:hover {
+  padding-bottom: 4px;
+  background-color: #bfdfff;
+  border-radius: 10px;
+  align-items: center;
+  padding: auto;
+  border-bottom: none;
+}
+
+.header__info {
+  display: flex;
+  align-items: center;
+}
+
+.header__info h4 {
+  margin-left: 10px;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+}
+
+.header__right .material-icons {
+  color: gray;
+  margin: 0 10px;
+}
+
+.header__right .material-icons:hover {
+  cursor: pointer;
+}
+.header__right:hover{
+  background-color: #bfdfff;
+}
+.header__right{
+  background-color: #ffffff;
+
+  padding: 0 10px;
+}
+.avatar1 {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.homepicture img{
+  width: 100%;
+  background-size: contain;
+}
+a.maginSignupIn {
+  margin: 0 10px;
+}
+li{
+  display: flex;
+  padding: 5px 5px;
+}
+li:hover{
+  background-color: #9fffc1;
+}
+.header__right1:hover{
+  background-color: #fff;
+}
+:host .ionicon {
+  margin-top: 2px;
+  stroke: currentcolor;
 }
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
 html {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ 
   scroll-behavior: smooth;
 }
 .list-item {
@@ -61,8 +231,8 @@ input[type='number'] {
 .main {
   position: relative;
   background-color: blanchedalmond;
-  background: url(../img/Profilebackground.png);
-  background-size: contain;
+  background: url(../img/d44893a9a031394c0b9c7a35caba39b2.jpg);
+  background-size: cover;
 
   background-attachment: fixed;
   width: 100%;
@@ -145,17 +315,7 @@ input[type='number'] {
   justify-content: center;
   /* Căn giữa theo chiều ngang */
 }
-.avatar1 {
-  width: 50px;
-  /* Kích thước của hình tròn */
-  height: 50px;
-  /* Kích thước của hình tròn */
-  border-radius: 50%;
-  /* Đặt border-radius thành 50% để tạo thành hình tròn */
-  overflow: hidden;
-  /* Ẩn phần ngoài của hình */
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
-}
+
 .avatar {
   width: 150px;
   /* Kích thước của hình tròn */
@@ -417,11 +577,7 @@ header.modalHeader {
 .modalBody.row {
   padding: 10px;
 }
-.user__avatar1 {
-  margin-right: 10px;
-  border-radius: 50%;
-  width: 50px;
-}
+
 
 img.user__avatar.post__avatar,
 .post__topInfo h3 {
@@ -509,104 +665,6 @@ img.user__avatar.post__avatar,
   z-index: -1;
 }
 
-.header {
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
-  background-color: white;
-  z-index: 100;
-  top: 0;
-  box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
-}
-
-.header__left {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.header__left ion-icon{
-  font-size: 10px;
-}
-
-.header__input {
-  display: flex;
-  align-items: center;
-  background-color: #80a5c9;
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 999px;
-}
-
-.header__input input {
-  border: none;
-  background-color: transparent;
-  outline-width: 0;
-}
-
-.header__middle {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-}
-
-.header__option .material-icons {
-
-  font-size: xx-large;
-  color: rgb(108, 132, 198);
-}
-
-.header__option:hover .material-icons {
-  color: #fb7d2e;
-}
-
-.header__option {
-  display: flex;
-  align-items: center;
-  padding: 0 30px;
-  cursor: pointer;
-}
-
-.header__option.active .material-icons {
-  color: #2e81f4;
-}
-
-.header__option.active {
-  margin-right: 20px;
-  border-bottom: 4px solid #2e81f4;
-}
-
-.header__option:hover {
-  background-color: #eff2f5;
-  border-radius: 10px;
-  align-items: center;
-  padding: 0 30px;
-  border-bottom: none;
-}
-
-.header__info {
-  display: flex;
-  align-items: center;
-}
-
-.header__info h4 {
-  margin-left: 10px;
-}
-
-.header__right {
-  display: flex;
-  align-items: center;
-}
-
-.header__right .material-icons {
-  color: gray;
-  margin: 0 10px;
-}
-
-.header__right .material-icons:hover {
-  cursor: pointer;
-}
-
 /* sidebar  */
 
 .sidebarRow {
@@ -667,7 +725,7 @@ body {
   width: 95%;
   margin-top: 15px;
   border-radius: 15px;
-  background-color: rgb(244, 242, 242);
+  background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 30px rgba(102, 60, 11, 0.6);
   animation: signin-container ease 1.5s;
 }

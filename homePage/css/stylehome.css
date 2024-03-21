@@ -1,5 +1,5 @@
 *{
-	font-family: "DM Sans", sans-serif;
+	font-family: 'Inter';
 	margin: 0; 
     padding: 0;
     box-sizing: border-box;
@@ -25,6 +25,166 @@ body{
     width: 35px;
     height: 35px;
 }
+.header__info a {
+    display: contents;
+    font-family: revert;
+      color: black;
+  }
+  .header__left img {
+    height: 40px;
+  }
+  .header__left a {
+    display: contents;
+    color: #000
+  }
+  .header__left{
+    background-color: #ffffff;
+    font-weight: 500;
+    font-family: 'Inter';
+    padding: 0 10px;
+  }
+  .header__left:hover{
+    background-color: #ffffff;
+  }
+  .header a {
+      color: #000;
+      text-decoration: none;
+  }
+  .header {
+    width: -webkit-fill-available;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    background-color: white;
+    z-index: 100;
+    top: 0;
+    box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
+  }
+  
+  .header__left {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .header__left ion-icon{
+    font-size: 10px;
+  }
+  
+  .header__input {
+    display: flex;
+    align-items: center;
+    background-color: #80a5c9;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 999px;
+  }
+  
+  .header__input input {
+    border: none;
+    background-color: transparent;
+    outline-width: 0;
+  }
+  
+  .header__middle {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .header__option ion-icon {
+  
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .header__option:hover .material-icons {
+    color: #fb7d2e;
+  }
+  
+  .header__option {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    cursor: pointer;
+  }
+  
+
+  .header__option1 ion-icon {
+  
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+  }
+  .header__option:hover {
+    background-color: #bfdfff;
+    border-radius: 10px;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: none;
+  }
+  .header__option1:hover {
+    padding-bottom: 4px;
+    background-color: #bfdfff;
+    border-radius: 10px;
+    align-items: center;
+    padding: auto;
+    border-bottom: none;
+  }
+  
+  .header__info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header__info h4 {
+    margin-left: 10px;
+  }
+  
+  .header__right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header__right .material-icons {
+    color: gray;
+    margin: 0 10px;
+  }
+  
+  .header__right .material-icons:hover {
+    cursor: pointer;
+  }
+  .header__right:hover{
+    background-color: #bfdfff;
+  }
+  .header__right{
+    background-color: #ffffff;
+  
+    padding: 0 10px;
+  }
+  .avatar1 {
+    margin-right: 10px;
+    width: 30px;
+
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .homepicture img{
+    width: 100%;
+    background-size: contain;
+  }
+  a.maginSignupIn {
+    margin: 0 10px;
+  }
+  li{
+    display: flex;
+    padding: 5px 5px;
+  }
+  li:hover{
+    background-color: #9fffc1;
+  }
+  .header__right1:hover{
+    background-color: #fff;
+  }
 @media screen and (min-width: 900px) {
     #header {
         width: 100%;
