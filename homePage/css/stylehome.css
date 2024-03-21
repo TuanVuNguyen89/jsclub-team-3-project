@@ -213,7 +213,9 @@ body{
     .menu-icon {
         display: block; /* Hiển thị icon menu trên điện thoại */
     }
-
+    h5{
+        display: none;
+    }
     ul {
         display: none; /* Ẩn menu list trên điện thoại */
         flex-direction: column;
@@ -224,6 +226,9 @@ body{
         width: 45%;
         animation: none;
         border-radius: 10px;
+    }
+    .footerNav ul {
+        display: none;
     }
 
     ul.active {
@@ -450,6 +455,11 @@ nav ul li a:hover::before{
     .carousel img{
       width: 100%;
     }
+    .footerNav ul{
+        display: none;
+        justify-content: center;
+        list-style-type: none;
+    }
 }
 
 /* footer */
@@ -529,7 +539,8 @@ footer{
 }
 
 @media (max-width: 700px){
-    .footerNav ul{
+    .footerNav ul {
+        display: none;
         flex-direction: column;
     }
     .footerNav ul li{

@@ -8,34 +8,56 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans&amp;display=swap">
   <link rel="stylesheet" href="../assets/css/style2.css">
-  <link rel="stylesheet" href="../assets/fonts/themify-icons.css">
+  <link rel="stylesheet" href="../assets/fonts/themify-icons2.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
   <title>Trang cá nhân</title>
 </head>
 
 <body>
+  <div class="header">
+    <div class="header__left rounded-3"><a class="homee" href="../home?userID=78c8e10e-09ee-4e45-9006-49f1ca535482">
+        <img src="../assets/img/LogoJS.png" style=" overflow: hidden;
+    border-radius: 50%;" alt="">
+        <p class="Logofpt">FPT Secret</p>
+    </a>
+</div>
+
+<div class="header__middle">
+  <div title="Home" class="header__option active">
+    <a class="homee" href="../home?userID=78c8e10e-09ee-4e45-9006-49f1ca535482"><ion-icon name="home"></ion-icon></a>
+</div>
+    <div title="Form Page" class="header__option active">
+        <a class="formee" href="../form?userID=78c8e10e-09ee-4e45-9006-49f1ca535482"><ion-icon name="receipt"></ion-icon></a> 
+    </div>
+    <div title="Profile" class="header__option active">
+        <a class="profilee" href="./profile?userID=78c8e10e-09ee-4e45-9006-49f1ca535482"><ion-icon name="person"></ion-icon></a>
+    </div>
+    <div title="Post" class="header__option active">
+        <a class="postee" href="../post/main?userID=78c8e10e-09ee-4e45-9006-49f1ca535482"><ion-icon name="images"></ion-icon></a>
+    </div>
+</div>
+
+<div class="header__right rounded-3">
+    <div class="header__info">
+        <a class="profilee" href="./profile?userID=78c8e10e-09ee-4e45-9006-49f1ca535482">
+            <img class="avatar1 linkAvatar" src="./personal/assets/img/avatar-trang.jpg" alt="">
+            <h5 class="_name">a24545 65</h5>
+        </a>
+    </div>
+    <!-- <span class="material-icons"> add </span>
+    <span class="material-icons"> forum </span>
+    <span class="material-icons"> notifications_active </span>
+    <span class="material-icons"> expand_more </span> -->
+</div>
+</div>
   <div class="main">
     <div id="content">
       <div class="personalRow row rounded-2">
         <div class="container row">
           <div class="profile rounded-2 col-md-4">
-            <div class="menubar mt-1 rounded-2">
-              <a class="homee" href="../home?userID=78c8e10e-09ee-4e45-9006-49f1ca535482" title="Home">                
-                <li class="list-item"><i class="fa-solid fa-house"></i>
-                <span class="list-item-name">Home</span>
-              </li>
-            </a>
-              <a class="postee" href="../post/main?userID=78c8e10e-09ee-4e45-9006-49f1ca535482" title="Post Page">         
-                <li class="list-item">
-                <i class="fa-solid fa-images"></i>
-              <span class="list-item-name">Post</span>
-            </li></a>
-              <a class="formee" href="../form?userID=78c8e10e-09ee-4e45-9006-49f1ca535482" title="Form Page">               <li class="list-item">
-                <i class="fa-solid fa-file-lines"></i>
-              <span class="list-item-name">Form</span>
-            </li></a>
-            </div>
+            
             <div class="avtProfile mt-3">
               <div class="avtContainer">
                 <div class="avatar">
