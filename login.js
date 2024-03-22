@@ -488,6 +488,23 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
     //console.log(session.userID);
     const $ = cheerio.load(htmlTem);
 
+    db.get('SELECT name, avatar FROM user WHERE id = ?', [userID], (err, row) => {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+      
+      if (!row) {
+        return res.status(404).send('Profile not found');
+      }
+
+      // Sử dụng cheerio để tìm và thay đổi các giá trị trong file HTML
+      //console.log("changed");
+      $('._name').text(row.name);
+
+      if (!row.avatar) $('._linkAvatar').attr('src', "../personal/assets/img/avatar-trang.jpg");
+      else $('._linkAvatar').attr('src', `../${row.avatar}`);
+    });
+    
     const sql = 'SELECT name, avatar, facebook, phone, mail FROM user WHERE id = ?';
     db.get(sql, [_userID], (err, row) => {
       if (err) {
@@ -503,6 +520,7 @@ router.post('/uploadForm', upload.single('avatar'), (req, res) => {
       $('.postee').attr('href', `../post/main?userID=${userID}`);
       $('.homee').attr('href', `../home?userID=${userID}`);
       $('.formee').attr('href', `../form?userID=${userID}`);
+      $('.profilee').attr('href', `../profile?userID=${userID}`);
       $('.userName').text(row.name);
       $('.face').text(row.facebook);
       $('.face').attr('href', row.facebook);
