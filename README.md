@@ -65,7 +65,7 @@ This will start the server and it will be accessible at `http://localhost:3000`.
     - Nguyễn Tuấn Vũ (leader)
     - Trần Ngọc Huy
     - Lê Đức Anh
-    - Nguyễn Khôi
+    - Nguyễn Đăng Khôi
     - Nguyễn Ngọc Chi
 
 ## Meeting Reports
